@@ -1,0 +1,45 @@
+
+/* Outreach Section */
+.outreach-section {
+    padding: 6rem 0;
+    background: var(--bg-primary);
+}
+
+.outreach-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.outreach-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.outreach-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.outreach-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.outreach-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.outreach-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}

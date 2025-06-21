@@ -1,0 +1,89 @@
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .desktop-nav {
+        display: none;
+    }
+    
+    .mobile-nav-header {
+        display: flex;
+    }
+    
+    .hamburger {
+        display: block;
+    }
+    
+    .theme-toggle-nav {
+        display: none;
+    }
+    
+    .current-projects-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .project-sidebar {
+        max-height: none;
+        overflow-y: visible;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .project-card {
+        flex: 1;
+        min-width: 200px;
+        margin-bottom: 0;
+    }
+    
+    .story-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .story-stats {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 1025px) {
+    .theme-toggle-mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-header-left {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .project-tabs,
+    .about-tabs {
+        justify-content: center;
+    }
+    
+    .project-display,
+    .about-content-wrapper {
+        padding: 2rem;
+    }
+    
+    .story-stats {
+        flex-direction: column;
+    }
+    
+    .outreach-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .values-grid,
+    .members-grid {
+        grid-template-columns: 1fr;
+    }
+}
