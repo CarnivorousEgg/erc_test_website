@@ -297,15 +297,15 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            
+
             if (href && href.startsWith('#')) {
                 e.preventDefault();
                 const targetSection = document.querySelector(href);
-                
+
                 if (targetSection) {
                     const navHeight = navbar.offsetHeight;
                     const targetPosition = targetSection.offsetTop - navHeight;
-                    
+
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
@@ -314,6 +314,121 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Handle dropdown navigation with tab activation
+    const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+    dropdownLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+
+            if (href && href.startsWith('#')) {
+                // Handle Projects dropdown
+                let projectTabName = '';
+                if (href === '#current-projects') {
+                    projectTabName = 'current';
+                } else if (href === '#completed-projects') {
+                    projectTabName = 'completed';
+                } else if (href === '#mini-projects') {
+                    projectTabName = 'mini';
+                }
+
+                // Handle About Us dropdown
+                let aboutTabName = '';
+                if (href === '#our-story') {
+                    aboutTabName = 'story';
+                } else if (href === '#our-values') {
+                    aboutTabName = 'values';
+                } else if (href === '#current-members') {
+                    aboutTabName = 'members';
+                } else if (href === '#alumni') {
+                    aboutTabName = 'alumni';
+                } else if (href === '#contact') {
+                    aboutTabName = 'contact';
+                }
+
+                // Navigate to projects section
+                if (projectTabName) {
+                    const projectsSection = document.querySelector('#projects');
+                    if (projectsSection) {
+                        const navHeight = navbar.offsetHeight;
+                        const targetPosition = projectsSection.offsetTop - navHeight;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Activate the correct tab after scrolling
+                        setTimeout(() => {
+                            activateProjectTab(projectTabName);
+                        }, 500); // Delay to allow scroll to complete
+                    }
+                }
+
+                // Navigate to about section
+                if (aboutTabName) {
+                    const aboutSection = document.querySelector('#about');
+                    if (aboutSection) {
+                        const navHeight = navbar.offsetHeight;
+                        const targetPosition = aboutSection.offsetTop - navHeight;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Activate the correct tab after scrolling
+                        setTimeout(() => {
+                            activateAboutTab(aboutTabName);
+                        }, 500); // Delay to allow scroll to complete
+                    }
+                }
+            }
+        });
+    });
+
+    // Function to activate specific project tab
+    function activateProjectTab(tabName) {
+        const tabs = document.querySelectorAll('.project-tabs .tab-btn');
+        const contents = document.querySelectorAll('.project-content');
+
+        // Remove active class from all tabs and contents
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
+
+        // Activate the target tab and content
+        const targetTab = document.querySelector(`.project-tabs .tab-btn[data-tab="${tabName}"]`);
+        const targetContent = document.querySelector(`.project-content.${tabName}`);
+
+        if (targetTab) {
+            targetTab.classList.add('active');
+        }
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+    }
+
+    // Function to activate specific about tab
+    function activateAboutTab(tabName) {
+        const tabs = document.querySelectorAll('.about-tabs .tab-btn');
+        const contents = document.querySelectorAll('.about-content');
+
+        // Remove active class from all tabs and contents
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
+
+        // Activate the target tab and content
+        const targetTab = document.querySelector(`.about-tabs .tab-btn[data-tab="${tabName}"]`);
+        const targetContent = document.querySelector(`.about-content.${tabName}`);
+
+        if (targetTab) {
+            targetTab.classList.add('active');
+        }
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+    }
 
     // Intersection Observer for animations
     const animatedElements = document.querySelectorAll(
