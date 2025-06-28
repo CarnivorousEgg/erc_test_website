@@ -1,11 +1,8 @@
-// Import alumni data
-import { alumniData } from './alumni-data.js';
-
 // Simple Static Alumni Map Module
-export class AlumniMap {
+class AlumniMap {
     constructor() {
         this.mapContainer = document.getElementById('alumni-map');
-        this.alumniData = alumniData; // Use imported data
+        this.alumniData = window.alumniData; // Use global alumni data
         
         this.init();
     }
@@ -392,3 +389,5 @@ export class AlumniMap {
         });
     }
 }
+
+window.AlumniMap = AlumniMap;

@@ -1,5 +1,5 @@
 // Alumni Data extracted from old ERC website
-export const alumniData = [
+window.alumniData = [
     // Recent Alumni (2017-2018)
     {
         name: "Abhimanyu Singh",
