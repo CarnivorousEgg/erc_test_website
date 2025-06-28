@@ -25,9 +25,9 @@ class AlumniMap {
     }
 
     createStaticMap(region = 'world', direction = null) {
-        console.log('Creating static map for region:', region);
-        console.log('Alumni data length:', this.alumniData ? this.alumniData.length : 'undefined');
-        
+        // Prevent double rendering by tracking current region
+        if (this.currentRegion === region && this.mapContainer.innerHTML.trim() !== '') return;
+        this.currentRegion = region;
         // Fade out current map with direction
         if (this.mapContainer.firstChild) {
             if (direction) {
@@ -37,13 +37,11 @@ class AlumniMap {
             }
         }
         setTimeout(() => {
-            let mapImage = `public/world_night.jpg`;
-            if (region === 'india') mapImage = `public/india_night.jpg`;
-            else if (region === 'usa') mapImage = `public/usa_night.jpg`;
-            else if (region === 'europe') mapImage = `public/europe_night.jpg`;
-            else if (region === 'asia') mapImage = `public/asia_night.jpg`;
-
-            console.log('Using map image:', mapImage);
+            let mapImage = 'public/world_night.jpg';
+            if (region === 'india') mapImage = 'public/india_night.jpg';
+            else if (region === 'usa') mapImage = 'public/usa_night.jpg';
+            else if (region === 'europe') mapImage = 'public/europe_night.jpg';
+            else if (region === 'asia') mapImage = 'public/asia_night.jpg';
 
             let alumniToShow = this.alumniData;
             let interactive = false;
@@ -52,15 +50,14 @@ class AlumniMap {
                 alumniToShow = this.alumniData.filter(alumni => alumni.region === region);
             }
 
-            console.log('Alumni to show:', alumniToShow.length);
-
             this.mapContainer.innerHTML = `
                 <div class="static-world-map fade-in${direction ? '-' + direction : ''}">
                     <img src="${mapImage}" 
                          alt="${region.charAt(0).toUpperCase() + region.slice(1)} Map" class="world-map-image">
                     <div class="map-overlay"></div>
                     <div class="alumni-markers">
-                        ${alumniToShow.map((alumni, index) => `
+                        ${alumniToShow.map((alumni, index) =>
+                            alumni.coordinates ? `
                             <a class="alumni-marker${interactive ? '' : ' non-interactive'}" 
                                  style="left: ${this.getXFromLng(alumni.coordinates.lng)}%; top: ${this.getYFromLat(alumni.coordinates.lat)}%;"
                                  data-alumni='${JSON.stringify(alumni)}'
@@ -69,7 +66,8 @@ class AlumniMap {
                                 <div class="marker-dot"></div>
                                 <div class="marker-pulse"></div>
                             </a>
-                        `).join('')}
+                            ` : ''
+                        ).join('')}
                     </div>
                     <div class="alumni-tooltip" id="alumni-tooltip">
                         <div class="tooltip-content">
@@ -97,7 +95,7 @@ class AlumniMap {
                 </div>
             `;
 
-            if (interactive) {
+            if (alumniToShow.length && interactive) {
                 this.setupMarkerInteractions();
             }
             this.addMapStyles();
