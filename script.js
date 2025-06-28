@@ -128,30 +128,45 @@ class ERCWebsite {
     setupHashNavigation() {
         const scrollToHash = () => {
             const hash = window.location.hash;
-            if (hash) {
+            // Always show About Us section if hash is #about or any about sub-section
+            if (hash === '#about' || hash.startsWith('#about-')) {
+                document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelectorAll('.about-section').forEach((el, i) => {
+                    el.style.display = (hash === '#about' && i === 0) || ('#' + el.id) === hash ? 'block' : 'none';
+                });
+            } else if (hash === '#projects' || hash.startsWith('#projects')) {
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Show correct project tab
+                const tab = hash.replace('#projects-', '') || 'current';
+                document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab);
+                });
+                document.querySelectorAll('.project-content').forEach(pc => {
+                    pc.classList.toggle('active', pc.classList.contains(tab));
+                });
+            } else if (hash) {
                 const target = document.querySelector(hash);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // For project/about modularity: show only the relevant content
-                    if (hash.startsWith('#project-')) {
-                        document.querySelectorAll('.project-info').forEach(el => el.classList.remove('active'));
-                        const proj = document.querySelector(hash);
-                        if (proj) proj.classList.add('active');
-                    }
-                    if (hash.startsWith('#about-')) {
-                        document.querySelectorAll('.about-section').forEach(el => el.style.display = 'none');
-                        const about = document.querySelector(hash);
-                        if (about) about.style.display = 'block';
-                    }
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         };
         window.addEventListener('hashchange', scrollToHash);
         // On page load
         scrollToHash();
-        // For about-us: hide all but first by default
+        // About Us: show first by default
         document.querySelectorAll('.about-section').forEach((el, i) => {
             el.style.display = i === 0 ? 'block' : 'none';
+        });
+        // Project tabs: update hash on click
+        document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                window.location.hash = '#projects-' + btn.dataset.tab;
+            });
+        });
+        // About tabs: update hash on click
+        document.querySelectorAll('.about-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                window.location.hash = '#' + tab.dataset.about;
+            });
         });
     }
 }
