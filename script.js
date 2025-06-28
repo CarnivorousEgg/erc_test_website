@@ -212,12 +212,12 @@ class TabManager {
     }
 
     setupAboutTabs() {
-        const aboutTabs = document.querySelectorAll('.about-tabs .tab-btn');
-        const aboutContents = document.querySelectorAll('.about-content');
+        const aboutTabs = document.querySelectorAll('.about-tabs .about-tab');
+        const aboutContents = document.querySelectorAll('.about-section-content');
 
         aboutTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                const targetTab = tab.dataset.tab;
+                const targetTab = tab.dataset.about;
                 
                 // Remove active class from all tabs and contents
                 aboutTabs.forEach(t => t.classList.remove('active'));
@@ -227,15 +227,16 @@ class TabManager {
                 tab.classList.add('active');
                 
                 // Show corresponding content
-                const targetContent = document.querySelector(`.about-content.${targetTab}`);
+                const targetContent = document.querySelector(`#about-${targetTab}`);
                 if (targetContent) {
                     targetContent.classList.add('active');
                     
                     // Initialize alumni map if alumni tab is clicked
-                    if (targetTab === 'alumni' && !window.alumniMap) {
+                    if (targetTab === 'alumni' && !window.alumniMapInitialized) {
                         setTimeout(() => {
-                            if (window.AlumniMap) {
+                            if (window.AlumniMap && !window.alumniMapInitialized) {
                                 window.alumniMap = new window.AlumniMap();
+                                window.alumniMapInitialized = true;
                             }
                         }, 100);
                     }
@@ -377,9 +378,21 @@ const membersData = {
     current: [
         { name: "Ritwik Sharma", role: "President", description: "Leading innovation in robotics", avatar: "👨‍💻" },
         { name: "Saransh Agarwal", role: "Vice President", description: "Driving technical excellence", avatar: "👨‍🔬" },
-        { name: "Sniggdha Semwal", role: "Secretary", description: "Coordinating club activities", avatar: "👩‍💼" }
+        { name: "Sniggdha Semwal", role: "Secretary", description: "Coordinating club activities", avatar: "��‍💼" }
     ]
 };
+
+// Filter alumni data to show only recent alumni (last 3-5 years)
+function filterRecentAlumni() {
+    if (window.alumniData) {
+        const currentYear = new Date().getFullYear();
+        window.alumniData = window.alumniData.filter(alumni => {
+            const batchYear = parseInt(alumni.batch);
+            return batchYear >= currentYear - 5; // Show alumni from last 5 years
+        });
+        console.log(`Filtered alumni data: ${window.alumniData.length} recent alumni`);
+    }
+}
 
 // Main Application Class
 class ERCWebsite {
@@ -400,6 +413,9 @@ class ERCWebsite {
     async initializeModules() {
         try {
             console.log('🚀 Initializing ERC Website...');
+            
+            // Filter alumni data to show only recent alumni
+            filterRecentAlumni();
             
             // Initialize core modules
             this.themeManager = new ThemeManager();
@@ -466,7 +482,7 @@ class ERCWebsite {
     }
 
     updateMembersContent() {
-        const membersGrid = document.querySelector('.about-content.members .members-grid');
+        const membersGrid = document.querySelector('#about-current-members .members-grid');
         if (membersGrid) {
             membersGrid.innerHTML = membersData.current.map(member => `
                 <div class="member-card">
@@ -510,6 +526,8 @@ class ERCWebsite {
     setupHashNavigation() {
         const scrollToHash = () => {
             let hash = window.location.hash;
+            console.log('Current hash:', hash);
+            
             // Redirect #projects to #projects-current
             if (hash === '#projects') {
                 window.location.hash = '#projects-current';
@@ -520,21 +538,44 @@ class ERCWebsite {
                 window.location.hash = '#about-our-story';
                 return;
             }
+            
+            // If no hash, set defaults
+            if (!hash) {
+                console.log('No hash found, setting defaults');
+                // Set default tabs
+                document.querySelectorAll('.about-tabs .about-tab').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.about === 'our-story');
+                });
+                document.querySelectorAll('.about-section-content').forEach(ac => {
+                    ac.classList.toggle('active', ac.id === 'about-our-story');
+                });
+                
+                document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === 'current');
+                });
+                document.querySelectorAll('.project-content').forEach(pc => {
+                    pc.classList.toggle('active', pc.classList.contains('current'));
+                });
+                return;
+            }
+            
             if (hash.startsWith('#about-')) {
                 document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Show correct about tab
                 const tab = hash.replace('#about-', '') || 'our-story';
-                document.querySelectorAll('.about-tabs .tab-btn, .about-tabs .about-tab').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.tab === tab || btn.dataset.about === tab);
+                console.log('Setting about tab to:', tab);
+                document.querySelectorAll('.about-tabs .about-tab').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.about === tab);
                 });
-                document.querySelectorAll('.about-section-content, .about-content').forEach(ac => {
-                    ac.classList.toggle('active', ac.id === 'about-' + tab || ac.classList.contains(tab));
+                document.querySelectorAll('.about-section-content').forEach(ac => {
+                    ac.classList.toggle('active', ac.id === 'about-' + tab);
                 });
                 // Initialize alumni map if navigating to alumni tab
-                if (tab === 'alumni' && !window.alumniMap) {
+                if (tab === 'alumni' && !window.alumniMapInitialized) {
                     setTimeout(() => {
-                        if (window.AlumniMap && !window.alumniMap) {
+                        if (window.AlumniMap && !window.alumniMapInitialized) {
                             window.alumniMap = new window.AlumniMap();
+                            window.alumniMapInitialized = true;
                         }
                     }, 100);
                 }
@@ -542,6 +583,7 @@ class ERCWebsite {
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Show correct project tab
                 const tab = hash.replace('#projects-', '') || 'current';
+                console.log('Setting project tab to:', tab);
                 document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.tab === tab);
                 });
@@ -563,9 +605,9 @@ class ERCWebsite {
             });
         });
         // About tabs: update hash on click
-        document.querySelectorAll('.about-tabs .tab-btn, .about-tabs .about-tab').forEach(tab => {
+        document.querySelectorAll('.about-tabs .about-tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                window.location.hash = '#about-' + (tab.dataset.tab || tab.dataset.about);
+                window.location.hash = '#about-' + tab.dataset.about;
             });
         });
     }

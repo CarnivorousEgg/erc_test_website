@@ -1,0 +1,1901 @@
+# === [sections/about.js] START ===
+export const aboutSection = `
+<section id="about" class="about-section">
+    <div class="container">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-tabs">
+            <span class="about-tab" data-about="our-story">Our Story</span>
+            <span class="about-tab" data-about="our-values">Our Values</span>
+            <span class="about-tab" data-about="current-members">Members</span>
+            <span class="about-tab" data-about="alumni">Alumni</span>
+            <span class="about-tab" data-about="contact">Contact</span>
+        </div>
+        <div class="about-content">
+            <div class="about-section-content" id="about-our-story">
+                <h3>Our Story</h3>
+                <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
+                <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
+            </div>
+            <div class="about-section-content" id="about-our-values">
+                <h3>Our Values</h3>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🚀</div>
+                        <h4>Innovation</h4>
+                        <p>Pushing boundaries through creative engineering solutions</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🤝</div>
+                        <h4>Collaboration</h4>
+                        <p>Building together, learning together, achieving more as a team</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🎯</div>
+                        <h4>Excellence</h4>
+                        <p>Striving for the highest standards in every project</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🌱</div>
+                        <h4>Learning</h4>
+                        <p>Continuous growth through experimentation and iteration</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-section-content" id="about-current-members">
+                <h3>Members</h3>
+                <div class="members-grid">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="about-section-content" id="about-alumni">
+                <h3>Alumni</h3>
+                <div class="alumni-section">
+                    <!-- Interactive World Map -->
+                    <div class="world-map-container">
+                        <div id="alumni-map"></div>
+                    </div>
+                    <!-- Company Scroller -->
+                    <div class="company-scroller">
+                        <h4>Where Our Alumni Work</h4>
+                        <div class="scroller-container">
+                            <div class="scroller-content">
+                                <!-- Content will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-section-content" id="about-contact">
+                <h3>Contact</h3>
+                <div class="contact-layout">
+                    <div class="contact-info">
+                        <h4>Connect With Us</h4>
+                        <div class="social-links">
+                            <a href="mailto:bitsg.erc@gmail.com" class="social-link">
+                                <span class="social-icon">📧</span>
+                                <span>bitsg.erc@gmail.com</span>
+                            </a>
+                            <a href="https://www.instagram.com/erc_bitsgoa/" target="_blank" class="social-link">
+                                <span class="social-icon">📱</span>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="https://www.linkedin.com/company/electronics-robotics-club-bits-goa/" target="_blank" class="social-link">
+                                <span class="social-icon">💼</span>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://github.com/ERC-BPGC" target="_blank" class="social-link">
+                                <span class="social-icon">🐙</span>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Social Media Feed -->
+                    <div class="social-feed">
+                        <h4>Latest Updates</h4>
+                        <div class="feed-container">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // About Section Logic (restored tab logic)
+    export async function loadAboutSection() {
+        const res = await fetch('partials/about.html');
+        const html = await res.text();
+        document.getElementById('about-section').innerHTML = html;
+    }
+
+    export function initAboutSection() {
+        // Tab switching logic for About Us section
+        const tabs = document.querySelectorAll('.about-tab');
+        const sections = document.querySelectorAll('.about-section-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+                const target = tab.dataset.about;
+                sections.forEach(function(sec) {
+                    sec.classList.toggle('active', sec.id === 'about-' + target);
+                });
+            });
+        });
+    }
+</script>
+`;
+
+
+# === [sections/about.js] END ===
+
+# === [partials/about.html] START ===
+
+<!-- About Us Section Partial (restored to old version with button tabs and content cards) -->
+<section id="about" class="about-section">
+    <div class="container">
+        <h2 class="section-title">About ERC</h2>
+        <div class="about-tabs">
+            <button class="about-tab active" data-about="our-story">Our Story</button>
+            <button class="about-tab" data-about="our-values">Our Values</button>
+            <button class="about-tab" data-about="current-members">Current Members</button>
+            <button class="about-tab" data-about="alumni">Alumni</button>
+            <button class="about-tab" data-about="contact">Contact Us</button>
+        </div>
+        <div class="about-content">
+            <div class="about-section-content active" id="about-our-story">
+                <h3>Our Journey of Innovation</h3>
+                <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
+                <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
+                <div class="about-stats">
+                    <div class="stat-card"><span>200+</span><p>Active Members</p></div>
+                    <div class="stat-card"><span>50+</span><p>Projects Completed</p></div>
+                    <div class="stat-card"><span>15+</span><p>Years of Innovation</p></div>
+                </div>
+            </div>
+            <div class="about-section-content" id="about-our-values">
+                <h3>Our Values</h3>
+                <ul>
+                    <li>Innovation</li>
+                    <li>Collaboration</li>
+                    <li>Learning by Doing</li>
+                    <li>Open Source</li>
+                </ul>
+            </div>
+            <div class="about-section-content" id="about-current-members">
+                <h3>Current Members</h3>
+                <div class="members-grid"></div>
+            </div>
+            <div class="about-section-content" id="about-alumni">
+                <h3>Alumni</h3>
+                <div id="alumni-map"></div>
+                <!-- Region buttons and company scroller are now rendered by JS in alumni-map.js -->
+            </div>
+            <div class="about-section-content" id="about-contact">
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mailto:erc@goa.bits-pilani.ac.in">erc@goa.bits-pilani.ac.in</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+# === [partials/about.html] END ===
+
+# === [styles/about.css] START ===
+
+/* About Section */
+.about-section {
+    padding: 6rem 0;
+    background: var(--bg-secondary);
+}
+
+.about-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border-color: var(--primary-color);
+}
+
+.about-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.about-content.active {
+    display: block;
+}
+
+/* Story Layout */
+.story-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.story-text h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.story-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.story-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.action-btn.primary {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+}
+
+.action-btn.primary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.action-btn.secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    margin: 0 auto;
+}
+
+.action-btn.secondary:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.action-btn:hover .btn-icon {
+    transform: translateX(3px);
+}
+
+/* Stats Cards */
+.story-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Team Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.team-member {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.member-avatar {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.team-member h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.member-role {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.member-links {
+    margin-top: 1rem;
+}
+
+.linkedin-link {
+    color: #0077B5;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.linkedin-link:hover {
+    color: #005885;
+    text-decoration: underline;
+}
+
+/* Values Section (moved to outreach) */
+.values-section {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.values-section h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.value-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.value-card h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.value-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.value-btn {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.value-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Members Section */
+.members-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.member-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border-color: var(--primary-color);
+}
+
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.member-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.member-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.member-avatar {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.member-card h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.member-role {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem !important;
+}
+
+.member-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.join-section {
+    text-align: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 3rem;
+    margin-top: 2rem;
+}
+
+.join-section h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.join-section p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.join-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.join-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Alumni Section */
+.alumni-section {
+    margin-top: 2rem;
+}
+
+.world-map-container {
+    margin-bottom: 3rem;
+}
+
+#alumni-map {
+    height: 400px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.map-controls {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.map-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.map-btn.active,
+.map-btn:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border-color: var(--primary-color);
+}
+
+.company-scroller {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.company-scroller h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.2rem;
+}
+
+.scroller-container {
+    overflow: hidden;
+    position: relative;
+    height: 60px;
+}
+
+.scroller-content {
+    display: flex;
+    animation: scroll-companies 30s linear infinite;
+    gap: 2rem;
+}
+
+.company-tag {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    margin: 0 0.5rem;
+    position: relative;
+}
+
+.company-tag:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border-color: var(--primary-color);
+}
+
+@keyframes scroll-companies {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Contact Section */
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+.contact-info h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+    transform: translateX(5px);
+}
+
+.social-icon {
+    font-size: 1.2rem;
+}
+
+.contact-form {
+    margin-top: 2rem;
+}
+
+.contact-form h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.message-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.message-form input,
+.message-form textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: inherit;
+}
+
+.message-form input:focus,
+.message-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.submit-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Social Feed */
+.social-feed h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.feed-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+.feed-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.feed-post {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.feed-post:hover {
+    border-color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.platform-icon {
+    font-size: 1.2rem;
+}
+
+.platform-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.post-content p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.instagram-post .platform-icon { color: #E4405F; }
+.linkedin-post .platform-icon { color: #0077B5; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .story-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .members-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .alumni-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .story-actions {
+        flex-direction: column;
+    }
+}
+# === [styles/about.css] END ===
+
+# === [js/alumni-map.js] START ===
+
+// Simple Static Alumni Map Module
+class AlumniMap {
+    constructor() {
+        this.mapContainer = document.getElementById('alumni-map');
+        this.alumniData = window.alumniData; // Use global alumni data
+        
+        console.log('AlumniMap constructor called');
+        console.log('Map container:', this.mapContainer);
+        console.log('Alumni data:', this.alumniData);
+        
+        this.init();
+    }
+
+    init() {
+        console.log('AlumniMap init called');
+        if (!this.mapContainer) {
+            console.log('No map container found');
+            return;
+        }
+        
+        console.log('Creating static map...');
+        this.createStaticMap();
+        this.attachRegionButtons();
+        this.setupCompanyScroller();
+    }
+
+    createStaticMap(region = 'world', direction = null) {
+        console.log('Creating static map for region:', region);
+        console.log('Alumni data length:', this.alumniData ? this.alumniData.length : 'undefined');
+        
+        // Fade out current map with direction
+        if (this.mapContainer.firstChild) {
+            if (direction) {
+                this.mapContainer.firstChild.classList.add('fade-out-' + direction);
+            } else {
+                this.mapContainer.firstChild.classList.add('fade-out');
+            }
+        }
+        setTimeout(() => {
+            let mapImage = `public/world_night.jpg`;
+            if (region === 'india') mapImage = `public/india_night.jpg`;
+            else if (region === 'usa') mapImage = `public/usa_night.jpg`;
+            else if (region === 'europe') mapImage = `public/europe_night.jpg`;
+            else if (region === 'asia') mapImage = `public/asia_night.jpg`;
+
+            console.log('Using map image:', mapImage);
+
+            let alumniToShow = this.alumniData;
+            let interactive = false;
+            if (region !== 'world') {
+                interactive = true;
+                alumniToShow = this.alumniData.filter(alumni => alumni.region === region);
+            }
+
+            console.log('Alumni to show:', alumniToShow.length);
+
+            this.mapContainer.innerHTML = `
+                <div class="static-world-map fade-in${direction ? '-' + direction : ''}">
+                    <img src="${mapImage}" 
+                         alt="${region.charAt(0).toUpperCase() + region.slice(1)} Map" class="world-map-image">
+                    <div class="map-overlay"></div>
+                    <div class="alumni-markers">
+                        ${alumniToShow.map((alumni, index) => `
+                            <a class="alumni-marker${interactive ? '' : ' non-interactive'}" 
+                                 style="left: ${this.getXFromLng(alumni.coordinates.lng)}%; top: ${this.getYFromLat(alumni.coordinates.lat)}%;"
+                                 data-alumni='${JSON.stringify(alumni)}'
+                                 data-index="${index}"
+                                 ${interactive && alumni.linkedin ? `href='${alumni.linkedin}' target='_blank'` : ''}>
+                                <div class="marker-dot"></div>
+                                <div class="marker-pulse"></div>
+                            </a>
+                        `).join('')}
+                    </div>
+                    <div class="alumni-tooltip" id="alumni-tooltip">
+                        <div class="tooltip-content">
+                            <h4 class="tooltip-name"></h4>
+                            <p class="tooltip-company"></p>
+                            <p class="tooltip-location"></p>
+                            <a class="tooltip-linkedin" href="#" target="_blank" style="display:none; color:#0a66c2; text-decoration:underline;">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-controls" style="margin-top:1.5rem; display: flex; gap: 0.5rem; justify-content: center;">
+                    ${['world','india','usa','europe','asia'].map(r => `<button class="map-btn${region===r?' active':''}" onclick="window.alumniMap.handleRegionClick('${r}')">${r.charAt(0).toUpperCase() + r.slice(1)}</button>`).join('')}
+                </div>
+                <div class="company-scroller" style="margin-top:2.5rem;">
+                    <h4>Where Our Alumni Work</h4>
+                    <div class="scroller-container">
+                        <div class="scroller-content"></div>
+                    </div>
+                </div>
+                <div class="alumni-actions" style="display:flex;justify-content:center;align-items:center;margin-top:2rem;width:100%;">
+                    <button class="action-btn secondary" style="margin:0 auto;">
+                        <span>Alumni Stories</span>
+                        <div class="btn-icon">📖</div>
+                    </button>
+                </div>
+            `;
+
+            if (interactive) {
+                this.setupMarkerInteractions();
+            }
+            this.addMapStyles();
+            this.setupCompanyScroller();
+        }, 300);
+    }
+
+    // Mercator-like projection for world map image (simple linear mapping)
+    getXFromLng(lng) {
+        // World map image: -180 (left) to 180 (right)
+        return ((lng + 180) / 360) * 100;
+    }
+    getYFromLat(lat) {
+        // World map image: 90 (top) to -90 (bottom)
+        return ((90 - lat) / 180) * 100;
+    }
+
+    setupMarkerInteractions() {
+        const markers = this.mapContainer.querySelectorAll('.alumni-marker');
+        const tooltip = this.mapContainer.querySelector('#alumni-tooltip');
+
+        markers.forEach((marker, index) => {
+            setTimeout(() => {
+                marker.classList.add('visible');
+            }, index * 100);
+
+            marker.addEventListener('mouseenter', (e) => {
+                const alumniData = JSON.parse(marker.dataset.alumni);
+                this.showTooltip(tooltip, alumniData, e);
+            });
+
+            marker.addEventListener('mouseleave', () => {
+                this.hideTooltip(tooltip);
+            });
+
+            marker.addEventListener('mousemove', (e) => {
+                this.updateTooltipPosition(tooltip, e);
+            });
+        });
+    }
+
+    showTooltip(tooltip, alumni, event) {
+        const nameEl = tooltip.querySelector('.tooltip-name');
+        const companyEl = tooltip.querySelector('.tooltip-company');
+        const locationEl = tooltip.querySelector('.tooltip-location');
+        const linkedinEl = tooltip.querySelector('.tooltip-linkedin');
+
+        nameEl.textContent = alumni.name;
+        companyEl.textContent = `${alumni.position} @ ${alumni.company}`;
+        locationEl.textContent = alumni.location;
+        if (alumni.linkedin) {
+            linkedinEl.href = alumni.linkedin;
+            linkedinEl.style.display = 'inline';
+        } else {
+            linkedinEl.style.display = 'none';
+        }
+
+        tooltip.classList.add('visible');
+        this.updateTooltipPosition(tooltip, event);
+    }
+
+    hideTooltip(tooltip) {
+        tooltip.classList.remove('visible');
+    }
+
+    updateTooltipPosition(tooltip, event) {
+        const rect = this.mapContainer.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        tooltip.style.left = `${x + 15}px`;
+        tooltip.style.top = `${y - 10}px`;
+    }
+
+    addMapStyles() {
+        if (document.getElementById('alumni-map-styles')) return;
+
+        const style = document.createElement('style');
+        style.id = 'alumni-map-styles';
+        style.textContent = `
+            .static-world-map {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid var(--border-color);
+                background: var(--bg-tertiary);
+                transition: opacity 0.4s;
+            }
+            .fade-in { opacity: 0; animation: fadeInMap 0.5s forwards; }
+            .fade-out { opacity: 1; animation: fadeOutMap 0.3s forwards; }
+            .fade-in-right { opacity: 0; animation: fadeInMapRight 0.5s forwards; }
+            .fade-out-right { opacity: 1; animation: fadeOutMapRight 0.3s forwards; }
+            .fade-in-left { opacity: 0; animation: fadeInMapLeft 0.5s forwards; }
+            .fade-out-left { opacity: 1; animation: fadeOutMapLeft 0.3s forwards; }
+            @keyframes fadeInMap { from { opacity: 0; } to { opacity: 1; } }
+            @keyframes fadeOutMap { from { opacity: 1; } to { opacity: 0; } }
+            @keyframes fadeInMapRight { from { opacity: 0; transform: translateX(60px);} to { opacity: 1; transform: translateX(0);} }
+            @keyframes fadeOutMapRight { from { opacity: 1; transform: translateX(0);} to { opacity: 0; transform: translateX(-60px);} }
+            @keyframes fadeInMapLeft { from { opacity: 0; transform: translateX(-60px);} to { opacity: 1; transform: translateX(0);} }
+            @keyframes fadeOutMapLeft { from { opacity: 1; transform: translateX(0);} to { opacity: 0; transform: translateX(60px);} }
+            .alumni-marker.non-interactive { pointer-events: none; }
+
+            .world-map-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: brightness(0.4) contrast(1.2) saturate(0.8);
+            }
+
+            .map-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, 
+                    rgba(10, 15, 28, 0.6), 
+                    rgba(34, 211, 238, 0.2)
+                );
+                pointer-events: none;
+            }
+
+            .alumni-markers {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+            }
+
+            .alumni-marker {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                transform: translate(-50%, -50%);
+                cursor: pointer;
+                pointer-events: all;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            }
+
+            .alumni-marker.visible {
+                opacity: 1;
+            }
+
+            .marker-dot {
+                width: 12px;
+                height: 12px;
+                background: var(--primary-color);
+                border-radius: 50%;
+                border: 2px solid var(--bg-primary);
+                box-shadow: 0 0 15px rgba(34, 211, 238, 0.8);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 2;
+            }
+
+            .marker-pulse {
+                width: 20px;
+                height: 20px;
+                border: 2px solid var(--primary-color);
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                animation: pulse-breathe 1.5s ease-in-out infinite;
+                opacity: 0.6;
+            }
+
+            @keyframes pulse-breathe {
+                0% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.7;
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.3);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.7;
+                }
+            }
+
+            .alumni-marker:hover .marker-dot {
+                background: #ffffff;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+                transform: translate(-50%, -50%) scale(1.3);
+            }
+
+            .alumni-tooltip {
+                position: absolute;
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                padding: 12px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+                pointer-events: none;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+                min-width: 200px;
+            }
+
+            .alumni-tooltip.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .tooltip-name {
+                margin: 0 0 4px 0;
+                color: var(--primary-color);
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .tooltip-company {
+                margin: 0 0 4px 0;
+                color: var(--text-primary);
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+            .tooltip-location {
+                margin: 0;
+                color: var(--text-secondary);
+                font-size: 12px;
+            }
+
+            .tooltip-linkedin {
+                display: inline-block;
+                margin-top: 0.5em;
+                font-weight: 600;
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .static-world-map {
+                    height: 300px;
+                }
+                
+                .alumni-marker {
+                    width: 16px;
+                    height: 16px;
+                }
+                
+                .marker-dot {
+                    width: 10px;
+                    height: 10px;
+                }
+                
+                .marker-pulse {
+                    width: 16px;
+                    height: 16px;
+                }
+                
+                .alumni-tooltip {
+                    min-width: 180px;
+                    padding: 10px;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    setupCompanyScroller() {
+        const companies = [...new Set(this.alumniData.map(alumni => alumni.company))];
+        const scrollerContent = document.querySelector('.scroller-content');
+        if (scrollerContent) {
+            scrollerContent.innerHTML = '';
+            // Add companies twice for seamless scrolling
+            const allCompanies = [...companies, ...companies];
+            allCompanies.forEach(company => {
+                const span = document.createElement('span');
+                span.className = 'company-tag';
+                span.textContent = company;
+                scrollerContent.appendChild(span);
+            });
+            // Add animation for horizontal scroll
+            scrollerContent.style.display = 'flex';
+            scrollerContent.style.gap = '2rem';
+            scrollerContent.style.animation = 'scroll-companies 30s linear infinite';
+            // Pause on hover
+            scrollerContent.addEventListener('mouseenter', () => {
+                scrollerContent.style.animationPlayState = 'paused';
+            });
+            scrollerContent.addEventListener('mouseleave', () => {
+                scrollerContent.style.animationPlayState = 'running';
+            });
+        }
+        // Add keyframes if not present
+        if (!document.getElementById('company-scroll-keyframes')) {
+            const style = document.createElement('style');
+            style.id = 'company-scroll-keyframes';
+            style.textContent = `@keyframes scroll-companies {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }`;
+            document.head.appendChild(style);
+        }
+    }
+
+    handleRegionClick(region) {
+        // Determine direction for fade animation
+        const order = ['world','india','usa','europe','asia'];
+        const prev = this.currentRegion || 'world';
+        let direction = null;
+        if (order.indexOf(region) > order.indexOf(prev)) direction = 'right';
+        else if (order.indexOf(region) < order.indexOf(prev)) direction = 'left';
+        this.currentRegion = region;
+        this.createStaticMap(region, direction);
+    }
+
+    attachRegionButtons() {
+        // No-op: buttons are now rendered in createStaticMap
+    }
+}
+
+window.AlumniMap = AlumniMap;
+
+# === [js/alumni-map.js] END ===
+
+# === [script.js] START ===
+
+// Main Application Entry Point - Non-module version for GitHub Pages
+// Theme Management Module
+class ThemeManager {
+    constructor() {
+        this.themeToggleNav = document.querySelector('.theme-toggle-nav');
+        this.themeToggleMobile = document.querySelector('.theme-toggle-mobile');
+        this.themeIcons = document.querySelectorAll('.theme-icon');
+        this.themeText = document.querySelector('.theme-text');
+        this.body = document.body;
+        
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.loadSavedTheme();
+    }
+
+    bindEvents() {
+        if (this.themeToggleNav) {
+            this.themeToggleNav.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.toggleTheme();
+            });
+        }
+
+        if (this.themeToggleMobile) {
+            this.themeToggleMobile.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.toggleTheme();
+            });
+        }
+    }
+
+    setTheme(theme) {
+        console.log(`🎨 Setting theme to: ${theme}`);
+        this.body.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        
+        this.themeIcons.forEach(icon => {
+            icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+        });
+
+        if (this.themeText) {
+            this.themeText.textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
+        }
+
+        // Trigger custom event for other components
+        window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
+        console.log(`✅ Theme changed to: ${theme}`);
+    }
+
+    toggleTheme() {
+        const currentTheme = this.body.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        console.log(`🔄 Toggling theme from ${currentTheme} to ${newTheme}`);
+        this.setTheme(newTheme);
+    }
+
+    loadSavedTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        this.setTheme(savedTheme);
+    }
+}
+
+// Navigation Management Module
+class NavigationManager {
+    constructor() {
+        this.hamburger = document.querySelector('.hamburger');
+        this.mobileMenu = document.querySelector('.mobile-menu-overlay');
+        this.navLinks = document.querySelectorAll('.nav-link, .mobile-menu-list a');
+        this.dropdownLinks = document.querySelectorAll('.dropdown-content a');
+        
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.setupSmoothScrolling();
+        this.setupDropdownScrolling();
+    }
+
+    bindEvents() {
+        if (this.hamburger) {
+            this.hamburger.addEventListener('click', () => {
+                this.toggleMobileMenu();
+            });
+        }
+
+        if (this.mobileMenu) {
+            this.mobileMenu.addEventListener('click', (e) => {
+                if (e.target === this.mobileMenu) {
+                    this.closeMobileMenu();
+                }
+            });
+        }
+
+        // Close mobile menu when clicking on a link
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
+        });
+    }
+
+    toggleMobileMenu() {
+        this.mobileMenu.classList.toggle('active');
+        this.hamburger.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    }
+
+    closeMobileMenu() {
+        this.mobileMenu.classList.remove('active');
+        this.hamburger.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
+
+    setupSmoothScrolling() {
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Update URL hash
+                        window.location.hash = href;
+                    }
+                }
+            });
+        });
+    }
+
+    setupDropdownScrolling() {
+        this.dropdownLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href.includes('about-') ? '#about' : href.includes('project') ? '#projects' : href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Update URL hash
+                        window.location.hash = href;
+                    }
+                    // Activate the correct tab if needed
+                    if (href.startsWith('#about-')) {
+                        const tab = href.replace('#about-', '');
+                        document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
+                            btn.classList.toggle('active', btn.dataset.tab === tab);
+                        });
+                        document.querySelectorAll('.about-content').forEach(ac => {
+                            ac.classList.toggle('active', ac.classList.contains(tab));
+                        });
+                    } else if (href.startsWith('#current-projects') || href.startsWith('#completed-projects') || href.startsWith('#mini-projects')) {
+                        let tab = 'current';
+                        if (href.startsWith('#completed-projects')) tab = 'completed';
+                        if (href.startsWith('#mini-projects')) tab = 'mini';
+                        document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+                            btn.classList.toggle('active', btn.dataset.tab === tab);
+                        });
+                        document.querySelectorAll('.project-content').forEach(pc => {
+                            pc.classList.toggle('active', pc.classList.contains(tab));
+                        });
+                    }
+                }
+            });
+        });
+    }
+}
+
+// Tab Management Module
+class TabManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupProjectTabs();
+        this.setupAboutTabs();
+        this.setupProjectSelection();
+    }
+
+    setupProjectTabs() {
+        const tabButtons = document.querySelectorAll('.project-tabs .tab-btn');
+        const projectContents = document.querySelectorAll('.project-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+                
+                // Remove active class from all tabs and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                projectContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                button.classList.add('active');
+                
+                // Show corresponding content
+                const targetContent = document.querySelector(`.project-content.${targetTab}`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+                
+                // Update URL hash
+                window.location.hash = `#projects-${targetTab}`;
+            });
+        });
+    }
+
+    setupAboutTabs() {
+        const aboutTabs = document.querySelectorAll('.about-tabs .tab-btn');
+        const aboutContents = document.querySelectorAll('.about-content');
+
+        aboutTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                
+                // Remove active class from all tabs and contents
+                aboutTabs.forEach(t => t.classList.remove('active'));
+                aboutContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const targetContent = document.querySelector(`.about-content.${targetTab}`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                    
+                    // Initialize alumni map if alumni tab is clicked
+                    if (targetTab === 'alumni' && !window.alumniMap) {
+                        setTimeout(() => {
+                            if (window.AlumniMap) {
+                                window.alumniMap = new window.AlumniMap();
+                            }
+                        }, 100);
+                    }
+                }
+                
+                // Update URL hash
+                window.location.hash = `#about-${targetTab}`;
+            });
+        });
+    }
+
+    setupProjectSelection() {
+        const projectCards = document.querySelectorAll('.project-card');
+        const projectInfos = document.querySelectorAll('.project-info');
+
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const targetProject = card.dataset.project;
+                
+                // Remove active class from all cards and infos
+                projectCards.forEach(c => c.classList.remove('active'));
+                projectInfos.forEach(info => info.classList.remove('active'));
+                
+                // Add active class to clicked card
+                card.classList.add('active');
+                
+                // Show corresponding project info
+                const targetInfo = document.getElementById(`project-${targetProject}`);
+                if (targetInfo) {
+                    targetInfo.classList.add('active');
+                }
+            });
+        });
+    }
+}
+
+// Animation Management Module
+class AnimationManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupScrollAnimations();
+        this.setupIntersectionObserver();
+        this.setupCounterAnimations();
+    }
+
+    setupScrollAnimations() {
+        // Smooth scroll for scroll indicator
+        window.scrollToReveal = () => {
+            const revealSection = document.querySelector('.logo-reveal-section');
+            if (revealSection) {
+                revealSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+    }
+
+    setupIntersectionObserver() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.project-card, .about-tab, .value-card, .outreach-card').forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    setupCounterAnimations() {
+        const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+        
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = parseInt(target.dataset.count);
+                    this.animateCounter(target, 0, finalValue, 2000);
+                    counterObserver.unobserve(target);
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        statNumbers.forEach(stat => {
+            counterObserver.observe(stat);
+        });
+    }
+
+    animateCounter(element, start, end, duration) {
+        const startTime = performance.now();
+        const difference = end - start;
+        
+        const updateCounter = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const currentValue = Math.floor(start + (difference * easeOutQuart));
+            
+            element.textContent = currentValue.toLocaleString();
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            }
+        };
+        
+        requestAnimationFrame(updateCounter);
+    }
+}
+
+// Data for projects and members
+const projectsData = {
+    completed: [
+        { name: "Autonomous Rover", description: "GPS-guided exploration robot", icon: "🤖", github: "https://github.com/erc-bpgc/autonomous-rover" },
+        { name: "Smart Home System", description: "IoT-based home automation", icon: "🏠", github: "https://github.com/erc-bpgc/smart-home" },
+        { name: "Gesture Controller", description: "Hand gesture recognition system", icon: "👋", github: "https://github.com/erc-bpgc/gesture-controller" }
+    ],
+    mini: [
+        { name: "LED Cube", description: "3D LED display matrix", icon: "🔲", github: "https://github.com/erc-bpgc/led-cube" },
+        { name: "Weather Station", description: "Environmental monitoring system", icon: "🌤️", github: "https://github.com/erc-bpgc/weather-station" },
+        { name: "Music Visualizer", description: "Audio-reactive LED display", icon: "🎵", github: "https://github.com/erc-bpgc/music-visualizer" }
+    ]
+};
+
+const membersData = {
+    current: [
+        { name: "Ritwik Sharma", role: "President", description: "Leading innovation in robotics", avatar: "👨‍💻" },
+        { name: "Saransh Agarwal", role: "Vice President", description: "Driving technical excellence", avatar: "👨‍🔬" },
+        { name: "Sniggdha Semwal", role: "Secretary", description: "Coordinating club activities", avatar: "👩‍💼" }
+    ]
+};
+
+// Main Application Class
+class ERCWebsite {
+    constructor() {
+        this.init();
+        this.setupHashNavigation();
+    }
+
+    async init() {
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.initializeModules());
+        } else {
+            this.initializeModules();
+        }
+    }
+
+    async initializeModules() {
+        try {
+            console.log('🚀 Initializing ERC Website...');
+            
+            // Initialize core modules
+            this.themeManager = new ThemeManager();
+            console.log('✅ Theme manager initialized');
+            
+            this.navigationManager = new NavigationManager();
+            console.log('✅ Navigation manager initialized');
+            
+            this.tabManager = new TabManager();
+            console.log('✅ Tab manager initialized');
+            
+            this.animationManager = new AnimationManager();
+            console.log('✅ Animation manager initialized');
+
+            // Update content
+            this.updateProjectsContent();
+            console.log('✅ Projects content updated');
+            
+            this.updateMembersContent();
+            console.log('✅ Members content updated');
+
+            // Setup performance optimizations
+            this.setupPerformanceOptimizations();
+            console.log('✅ Performance optimizations setup');
+
+            console.log('🤖 ERC Website loaded successfully!');
+            console.log('🎨 Theme system active');
+            console.log('📱 Responsive design ready');
+            console.log('✨ All animations initialized');
+
+        } catch (error) {
+            console.error('❌ Error initializing website:', error);
+        }
+    }
+
+    updateProjectsContent() {
+        // Update completed projects
+        const completedGrid = document.querySelector('.project-content.completed .archive-grid');
+        if (completedGrid) {
+            completedGrid.innerHTML = projectsData.completed.map(project => `
+                <a href="${project.github}" target="_blank" class="archive-card">
+                    <div class="archive-image">
+                        <div class="archive-placeholder">${project.icon}</div>
+                    </div>
+                    <h4>${project.name}</h4>
+                    <p>${project.description}</p>
+                </a>
+            `).join('');
+        }
+
+        // Update mini projects
+        const miniGrid = document.querySelector('.project-content.mini .archive-grid');
+        if (miniGrid) {
+            miniGrid.innerHTML = projectsData.mini.map(project => `
+                <a href="${project.github}" target="_blank" class="archive-card">
+                    <div class="archive-image">
+                        <div class="archive-placeholder">${project.icon}</div>
+                    </div>
+                    <h4>${project.name}</h4>
+                    <p>${project.description}</p>
+                </a>
+            `).join('');
+        }
+    }
+
+    updateMembersContent() {
+        const membersGrid = document.querySelector('.about-content.members .members-grid');
+        if (membersGrid) {
+            membersGrid.innerHTML = membersData.current.map(member => `
+                <div class="member-card">
+                    <div class="member-avatar">${member.avatar}</div>
+                    <h4>${member.name}</h4>
+                    <p class="member-role">${member.role}</p>
+                    <p>${member.description}</p>
+                </div>
+            `).join('');
+        }
+    }
+
+    setupPerformanceOptimizations() {
+        // Throttle scroll events
+        let ticking = false;
+
+        const updateOnScroll = () => {
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Preload critical resources
+        this.preloadCriticalResources();
+    }
+
+    preloadCriticalResources() {
+        // Preload fonts
+        const fontPreload = document.createElement('link');
+        fontPreload.rel = 'preload';
+        fontPreload.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap';
+        fontPreload.as = 'style';
+        document.head.appendChild(fontPreload);
+    }
+
+    setupHashNavigation() {
+        const scrollToHash = () => {
+            let hash = window.location.hash;
+            // Redirect #projects to #projects-current
+            if (hash === '#projects') {
+                window.location.hash = '#projects-current';
+                return;
+            }
+            // Redirect #about to #about-our-story
+            if (hash === '#about') {
+                window.location.hash = '#about-our-story';
+                return;
+            }
+            if (hash.startsWith('#about-')) {
+                document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Show correct about tab
+                const tab = hash.replace('#about-', '') || 'our-story';
+                document.querySelectorAll('.about-tabs .tab-btn, .about-tabs .about-tab').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab || btn.dataset.about === tab);
+                });
+                document.querySelectorAll('.about-section-content, .about-content').forEach(ac => {
+                    ac.classList.toggle('active', ac.id === 'about-' + tab || ac.classList.contains(tab));
+                });
+                // Initialize alumni map if navigating to alumni tab
+                if (tab === 'alumni' && !window.alumniMap) {
+                    setTimeout(() => {
+                        if (window.AlumniMap && !window.alumniMap) {
+                            window.alumniMap = new window.AlumniMap();
+                        }
+                    }, 100);
+                }
+            } else if (hash.startsWith('#projects-')) {
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Show correct project tab
+                const tab = hash.replace('#projects-', '') || 'current';
+                document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab);
+                });
+                document.querySelectorAll('.project-content').forEach(pc => {
+                    pc.classList.toggle('active', pc.classList.contains(tab));
+                });
+            } else if (hash) {
+                const target = document.querySelector(hash);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+        window.addEventListener('hashchange', scrollToHash);
+        // On page load
+        scrollToHash();
+        // Project tabs: update hash on click
+        document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                window.location.hash = '#projects-' + btn.dataset.tab;
+            });
+        });
+        // About tabs: update hash on click
+        document.querySelectorAll('.about-tabs .tab-btn, .about-tabs .about-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                window.location.hash = '#about-' + (tab.dataset.tab || tab.dataset.about);
+            });
+        });
+    }
+}
+
+// Utility functions
+window.debounce = function(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+// Smooth scroll polyfill for older browsers
+if (!('scrollBehavior' in document.documentElement.style)) {
+    const smoothScrollPolyfill = document.createElement('script');
+    smoothScrollPolyfill.src = 'https://cdn.jsdelivr.net/gh/iamdustan/smoothscroll@master/src/smoothscroll.js';
+    document.head.appendChild(smoothScrollPolyfill);
+}
+
+// Initialize the application
+new ERCWebsite();
+# === [script.js] END === 
