@@ -509,27 +509,36 @@ class ERCWebsite {
 
     setupHashNavigation() {
         const scrollToHash = () => {
-            const hash = window.location.hash;
-            if (hash === '#about' || hash.startsWith('#about-')) {
+            let hash = window.location.hash;
+            // Redirect #projects to #projects-current
+            if (hash === '#projects') {
+                window.location.hash = '#projects-current';
+                return;
+            }
+            // Redirect #about to #about-our-story
+            if (hash === '#about') {
+                window.location.hash = '#about-our-story';
+                return;
+            }
+            if (hash.startsWith('#about-')) {
                 document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Show correct about tab
                 const tab = hash.replace('#about-', '') || 'our-story';
-                document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.tab === tab);
+                document.querySelectorAll('.about-tabs .tab-btn, .about-tabs .about-tab').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab || btn.dataset.about === tab);
                 });
-                document.querySelectorAll('.about-content').forEach(ac => {
-                    ac.classList.toggle('active', ac.classList.contains(tab));
+                document.querySelectorAll('.about-section-content, .about-content').forEach(ac => {
+                    ac.classList.toggle('active', ac.id === 'about-' + tab || ac.classList.contains(tab));
                 });
-                
                 // Initialize alumni map if navigating to alumni tab
                 if (tab === 'alumni' && !window.alumniMap) {
                     setTimeout(() => {
-                        if (window.AlumniMap) {
+                        if (window.AlumniMap && !window.alumniMap) {
                             window.alumniMap = new window.AlumniMap();
                         }
-                    }, 1000);
+                    }, 100);
                 }
-            } else if (hash === '#projects' || hash.startsWith('#projects')) {
+            } else if (hash.startsWith('#projects-')) {
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Show correct project tab
                 const tab = hash.replace('#projects-', '') || 'current';
@@ -554,9 +563,9 @@ class ERCWebsite {
             });
         });
         // About tabs: update hash on click
-        document.querySelectorAll('.about-tabs .tab-btn').forEach(tab => {
+        document.querySelectorAll('.about-tabs .tab-btn, .about-tabs .about-tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                window.location.hash = '#about-' + tab.dataset.tab;
+                window.location.hash = '#about-' + (tab.dataset.tab || tab.dataset.about);
             });
         });
     }
@@ -584,15 +593,3 @@ if (!('scrollBehavior' in document.documentElement.style)) {
 
 // Initialize the application
 new ERCWebsite();
-
-// Initialize AlumniMap if alumni section is present
-window.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('alumni-map')) {
-        // Wait a bit for all scripts to load
-        setTimeout(() => {
-            if (window.AlumniMap && !window.alumniMap) {
-                window.alumniMap = new window.AlumniMap();
-            }
-        }, 500);
-    }
-});
