@@ -49,7 +49,7 @@ export class AlumniMap {
     createStaticMap() {
         this.mapContainer.innerHTML = `
             <div class="static-world-map">
-                <img src="/world_map.jpg" 
+                <img src="public/world_map.jpg" 
                      alt="World Map" class="world-map-image">
                 <div class="map-overlay"></div>
                 <div class="alumni-markers">
