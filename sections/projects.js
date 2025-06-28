@@ -244,11 +244,13 @@ export const projectsSection = `
 </section>
 
 <script>
-    // Projects Section Logic
+    // Projects Section Logic (ensure event listeners are attached after loading)
     export async function loadProjectsSection() {
         const res = await fetch('partials/projects.html');
         const html = await res.text();
         document.getElementById('projects-section').innerHTML = html;
+        // Attach event listeners after HTML is loaded
+        initProjectsSection();
     }
 
     export function initProjectsSection() {

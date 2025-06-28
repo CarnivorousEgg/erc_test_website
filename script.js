@@ -7,9 +7,9 @@ import { AlumniMap } from './js/alumni-map.js';
 import { SocialFeedManager } from './js/social-feed.js';
 import { projectsData, membersData } from './js/data.js';
 import { loadHomeSection, initHomeSection } from './sections/home.js';
-import { loadProjectsSection, initProjectsSection } from './sections/projects.js';
-import { loadAboutSection, initAboutSection } from './sections/about.js';
-import { loadOutreachSection, initOutreachSection } from './sections/outreach.js';
+import { loadProjectsSection } from './sections/projects.js';
+import { loadAboutSection } from './sections/about.js';
+import { loadOutreachSection } from './sections/outreach.js';
 
 class ERCWebsite {
     constructor() {
@@ -39,12 +39,6 @@ class ERCWebsite {
             await loadProjectsSection();
             await loadAboutSection();
             await loadOutreachSection();
-
-            // Initialize each section's logic
-            initHomeSection();
-            initProjectsSection();
-            initAboutSection();
-            initOutreachSection();
 
             // Initialize content modules
             this.updateProjectsContent();
