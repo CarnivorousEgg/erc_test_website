@@ -234,9 +234,16 @@ class TabManager {
                     // Initialize alumni map if alumni tab is clicked
                     if (targetTab === 'alumni' && !window.alumniMapInitialized) {
                         setTimeout(() => {
-                            if (window.AlumniMap && !window.alumniMapInitialized) {
-                                window.alumniMap = new window.AlumniMap();
-                                window.alumniMapInitialized = true;
+                            try {
+                                if (window.AlumniMap && !window.alumniMapInitialized) {
+                                    window.alumniMap = new window.AlumniMap();
+                                    window.alumniMapInitialized = true;
+                                    console.log('✅ Alumni map initialized successfully');
+                                } else {
+                                    console.warn('⚠️ AlumniMap class not available or already initialized');
+                                }
+                            } catch (error) {
+                                console.error('❌ Error initializing alumni map:', error);
                             }
                         }, 100);
                     }
@@ -384,13 +391,25 @@ const membersData = {
 
 // Filter alumni data to show only recent alumni (last 3-5 years)
 function filterRecentAlumni() {
-    if (window.alumniData) {
+    console.log('🔍 Starting alumni data filtering...');
+    console.log('Current alumni data:', window.alumniData);
+    
+    if (window.alumniData && window.alumniData.length > 0) {
         const currentYear = new Date().getFullYear();
-        window.alumniData = window.alumniData.filter(alumni => {
+        console.log('Current year:', currentYear);
+        
+        const originalCount = window.alumniData.length;
+        const filteredAlumni = window.alumniData.filter(alumni => {
             const batchYear = parseInt(alumni.batch);
-            return batchYear >= currentYear - 5; // Show alumni from last 5 years
+            const isRecent = batchYear >= currentYear - 5;
+            console.log(`Alumni ${alumni.name} (batch ${alumni.batch}): ${isRecent ? 'included' : 'excluded'}`);
+            return isRecent;
         });
-        console.log(`Filtered alumni data: ${window.alumniData.length} recent alumni`);
+        
+        window.alumniData = filteredAlumni;
+        console.log(`✅ Filtered alumni data: ${window.alumniData.length} recent alumni out of ${originalCount} total`);
+    } else {
+        console.warn('⚠️ No alumni data found to filter');
     }
 }
 
@@ -414,8 +433,10 @@ class ERCWebsite {
         try {
             console.log('🚀 Initializing ERC Website...');
             
-            // Filter alumni data to show only recent alumni
-            filterRecentAlumni();
+            // Wait a bit for alumni data to be fully loaded, then filter
+            setTimeout(() => {
+                filterRecentAlumni();
+            }, 100);
             
             // Initialize core modules
             this.themeManager = new ThemeManager();
@@ -573,9 +594,16 @@ class ERCWebsite {
                 // Initialize alumni map if navigating to alumni tab
                 if (tab === 'alumni' && !window.alumniMapInitialized) {
                     setTimeout(() => {
-                        if (window.AlumniMap && !window.alumniMapInitialized) {
-                            window.alumniMap = new window.AlumniMap();
-                            window.alumniMapInitialized = true;
+                        try {
+                            if (window.AlumniMap && !window.alumniMapInitialized) {
+                                window.alumniMap = new window.AlumniMap();
+                                window.alumniMapInitialized = true;
+                                console.log('✅ Alumni map initialized successfully');
+                            } else {
+                                console.warn('⚠️ AlumniMap class not available or already initialized');
+                            }
+                        } catch (error) {
+                            console.error('❌ Error initializing alumni map:', error);
                         }
                     }, 100);
                 }
