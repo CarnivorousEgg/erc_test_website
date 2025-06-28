@@ -25,9 +25,9 @@ class AlumniMap {
     }
 
     createStaticMap(region = 'world', direction = null) {
-        console.log('Creating static map for region:', region);
-        console.log('Alumni data length:', this.alumniData ? this.alumniData.length : 'undefined');
-        
+        // Prevent double rendering by tracking current region
+        if (this.currentRegion === region && this.mapContainer.innerHTML.trim() !== '') return;
+        this.currentRegion = region;
         // Fade out current map with direction
         if (this.mapContainer.firstChild) {
             const currentMap = this.mapContainer.firstChild;
@@ -36,87 +36,74 @@ class AlumniMap {
             } else {
                 currentMap.classList.add('fade-out');
             }
-            
-            // Wait for fade out to complete before creating new map
-            setTimeout(() => {
-                this.renderMap(region, direction);
-            }, 300);
-        } else {
-            this.renderMap(region, direction);
         }
-    }
+        setTimeout(() => {
+            let mapImage = `public/world_night.jpg`;
+            if (region === 'india') mapImage = `public/india_night.jpg`;
+            else if (region === 'usa') mapImage = `public/usa_night.jpg`;
+            else if (region === 'europe') mapImage = `public/europe_night.jpg`;
+            else if (region === 'asia') mapImage = `public/asia_night.jpg`;
 
-    renderMap(region, direction) {
-        let mapImage = `public/world_night.jpg`;
-        if (region === 'india') mapImage = `public/india_night.jpg`;
-        else if (region === 'usa') mapImage = `public/usa_night.jpg`;
-        else if (region === 'europe') mapImage = `public/europe_night.jpg`;
-        else if (region === 'asia') mapImage = `public/asia_night.jpg`;
+            console.log('Using map image:', mapImage);
 
-        console.log('Using map image:', mapImage);
+            let alumniToShow = this.alumniData;
+            let interactive = false;
+            if (region !== 'world') {
+                interactive = true;
+                alumniToShow = this.alumniData.filter(alumni => alumni.region === region);
+            }
 
-        let alumniToShow = this.alumniData;
-        let interactive = region !== 'world';
-        
-        if (region !== 'world') {
-            alumniToShow = this.alumniData.filter(alumni => alumni.region === region);
-        }
+            console.log('Alumni to show:', alumniToShow.length);
 
-        console.log('Alumni to show:', alumniToShow.length);
-        console.log('Interactive mode:', interactive);
-
-        this.mapContainer.innerHTML = `
-            <div class="static-world-map fade-in${direction ? '-' + direction : ''}">
-                <img src="${mapImage}" 
-                     alt="${region.charAt(0).toUpperCase() + region.slice(1)} Map" 
-                     class="world-map-image">
-                <div class="map-overlay"></div>
-                <div class="alumni-markers">
-                    ${alumniToShow.map((alumni, index) => `
-                        <div class="alumni-marker${interactive ? ' interactive' : ' non-interactive'}" 
-                             style="left: ${this.getXFromLng(alumni.coordinates.lng)}%; top: ${this.getYFromLat(alumni.coordinates.lat)}%;"
-                             data-alumni='${JSON.stringify(alumni)}'
-                             data-index="${index}">
-                            <div class="marker-dot"></div>
-                            <div class="marker-pulse"></div>
-                            ${interactive && alumni.linkedin ? `
-                                <a href="${alumni.linkedin}" target="_blank" class="marker-link"></a>
-                            ` : ''}
+            this.mapContainer.innerHTML = `
+                <div class="static-world-map fade-in${direction ? '-' + direction : ''}">
+                    <img src="${mapImage}" 
+                         alt="${region.charAt(0).toUpperCase() + region.slice(1)} Map" class="world-map-image">
+                    <div class="map-overlay"></div>
+                    <div class="alumni-markers">
+                        ${alumniToShow.map((alumni, index) => `
+                            <a class="alumni-marker${interactive ? '' : ' non-interactive'}" 
+                                 style="left: ${this.getXFromLng(alumni.coordinates.lng)}%; top: ${this.getYFromLat(alumni.coordinates.lat)}%;"
+                                 data-alumni='${JSON.stringify(alumni)}'
+                                 data-index="${index}"
+                                 ${interactive && alumni.linkedin ? `href='${alumni.linkedin}' target='_blank'` : ''}>
+                                <div class="marker-dot"></div>
+                                <div class="marker-pulse"></div>
+                            </a>
+                        `).join('')}
+                    </div>
+                    <div class="alumni-tooltip" id="alumni-tooltip">
+                        <div class="tooltip-content">
+                            <h4 class="tooltip-name"></h4>
+                            <p class="tooltip-company"></p>
+                            <p class="tooltip-location"></p>
+                            <a class="tooltip-linkedin" href="#" target="_blank" style="display:none; color:#0a66c2; text-decoration:underline;">LinkedIn</a>
                         </div>
-                    `).join('')}
-                </div>
-                <div class="alumni-tooltip" id="alumni-tooltip">
-                    <div class="tooltip-content">
-                        <h4 class="tooltip-name"></h4>
-                        <p class="tooltip-company"></p>
-                        <p class="tooltip-location"></p>
-                        <a class="tooltip-linkedin" href="#" target="_blank">Connect on LinkedIn</a>
                     </div>
                 </div>
-            </div>
-            <div class="map-controls">
-                ${['world','india','usa','europe','asia'].map(r => `
-                    <button class="map-btn${region===r?' active':''}" 
-                            onclick="window.alumniMap.handleRegionClick('${r}')">
-                        ${r.charAt(0).toUpperCase() + r.slice(1)}
-                    </button>
-                `).join('')}
-            </div>
-            <div class="company-scroller">
-                <h4>Where Our Alumni Work</h4>
-                <div class="scroller-container">
-                    <div class="scroller-content"></div>
+                <div class="map-controls" style="margin-top:1.5rem; display: flex; gap: 0.5rem; justify-content: center;">
+                    ${['world','india','usa','europe','asia'].map(r => `<button class="map-btn${region===r?' active':''}" onclick="window.alumniMap.handleRegionClick('${r}')">${r.charAt(0).toUpperCase() + r.slice(1)}</button>`).join('')}
                 </div>
-            </div>
-        `;
+                <div class="company-scroller" style="margin-top:2.5rem;">
+                    <h4>Where Our Alumni Work</h4>
+                    <div class="scroller-container">
+                        <div class="scroller-content"></div>
+                    </div>
+                </div>
+                <div class="alumni-actions" style="display:flex;justify-content:center;align-items:center;margin-top:2rem;width:100%;">
+                    <button class="action-btn secondary" style="margin:0 auto;">
+                        <span>Alumni Stories</span>
+                        <div class="btn-icon">📖</div>
+                    </button>
+                </div>
+            `;
 
-        // Setup interactions based on mode
-        if (interactive) {
-            this.setupMarkerInteractions();
-        }
-        
-        this.addMapStyles();
-        this.setupCompanyScroller();
+            if (interactive) {
+                this.setupMarkerInteractions();
+            }
+            this.addMapStyles();
+            this.setupCompanyScroller();
+        }, 300);
     }
 
     // Mercator-like projection for world map image (simple linear mapping)
