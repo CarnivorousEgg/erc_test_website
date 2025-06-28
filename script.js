@@ -71,6 +71,7 @@ class NavigationManager {
         this.hamburger = document.querySelector('.hamburger');
         this.mobileMenu = document.querySelector('.mobile-menu-overlay');
         this.navLinks = document.querySelectorAll('.nav-link, .mobile-menu-list a');
+        this.dropdownLinks = document.querySelectorAll('.dropdown-content a');
         
         this.init();
     }
@@ -78,6 +79,7 @@ class NavigationManager {
     init() {
         this.bindEvents();
         this.setupSmoothScrolling();
+        this.setupDropdownScrolling();
     }
 
     bindEvents() {
@@ -124,6 +126,41 @@ class NavigationManager {
                     const target = document.querySelector(href);
                     if (target) {
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    }
+
+    setupDropdownScrolling() {
+        this.dropdownLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href.includes('about-') ? '#about' : href.includes('project') ? '#projects' : href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    // Activate the correct tab if needed
+                    if (href.startsWith('#about-')) {
+                        const tab = href.replace('#about-', '');
+                        document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
+                            btn.classList.toggle('active', btn.dataset.tab === tab);
+                        });
+                        document.querySelectorAll('.about-content').forEach(ac => {
+                            ac.classList.toggle('active', ac.classList.contains(tab));
+                        });
+                    } else if (href.startsWith('#current-projects') || href.startsWith('#completed-projects') || href.startsWith('#mini-projects')) {
+                        let tab = 'current';
+                        if (href.startsWith('#completed-projects')) tab = 'completed';
+                        if (href.startsWith('#mini-projects')) tab = 'mini';
+                        document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+                            btn.classList.toggle('active', btn.dataset.tab === tab);
+                        });
+                        document.querySelectorAll('.project-content').forEach(pc => {
+                            pc.classList.toggle('active', pc.classList.contains(tab));
+                        });
                     }
                 }
             });
@@ -547,3 +584,14 @@ if (!('scrollBehavior' in document.documentElement.style)) {
 
 // Initialize the application
 new ERCWebsite();
+
+// Initialize AlumniMap if alumni section is present
+window.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('alumni-map')) {
+        if (window.AlumniMap) {
+            new window.AlumniMap();
+        } else if (typeof AlumniMap !== 'undefined') {
+            new AlumniMap();
+        }
+    }
+});
