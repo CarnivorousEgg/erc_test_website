@@ -1,212 +1,302 @@
-// Alumni World Map Module
+// Simple Static Alumni Map Module
 export class AlumniMap {
     constructor() {
         this.mapContainer = document.getElementById('alumni-map');
-        this.map = null;
-        this.markers = [];
         this.alumniData = [
-            { name: "Rahul Sharma", company: "Google", location: [37.4419, -122.1430], city: "Mountain View, CA" },
-            { name: "Priya Patel", company: "Microsoft", location: [47.6062, -122.3321], city: "Seattle, WA" },
-            { name: "Arjun Kumar", company: "Amazon", location: [47.6205, -122.3493], city: "Seattle, WA" },
-            { name: "Sneha Reddy", company: "Tesla", location: [37.3861, -122.0839], city: "Palo Alto, CA" },
-            { name: "Vikram Singh", company: "Apple", location: [37.3349, -122.0090], city: "Cupertino, CA" },
-            { name: "Ananya Gupta", company: "Meta", location: [37.4848, -122.1477], city: "Menlo Park, CA" },
-            { name: "Rohit Agarwal", company: "NVIDIA", location: [37.3708, -121.9906], city: "Santa Clara, CA" },
-            { name: "Kavya Nair", company: "Intel", location: [37.3861, -121.9634], city: "Santa Clara, CA" },
-            { name: "Aditya Joshi", company: "IBM", location: [41.1220, -73.7948], city: "Armonk, NY" },
-            { name: "Meera Iyer", company: "Qualcomm", location: [32.9042, -117.2011], city: "San Diego, CA" },
-            { name: "Karthik Rao", company: "Goldman Sachs", location: [40.7505, -73.9934], city: "New York, NY" },
-            { name: "Divya Menon", company: "JPMorgan", location: [40.7505, -73.9934], city: "New York, NY" },
-            { name: "Siddharth Bhat", company: "Uber", location: [37.7749, -122.4194], city: "San Francisco, CA" },
-            { name: "Riya Kapoor", company: "Airbnb", location: [37.7749, -122.4194], city: "San Francisco, CA" },
-            { name: "Amit Verma", company: "Spotify", location: [40.7505, -73.9934], city: "New York, NY" },
-            { name: "Pooja Desai", company: "Netflix", location: [37.2431, -121.7915], city: "Los Gatos, CA" },
-            { name: "Nikhil Pandey", company: "Adobe", location: [37.3318, -121.8911], city: "San Jose, CA" },
-            { name: "Shreya Ghosh", company: "Salesforce", location: [37.7749, -122.4194], city: "San Francisco, CA" },
-            { name: "Varun Malhotra", company: "Oracle", location: [37.5407, -122.0639], city: "Redwood City, CA" },
-            { name: "Isha Bansal", company: "Cisco", location: [37.4419, -122.1430], city: "San Jose, CA" }
+            // North America
+            { name: "Rahul Sharma", company: "Google", position: { x: 22, y: 35 }, city: "Mountain View, CA" },
+            { name: "Priya Patel", company: "Microsoft", position: { x: 18, y: 32 }, city: "Seattle, WA" },
+            { name: "Arjun Kumar", company: "Amazon", position: { x: 18, y: 32 }, city: "Seattle, WA" },
+            { name: "Sneha Reddy", company: "Tesla", position: { x: 20, y: 37 }, city: "Palo Alto, CA" },
+            { name: "Vikram Singh", company: "Apple", position: { x: 20, y: 37 }, city: "Cupertino, CA" },
+            { name: "Ananya Gupta", company: "Meta", position: { x: 21, y: 37 }, city: "Menlo Park, CA" },
+            { name: "Rohit Agarwal", company: "NVIDIA", position: { x: 21, y: 37 }, city: "Santa Clara, CA" },
+            { name: "Kavya Nair", company: "Intel", position: { x: 21, y: 37 }, city: "Santa Clara, CA" },
+            { name: "Aditya Joshi", company: "IBM", position: { x: 28, y: 30 }, city: "New York, NY" },
+            { name: "Karthik Rao", company: "Goldman Sachs", position: { x: 28, y: 30 }, city: "New York, NY" },
+            { name: "Divya Menon", company: "JPMorgan", position: { x: 28, y: 30 }, city: "New York, NY" },
+            { name: "Amit Verma", company: "Spotify", position: { x: 28, y: 30 }, city: "New York, NY" },
+            
+            // Europe
+            { name: "Siddharth Bhat", company: "Spotify", position: { x: 52, y: 25 }, city: "London, UK" },
+            { name: "Riya Kapoor", company: "DeepMind", position: { x: 52, y: 25 }, city: "London, UK" },
+            { name: "Pooja Desai", company: "SAP", position: { x: 54, y: 28 }, city: "Berlin, Germany" },
+            { name: "Nikhil Pandey", company: "ASML", position: { x: 53, y: 26 }, city: "Netherlands" },
+            
+            // Asia
+            { name: "Shreya Ghosh", company: "Flipkart", position: { x: 75, y: 45 }, city: "Bangalore, India" },
+            { name: "Varun Malhotra", company: "Zomato", position: { x: 75, y: 42 }, city: "Delhi, India" },
+            { name: "Isha Bansal", company: "Paytm", position: { x: 75, y: 45 }, city: "Bangalore, India" },
+            { name: "Meera Iyer", company: "TCS", position: { x: 76, y: 46 }, city: "Mumbai, India" },
+            { name: "Rajesh Kumar", company: "Infosys", position: { x: 75, y: 45 }, city: "Bangalore, India" },
+            { name: "Anjali Singh", company: "ByteDance", position: { x: 82, y: 35 }, city: "Singapore" },
+            
+            // Australia
+            { name: "Akash Patel", company: "Atlassian", position: { x: 88, y: 75 }, city: "Sydney, Australia" },
+            { name: "Nisha Reddy", company: "Canva", position: { x: 88, y: 75 }, city: "Sydney, Australia" }
         ];
         
         this.init();
     }
 
-    async init() {
+    init() {
         if (!this.mapContainer) return;
         
-        try {
-            // Load Leaflet CSS
-            await this.loadCSS('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
-            
-            // Load Leaflet JS
-            await this.loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
-            
-            this.createMap();
-            this.addMarkers();
-            this.setupCompanyScroller();
-        } catch (error) {
-            console.error('Error initializing alumni map:', error);
-            this.showFallback();
-        }
+        this.createStaticMap();
+        this.setupCompanyScroller();
     }
 
-    loadCSS(url) {
-        return new Promise((resolve, reject) => {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = url;
-            link.onload = resolve;
-            link.onerror = reject;
-            document.head.appendChild(link);
-        });
-    }
-
-    loadScript(url) {
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = url;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.head.appendChild(script);
-        });
-    }
-
-    createMap() {
-        this.map = L.map(this.mapContainer, {
-            center: [20, 0],
-            zoom: 2,
-            zoomControl: true,
-            scrollWheelZoom: false,
-            doubleClickZoom: false,
-            boxZoom: false,
-            keyboard: false,
-            dragging: true,
-            touchZoom: true
-        });
-
-        // Add tile layer with dark theme
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(this.map);
-
-        // Style the map container
-        this.mapContainer.style.height = '400px';
-        this.mapContainer.style.borderRadius = '12px';
-        this.mapContainer.style.overflow = 'hidden';
-        this.mapContainer.style.border = '1px solid var(--border-color)';
-    }
-
-    addMarkers() {
-        // Create custom icon
-        const customIcon = L.divIcon({
-            className: 'custom-marker',
-            html: '<div class="marker-dot"></div>',
-            iconSize: [20, 20],
-            iconAnchor: [10, 10]
-        });
-
-        // Add CSS for custom markers
-        this.addMarkerStyles();
-
-        this.alumniData.forEach((alumni, index) => {
-            const marker = L.marker(alumni.location, { icon: customIcon })
-                .addTo(this.map)
-                .bindPopup(`
-                    <div class="alumni-popup">
-                        <h4>${alumni.name}</h4>
-                        <p><strong>${alumni.company}</strong></p>
-                        <p>${alumni.city}</p>
+    createStaticMap() {
+        this.mapContainer.innerHTML = `
+            <div class="static-world-map">
+                <img src="https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop" 
+                     alt="World Map" class="world-map-image">
+                <div class="map-overlay"></div>
+                <div class="alumni-markers">
+                    ${this.alumniData.map((alumni, index) => `
+                        <div class="alumni-marker" 
+                             style="left: ${alumni.position.x}%; top: ${alumni.position.y}%;"
+                             data-alumni='${JSON.stringify(alumni)}'
+                             data-index="${index}">
+                            <div class="marker-dot"></div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="alumni-tooltip" id="alumni-tooltip">
+                    <div class="tooltip-content">
+                        <h4 class="tooltip-name"></h4>
+                        <p class="tooltip-company"></p>
+                        <p class="tooltip-location"></p>
                     </div>
-                `, {
-                    className: 'custom-popup'
-                });
+                </div>
+            </div>
+        `;
 
-            // Add animation delay
+        this.setupMarkerInteractions();
+        this.addMapStyles();
+    }
+
+    setupMarkerInteractions() {
+        const markers = this.mapContainer.querySelectorAll('.alumni-marker');
+        const tooltip = this.mapContainer.querySelector('#alumni-tooltip');
+
+        markers.forEach((marker, index) => {
+            // Add staggered animation
             setTimeout(() => {
-                marker.getElement().style.animation = `markerPulse 2s ease-in-out infinite`;
-                marker.getElement().style.animationDelay = `${index * 0.1}s`;
-            }, 1000);
+                marker.classList.add('visible');
+            }, index * 100);
 
-            this.markers.push(marker);
+            marker.addEventListener('mouseenter', (e) => {
+                const alumniData = JSON.parse(marker.dataset.alumni);
+                this.showTooltip(tooltip, alumniData, e);
+            });
+
+            marker.addEventListener('mouseleave', () => {
+                this.hideTooltip(tooltip);
+            });
+
+            marker.addEventListener('mousemove', (e) => {
+                this.updateTooltipPosition(tooltip, e);
+            });
         });
     }
 
-    addMarkerStyles() {
+    showTooltip(tooltip, alumni, event) {
+        const nameEl = tooltip.querySelector('.tooltip-name');
+        const companyEl = tooltip.querySelector('.tooltip-company');
+        const locationEl = tooltip.querySelector('.tooltip-location');
+
+        nameEl.textContent = alumni.name;
+        companyEl.textContent = alumni.company;
+        locationEl.textContent = alumni.city;
+
+        tooltip.classList.add('visible');
+        this.updateTooltipPosition(tooltip, event);
+    }
+
+    hideTooltip(tooltip) {
+        tooltip.classList.remove('visible');
+    }
+
+    updateTooltipPosition(tooltip, event) {
+        const rect = this.mapContainer.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        tooltip.style.left = `${x + 15}px`;
+        tooltip.style.top = `${y - 10}px`;
+    }
+
+    addMapStyles() {
+        if (document.getElementById('alumni-map-styles')) return;
+
         const style = document.createElement('style');
+        style.id = 'alumni-map-styles';
         style.textContent = `
-            .custom-marker {
-                background: transparent !important;
-                border: none !important;
+            .static-world-map {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid var(--border-color);
+                background: var(--bg-tertiary);
             }
-            
+
+            .world-map-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: brightness(0.4) contrast(1.2) saturate(0.8);
+            }
+
+            .map-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, 
+                    rgba(10, 15, 28, 0.6), 
+                    rgba(34, 211, 238, 0.2)
+                );
+                pointer-events: none;
+            }
+
+            .alumni-markers {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+            }
+
+            .alumni-marker {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                transform: translate(-50%, -50%);
+                cursor: pointer;
+                pointer-events: all;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            }
+
+            .alumni-marker.visible {
+                opacity: 1;
+            }
+
             .marker-dot {
                 width: 12px;
                 height: 12px;
                 background: var(--primary-color);
                 border-radius: 50%;
                 border: 2px solid var(--bg-primary);
-                box-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
-                position: relative;
-            }
-            
-            .marker-dot::after {
-                content: '';
+                box-shadow: 0 0 15px rgba(34, 211, 238, 0.8);
                 position: absolute;
-                top: -4px;
-                left: -4px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 2;
+            }
+
+            .marker-pulse {
                 width: 20px;
                 height: 20px;
                 border: 2px solid var(--primary-color);
                 border-radius: 50%;
-                opacity: 0.3;
-                animation: markerRipple 2s ease-out infinite;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                animation: pulse 2s ease-out infinite;
+                opacity: 0.6;
             }
-            
-            @keyframes markerPulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.2); }
-            }
-            
-            @keyframes markerRipple {
+
+            @keyframes pulse {
                 0% {
-                    transform: scale(0.8);
+                    transform: translate(-50%, -50%) scale(0.8);
                     opacity: 0.8;
                 }
                 100% {
-                    transform: scale(2);
+                    transform: translate(-50%, -50%) scale(2);
                     opacity: 0;
                 }
             }
-            
-            .custom-popup .leaflet-popup-content-wrapper {
+
+            .alumni-marker:hover .marker-dot {
+                background: #ffffff;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+                transform: translate(-50%, -50%) scale(1.3);
+            }
+
+            .alumni-tooltip {
+                position: absolute;
                 background: var(--bg-secondary);
                 border: 1px solid var(--border-color);
                 border-radius: 8px;
+                padding: 12px;
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+                pointer-events: none;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+                min-width: 200px;
             }
-            
-            .custom-popup .leaflet-popup-content {
-                margin: 12px;
-                color: var(--text-primary);
+
+            .alumni-tooltip.visible {
+                opacity: 1;
+                transform: translateY(0);
             }
-            
-            .alumni-popup h4 {
-                margin: 0 0 8px 0;
+
+            .tooltip-name {
+                margin: 0 0 4px 0;
                 color: var(--primary-color);
                 font-size: 14px;
                 font-weight: 600;
             }
-            
-            .alumni-popup p {
-                margin: 4px 0;
-                font-size: 12px;
-                color: var(--text-secondary);
+
+            .tooltip-company {
+                margin: 0 0 4px 0;
+                color: var(--text-primary);
+                font-size: 13px;
+                font-weight: 500;
             }
-            
-            .custom-popup .leaflet-popup-tip {
-                background: var(--bg-secondary);
-                border: 1px solid var(--border-color);
+
+            .tooltip-location {
+                margin: 0;
+                color: var(--text-secondary);
+                font-size: 12px;
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .static-world-map {
+                    height: 300px;
+                }
+                
+                .alumni-marker {
+                    width: 16px;
+                    height: 16px;
+                }
+                
+                .marker-dot {
+                    width: 10px;
+                    height: 10px;
+                }
+                
+                .marker-pulse {
+                    width: 16px;
+                    height: 16px;
+                }
+                
+                .alumni-tooltip {
+                    min-width: 180px;
+                    padding: 10px;
+                }
             }
         `;
         document.head.appendChild(style);
@@ -217,7 +307,6 @@ export class AlumniMap {
         const scrollerContent = document.querySelector('.scroller-content');
         
         if (scrollerContent) {
-            // Clear existing content
             scrollerContent.innerHTML = '';
             
             // Add companies twice for seamless scrolling
@@ -239,79 +328,5 @@ export class AlumniMap {
                 scrollerContent.style.animationPlayState = 'running';
             });
         }
-    }
-
-    showFallback() {
-        this.mapContainer.innerHTML = `
-            <div class="map-fallback">
-                <div class="fallback-content">
-                    <h4>🌍 Our Global Alumni Network</h4>
-                    <p>Our alumni are working at leading tech companies across the globe</p>
-                    <div class="fallback-stats">
-                        <div class="fallback-stat">
-                            <span class="stat-number">${this.alumniData.length}+</span>
-                            <span class="stat-label">Alumni Worldwide</span>
-                        </div>
-                        <div class="fallback-stat">
-                            <span class="stat-number">${[...new Set(this.alumniData.map(a => a.company))].length}+</span>
-                            <span class="stat-label">Top Companies</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // Add fallback styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .map-fallback {
-                height: 400px;
-                background: var(--bg-tertiary);
-                border: 1px solid var(--border-color);
-                border-radius: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                padding: 2rem;
-            }
-            
-            .fallback-content h4 {
-                font-size: 1.5rem;
-                color: var(--text-primary);
-                margin-bottom: 1rem;
-            }
-            
-            .fallback-content p {
-                color: var(--text-secondary);
-                margin-bottom: 2rem;
-            }
-            
-            .fallback-stats {
-                display: flex;
-                gap: 2rem;
-                justify-content: center;
-            }
-            
-            .fallback-stat {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .fallback-stat .stat-number {
-                font-size: 2rem;
-                font-weight: 700;
-                color: var(--primary-color);
-            }
-            
-            .fallback-stat .stat-label {
-                font-size: 0.9rem;
-                color: var(--text-muted);
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-            }
-        `;
-        document.head.appendChild(style);
     }
 }
