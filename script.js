@@ -6,6 +6,10 @@ import { AnimationManager } from './js/animations.js';
 import { AlumniMap } from './js/alumni-map.js';
 import { SocialFeedManager } from './js/social-feed.js';
 import { projectsData, membersData } from './js/data.js';
+import { loadHomeSection, initHomeSection } from './sections/home.js';
+import { loadProjectsSection, initProjectsSection } from './sections/projects.js';
+import { loadAboutSection, initAboutSection } from './sections/about.js';
+import { loadOutreachSection, initOutreachSection } from './sections/outreach.js';
 
 class ERCWebsite {
     constructor() {
@@ -22,32 +26,44 @@ class ERCWebsite {
         }
     }
 
-    initializeModules() {
+    async initializeModules() {
         try {
             // Initialize core modules
             this.themeManager = new ThemeManager();
             this.navigationManager = new NavigationManager();
             this.tabManager = new TabManager();
             this.animationManager = new AnimationManager();
-            
+
+            // Render each section's content (load partials)
+            await loadHomeSection();
+            await loadProjectsSection();
+            await loadAboutSection();
+            await loadOutreachSection();
+
+            // Initialize each section's logic
+            initHomeSection();
+            initProjectsSection();
+            initAboutSection();
+            initOutreachSection();
+
             // Initialize content modules
             this.updateProjectsContent();
             this.updateMembersContent();
-            
+
             // Initialize interactive modules
             this.alumniMap = new AlumniMap();
             this.socialFeedManager = new SocialFeedManager();
-            
+
             // Setup performance optimizations
             this.setupPerformanceOptimizations();
-            
+
             console.log('🤖 ERC Website loaded successfully!');
             console.log('🎨 Theme system active');
             console.log('📱 Responsive design ready');
             console.log('✨ All animations initialized');
             console.log('🌍 Alumni map interactive');
             console.log('📱 Social feed live');
-            
+
         } catch (error) {
             console.error('Error initializing website:', error);
         }
@@ -100,11 +116,11 @@ class ERCWebsite {
     setupPerformanceOptimizations() {
         // Throttle scroll events
         let ticking = false;
-        
+
         const updateOnScroll = () => {
             ticking = false;
         };
-        
+
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 requestAnimationFrame(updateOnScroll);
@@ -128,12 +144,8 @@ class ERCWebsite {
     setupHashNavigation() {
         const scrollToHash = () => {
             const hash = window.location.hash;
-            // Always show About Us section if hash is #about or any about sub-section
             if (hash === '#about' || hash.startsWith('#about-')) {
                 document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                document.querySelectorAll('.about-section').forEach((el, i) => {
-                    el.style.display = (hash === '#about' && i === 0) || ('#' + el.id) === hash ? 'block' : 'none';
-                });
             } else if (hash === '#projects' || hash.startsWith('#projects')) {
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Show correct project tab
@@ -152,10 +164,6 @@ class ERCWebsite {
         window.addEventListener('hashchange', scrollToHash);
         // On page load
         scrollToHash();
-        // About Us: show first by default
-        document.querySelectorAll('.about-section').forEach((el, i) => {
-            el.style.display = i === 0 ? 'block' : 'none';
-        });
         // Project tabs: update hash on click
         document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {

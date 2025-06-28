@@ -1,147 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERC BITS Goa - Electronics & Robotics Club</title>
-    <meta name="description" content="Electronics & Robotics Club at BITS Pilani K K Birla Goa Campus - Innovation through cutting-edge technology and collaborative engineering">
-    <meta name="keywords" content="robotics, electronics, BITS Goa, engineering, innovation, technology">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles/base.css">
-    <link rel="stylesheet" href="styles/navigation.css">
-    <link rel="stylesheet" href="styles/hero.css">
-    <link rel="stylesheet" href="styles/projects.css">
-    <link rel="stylesheet" href="styles/about.css">
-    <link rel="stylesheet" href="styles/outreach.css">
-    <link rel="stylesheet" href="styles/footer.css">
-    <link rel="stylesheet" href="styles/responsive.css">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="erc-logo.jpg">
-</head>
-<body data-theme="dark">
-
-<!-- Section Containers for Modular Content -->
-<div id="home-section"></div>
-<div id="projects-section"></div>
-<div id="about-section"></div>
-<div id="outreach-section"></div>
-
-<!-- Navigation -->
-<nav class="navbar">
-    <div class="nav-container">
-        <!-- Desktop Navigation -->
-        <div class="desktop-nav">
-            <div class="nav-left">
-                <a href="#home" class="nav-logo">
-                    <img src="/erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
-                    <span>ERC</span>
-                </a>
-            </div>
-            <div class="nav-center">
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li class="dropdown">
-                        <a href="#projects" class="nav-link">Projects</a>
-                        <div class="dropdown-content">
-                            <a href="#current-projects">Current Projects</a>
-                            <a href="#completed-projects">Completed Projects</a>
-                            <a href="#mini-projects">Mini Projects</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#about" class="nav-link">About Us</a>
-                        <div class="dropdown-content">
-                            <a href="#our-story">Our Story</a>
-                            <a href="#our-values">Our Values</a>
-                            <a href="#current-members">Members</a>
-                            <a href="#alumni">Alumni</a>
-                            <a href="#contact">Contact</a>
-                        </div>
-                    </li>
-                    <li><a href="#outreach" class="nav-link">Outreach</a></li>
-                    <li><a href="https://erc-bpgc.github.io/handbook/" target="_blank" class="nav-link">Handbook</a></li>
-                </ul>
-            </div>
-            <div class="nav-right">
-                <button class="theme-toggle-nav" aria-label="Toggle theme">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Navigation Header -->
-        <div class="mobile-nav-header">
-            <a href="#home" class="nav-logo">
-                <img src="/erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
-                <span>ERC</span>
-            </a>
-            <button class="hamburger" aria-label="Open menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </div>
-</nav>
-
-<!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay">
-    <div class="mobile-menu-content">
-        <ul class="mobile-menu-list">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#outreach">Outreach</a></li>
-            <li><a href="https://erc-bpgc.github.io/handbook/" target="_blank">Handbook</a></li>
-        </ul>
-        <div class="mobile-menu-footer">
-            <button class="theme-toggle-mobile" aria-label="Toggle theme">
-                <span class="theme-icon">🌙</span>
-                <span class="theme-text">Dark Mode</span>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Hero Section -->
-<section id="home" class="hero">
-    <div class="video-container">
-        <video autoplay muted loop playsinline>
-            <source src="hero-video.mp4" type="video/mp4">
-        </video>
-        <div class="video-mask"></div>
-    </div>
-    <div class="hero-content">
-        <h1 class="hero-title">Electronics & Robotics Club</h1>
-        <p class="hero-subtitle">BITS Pilani K K Birla Goa Campus</p>
-        <p class="hero-description">Innovation through cutting-edge technology and collaborative engineering</p>
-    </div>
-    <div class="scroll-indicator" onclick="scrollToReveal()">
-        <div class="scroll-arrow"></div>
-        <span>Scroll to explore</span>
-    </div>
-</section>
-
-<!-- Logo Reveal Section -->
-<section class="logo-reveal-section">
-    <div class="reveal-background"></div>
-    <div class="reveal-triangle">
-        <div class="logo-content">
-            <img src="/erc-logo.jpg" alt="ERC Logo" class="main-logo">
-            <h2>Innovation Through Technology</h2>
-            <p>Bridging imagination and reality through cutting-edge engineering</p>
-        </div>
-    </div>
-</section>
-
-<!-- Projects Section -->
+export const projectsSection = `
 <section id="projects" class="projects-section">
     <div class="container">
         <div class="section-header-left">
@@ -152,7 +9,6 @@
                 <button class="tab-btn" data-tab="mini">Mini Projects</button>
             </div>
         </div>
-        
         <!-- Current Projects -->
         <div class="project-content current active">
             <div class="current-projects-layout">
@@ -186,7 +42,6 @@
                         <p>Custom processor design</p>
                     </div>
                 </div>
-                
                 <div class="project-display">
                     <div class="project-info active" id="project-kutta">
                         <h3>Quadruped Robot</h3>
@@ -214,7 +69,6 @@
                             <div class="btn-icon">→</div>
                         </button>
                     </div>
-                    
                     <div class="project-info" id="project-swarm">
                         <h3>Swarm Drones</h3>
                         <p class="project-description">Coordinated multi-drone systems for surveillance, mapping, and autonomous delivery with advanced swarm intelligence algorithms.</p>
@@ -241,7 +95,6 @@
                             <div class="btn-icon">→</div>
                         </button>
                     </div>
-                    
                     <div class="project-info" id="project-saap">
                         <h3>Snakebot</h3>
                         <p class="project-description">A modular snake robot with innovative Virtual Rolling Sphere Joint mechanism for versatile locomotion in confined spaces.</p>
@@ -268,7 +121,6 @@
                             <div class="btn-icon">→</div>
                         </button>
                     </div>
-                    
                     <div class="project-info" id="project-arm">
                         <h3>Robotic Arm</h3>
                         <p class="project-description">This project aims to develop a multi-DOF robotic arm that emulates industrial automation for executing tasks requiring high precision and repeatability.</p>
@@ -295,7 +147,6 @@
                             <div class="btn-icon">→</div>
                         </button>
                     </div>
-                    
                     <div class="project-info" id="project-vulcan">
                         <h3>Project Vulcan</h3>
                         <p class="project-description">The aim of project vulcan is to recreate a humanoid robot with capabilities to interact with both people and objects, and to act in response to its environment.</p>
@@ -322,7 +173,6 @@
                             <div class="btn-icon">→</div>
                         </button>
                     </div>
-                    
                     <div class="project-info" id="project-drone">
                         <h3>Drone Automation</h3>
                         <p class="project-description">Advanced autonomous drone system with GPS-less navigation using computer vision and SLAM algorithms for indoor and GPS-denied environments.</p>
@@ -349,7 +199,6 @@
                             <div class="btn-icon">→</div>
                         </button>
                     </div>
-                    
                     <div class="project-info" id="project-embedded">
                         <h3>RISC-V Processor</h3>
                         <p class="project-description">Custom RISC-V processor implementation with advanced features for embedded systems and IoT applications.</p>
@@ -379,14 +228,12 @@
                 </div>
             </div>
         </div>
-        
         <!-- Completed Projects -->
         <div class="project-content completed">
             <div class="archive-grid">
                 <!-- Content will be populated by JavaScript -->
             </div>
         </div>
-        
         <!-- Mini Projects -->
         <div class="project-content mini">
             <div class="archive-grid">
@@ -396,147 +243,16 @@
     </div>
 </section>
 
-<!-- About Us Section -->
-<section id="about" class="about-section">
-    <div class="container">
-        <h2 class="section-title">About Us</h2>
-        <div class="about-tabs">
-            <span class="about-tab" data-about="about-our-story">Our Story</span>
-            <span class="about-tab" data-about="about-our-values">Our Values</span>
-            <span class="about-tab" data-about="about-current-members">Members</span>
-            <span class="about-tab" data-about="about-alumni">Alumni</span>
-            <span class="about-tab" data-about="about-contact">Contact</span>
-        </div>
-        <div class="about-content">
-            <div class="about-section" id="about-our-story">
-                <h3>Our Story</h3>
-                <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
-                <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
-            </div>
-            <div class="about-section" id="about-our-values">
-                <h3>Our Values</h3>
-                <div class="values-grid">
-                    <div class="value-card">
-                        <div class="value-icon">🚀</div>
-                        <h4>Innovation</h4>
-                        <p>Pushing boundaries through creative engineering solutions</p>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🤝</div>
-                        <h4>Collaboration</h4>
-                        <p>Building together, learning together, achieving more as a team</p>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🎯</div>
-                        <h4>Excellence</h4>
-                        <p>Striving for the highest standards in every project</p>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🌱</div>
-                        <h4>Learning</h4>
-                        <p>Continuous growth through experimentation and iteration</p>
-                    </div>
-                </div>
-            </div>
-            <div class="about-section" id="about-current-members">
-                <h3>Members</h3>
-                <div class="members-grid">
-                    <!-- Content will be populated by JavaScript -->
-                </div>
-            </div>
-            <div class="about-section" id="about-alumni">
-                <h3>Alumni</h3>
-                <div class="alumni-section">
-                    <!-- Interactive World Map -->
-                    <div class="world-map-container">
-                        <div id="alumni-map"></div>
-                    </div>
-                    
-                    <!-- Company Scroller -->
-                    <div class="company-scroller">
-                        <h4>Where Our Alumni Work</h4>
-                        <div class="scroller-container">
-                            <div class="scroller-content">
-                                <!-- Content will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="about-section" id="about-contact">
-                <h3>Contact</h3>
-                <div class="contact-layout">
-                    <div class="contact-info">
-                        <h4>Connect With Us</h4>
-                        <div class="social-links">
-                            <a href="mailto:bitsg.erc@gmail.com" class="social-link">
-                                <span class="social-icon">📧</span>
-                                <span>bitsg.erc@gmail.com</span>
-                            </a>
-                            <a href="https://www.instagram.com/erc_bitsgoa/" target="_blank" class="social-link">
-                                <span class="social-icon">📱</span>
-                                <span>Instagram</span>
-                            </a>
-                            <a href="https://www.linkedin.com/company/electronics-robotics-club-bits-goa/" target="_blank" class="social-link">
-                                <span class="social-icon">💼</span>
-                                <span>LinkedIn</span>
-                            </a>
-                            <a href="https://github.com/ERC-BPGC" target="_blank" class="social-link">
-                                <span class="social-icon">🐙</span>
-                                <span>GitHub</span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Social Media Feed -->
-                    <div class="social-feed">
-                        <h4>Latest Updates</h4>
-                        <div class="feed-container">
-                            <!-- Content will be populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<script>
+    // Projects Section Logic
+    export async function loadProjectsSection() {
+        const res = await fetch('partials/projects.html');
+        const html = await res.text();
+        document.getElementById('projects-section').innerHTML = html;
+    }
 
-<!-- Outreach Section -->
-<section id="outreach" class="outreach-section">
-    <div class="container">
-        <div class="section-header-left">
-            <h2 class="section-title">Outreach & Impact</h2>
-        </div>
-        <div class="outreach-grid">
-            <div class="outreach-card">
-                <div class="outreach-icon">🏫</div>
-                <h3>School Workshops</h3>
-                <p>Inspiring the next generation through hands-on robotics workshops in local schools</p>
-            </div>
-            <div class="outreach-card">
-                <div class="outreach-icon">🏆</div>
-                <h3>Competition Mentoring</h3>
-                <p>Guiding teams to victory in national robotics competitions and hackathons</p>
-            </div>
-            <div class="outreach-card">
-                <div class="outreach-icon">🌐</div>
-                <h3>Open Source</h3>
-                <p>Contributing to the global tech community through open source projects</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <p>&copy; 2024 Electronics & Robotics Club, BITS Goa. All rights reserved.</p>
-            <p class="credits">Made with ❤️ by ERC Web Team</p>
-        </div>
-    </div>
-</footer>
-
-<script type="module" src="script.js"></script>
-</body>
-</html>
+    export function initProjectsSection() {
+        // Add any projects section-specific JS here
+    }
+</script>
+`;
