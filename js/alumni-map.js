@@ -4,40 +4,40 @@ export class AlumniMap {
         this.mapContainer = document.getElementById('alumni-map');
         this.alumniData = [
             // North America - West Coast
-            { name: "Rahul Sharma", company: "Google", position: { x: 11, y: 42 }, city: "Mountain View, CA" },
-            { name: "Priya Patel", company: "Microsoft", position: { x: 8, y: 36 }, city: "Seattle, WA" },
-            { name: "Arjun Kumar", company: "Amazon", position: { x: 8, y: 36 }, city: "Seattle, WA" },
-            { name: "Sneha Reddy", company: "Tesla", position: { x: 11, y: 42 }, city: "Palo Alto, CA" },
-            { name: "Vikram Singh", company: "Apple", position: { x: 11, y: 42 }, city: "Cupertino, CA" },
-            { name: "Ananya Gupta", company: "Meta", position: { x: 11, y: 42 }, city: "Menlo Park, CA" },
-            { name: "Rohit Agarwal", company: "NVIDIA", position: { x: 11, y: 42 }, city: "Santa Clara, CA" },
-            { name: "Kavya Nair", company: "Intel", position: { x: 11, y: 42 }, city: "Santa Clara, CA" },
+            { name: "Rahul Sharma", company: "Google", position: { x: 18, y: 38 }, city: "Mountain View, CA" },
+            { name: "Priya Patel", company: "Microsoft", position: { x: 15, y: 32 }, city: "Seattle, WA" },
+            { name: "Arjun Kumar", company: "Amazon", position: { x: 15, y: 32 }, city: "Seattle, WA" },
+            { name: "Sneha Reddy", company: "Tesla", position: { x: 18, y: 38 }, city: "Palo Alto, CA" },
+            { name: "Vikram Singh", company: "Apple", position: { x: 18, y: 38 }, city: "Cupertino, CA" },
+            { name: "Ananya Gupta", company: "Meta", position: { x: 18, y: 38 }, city: "Menlo Park, CA" },
+            { name: "Rohit Agarwal", company: "NVIDIA", position: { x: 18, y: 38 }, city: "Santa Clara, CA" },
+            { name: "Kavya Nair", company: "Intel", position: { x: 18, y: 38 }, city: "Santa Clara, CA" },
             
             // North America - East Coast
-            { name: "Aditya Joshi", company: "IBM", position: { x: 26, y: 41 }, city: "New York, NY" },
-            { name: "Karthik Rao", company: "Goldman Sachs", position: { x: 26, y: 41 }, city: "New York, NY" },
-            { name: "Divya Menon", company: "JPMorgan", position: { x: 26, y: 41 }, city: "New York, NY" },
-            { name: "Amit Verma", company: "Spotify", position: { x: 26, y: 41 }, city: "New York, NY" },
+            { name: "Aditya Joshi", company: "IBM", position: { x: 32, y: 36 }, city: "New York, NY" },
+            { name: "Karthik Rao", company: "Goldman Sachs", position: { x: 32, y: 36 }, city: "New York, NY" },
+            { name: "Divya Menon", company: "JPMorgan", position: { x: 32, y: 36 }, city: "New York, NY" },
+            { name: "Amit Verma", company: "Spotify", position: { x: 32, y: 36 }, city: "New York, NY" },
             
             // Europe
-            { name: "Siddharth Bhat", company: "Spotify", position: { x: 50, y: 33 }, city: "London, UK" },
-            { name: "Riya Kapoor", company: "DeepMind", position: { x: 50, y: 33 }, city: "London, UK" },
-            { name: "Pooja Desai", company: "SAP", position: { x: 53, y: 34 }, city: "Berlin, Germany" },
-            { name: "Nikhil Pandey", company: "ASML", position: { x: 52, y: 34 }, city: "Netherlands" },
+            { name: "Siddharth Bhat", company: "Spotify", position: { x: 54, y: 30 }, city: "London, UK" },
+            { name: "Riya Kapoor", company: "DeepMind", position: { x: 54, y: 30 }, city: "London, UK" },
+            { name: "Pooja Desai", company: "SAP", position: { x: 58, y: 32 }, city: "Berlin, Germany" },
+            { name: "Nikhil Pandey", company: "ASML", position: { x: 56, y: 31 }, city: "Netherlands" },
             
             // Asia - India
-            { name: "Shreya Ghosh", company: "Flipkart", position: { x: 77, y: 54 }, city: "Bangalore, India" },
-            { name: "Varun Malhotra", company: "Zomato", position: { x: 77, y: 50 }, city: "Delhi, India" },
-            { name: "Isha Bansal", company: "Paytm", position: { x: 77, y: 54 }, city: "Bangalore, India" },
-            { name: "Meera Iyer", company: "TCS", position: { x: 73, y: 55 }, city: "Mumbai, India" },
-            { name: "Rajesh Kumar", company: "Infosys", position: { x: 77, y: 54 }, city: "Bangalore, India" },
+            { name: "Shreya Ghosh", company: "Flipkart", position: { x: 80, y: 52 }, city: "Bangalore, India" },
+            { name: "Varun Malhotra", company: "Zomato", position: { x: 80, y: 46 }, city: "Delhi, India" },
+            { name: "Isha Bansal", company: "Paytm", position: { x: 80, y: 52 }, city: "Bangalore, India" },
+            { name: "Meera Iyer", company: "TCS", position: { x: 76, y: 53 }, city: "Mumbai, India" },
+            { name: "Rajesh Kumar", company: "Infosys", position: { x: 80, y: 52 }, city: "Bangalore, India" },
             
             // Asia - Southeast
-            { name: "Anjali Singh", company: "ByteDance", position: { x: 84, y: 59 }, city: "Singapore" },
+            { name: "Anjali Singh", company: "ByteDance", position: { x: 88, y: 58 }, city: "Singapore" },
             
             // Australia
-            { name: "Akash Patel", company: "Atlassian", position: { x: 90, y: 81 }, city: "Sydney, Australia" },
-            { name: "Nisha Reddy", company: "Canva", position: { x: 90, y: 81 }, city: "Sydney, Australia" }
+            { name: "Akash Patel", company: "Atlassian", position: { x: 93, y: 80 }, city: "Sydney, Australia" },
+            { name: "Nisha Reddy", company: "Canva", position: { x: 93, y: 80 }, city: "Sydney, Australia" }
         ];
         
         this.init();
@@ -53,7 +53,7 @@ export class AlumniMap {
     createStaticMap() {
         this.mapContainer.innerHTML = `
             <div class="static-world-map">
-                <img src="public/world_map.jpg" 
+                <img src="/world_map.jpg" 
                      alt="World Map" class="world-map-image">
                 <div class="map-overlay"></div>
                 <div class="alumni-markers">

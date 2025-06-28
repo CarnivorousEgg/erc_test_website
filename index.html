@@ -34,7 +34,7 @@
         <div class="desktop-nav">
             <div class="nav-left">
                 <a href="#home" class="nav-logo">
-                    <img src="erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
+                    <img src="/erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
                     <span>ERC</span>
                 </a>
             </div>
@@ -73,7 +73,7 @@
         <!-- Mobile Navigation Header -->
         <div class="mobile-nav-header">
             <a href="#home" class="nav-logo">
-                <img src="erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
+                <img src="/erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
                 <span>ERC</span>
             </a>
             <button class="hamburger" aria-label="Open menu">
@@ -128,7 +128,7 @@
     <div class="reveal-background"></div>
     <div class="reveal-triangle">
         <div class="logo-content">
-            <img src="erc-logo.jpg" alt="ERC Logo" class="main-logo">
+            <img src="/erc-logo.jpg" alt="ERC Logo" class="main-logo">
             <h2>Innovation Through Technology</h2>
             <p>Bridging imagination and reality through cutting-edge engineering</p>
         </div>
@@ -152,37 +152,37 @@
             <div class="current-projects-layout">
                 <div class="project-sidebar">
                     <div class="project-card active" data-project="kutta">
-                        <h3>Quadruped Robot</h3>
+                        <a href="#project-kutta"><h3>Quadruped Robot</h3></a>
                         <p>Advanced four-legged robot</p>
                     </div>
                     <div class="project-card" data-project="swarm">
-                        <h3>Swarm Drones</h3>
+                        <a href="#project-swarm"><h3>Swarm Drones</h3></a>
                         <p>Coordinated UAV systems</p>
                     </div>
                     <div class="project-card" data-project="saap">
-                        <h3>Snakebot</h3>
+                        <a href="#project-saap"><h3>Snakebot</h3></a>
                         <p>Modular Snake Robot</p>
                     </div>
                     <div class="project-card" data-project="arm">
-                        <h3>Robotic Arm</h3>
+                        <a href="#project-arm"><h3>Robotic Arm</h3></a>
                         <p>6DOF Robotic Arm</p>
                     </div>
                     <div class="project-card" data-project="vulcan">
-                        <h3>Project Vulcan</h3>
+                        <a href="#project-vulcan"><h3>Project Vulcan</h3></a>
                         <p>Humanoid Robot</p>
                     </div>
                     <div class="project-card" data-project="drone">
-                        <h3>Drone Automation</h3>
+                        <a href="#project-drone"><h3>Drone Automation</h3></a>
                         <p>GPS-less Navigation</p>
                     </div>
                     <div class="project-card" data-project="embedded">
-                        <h3>RISC-V Processor</h3>
+                        <a href="#project-embedded"><h3>RISC-V Processor</h3></a>
                         <p>Custom processor design</p>
                     </div>
                 </div>
                 
                 <div class="project-display">
-                    <div class="project-info active" id="kutta">
+                    <div class="project-info active" id="project-kutta">
                         <h3>Quadruped Robot</h3>
                         <p class="project-description">This project focuses on applying real-world reinforcement learning and torque-controlled actuation to develop a quadruped robot capable of agile, terrain-adaptive locomotion using advanced sensing and optimized mechanical design.</p>
                         <div class="project-specs">
@@ -209,7 +209,7 @@
                         </button>
                     </div>
                     
-                    <div class="project-info" id="swarm">
+                    <div class="project-info" id="project-swarm">
                         <h3>Swarm Drones</h3>
                         <p class="project-description">Coordinated multi-drone systems for surveillance, mapping, and autonomous delivery with advanced swarm intelligence algorithms.</p>
                         <div class="project-specs">
@@ -236,7 +236,7 @@
                         </button>
                     </div>
                     
-                    <div class="project-info" id="saap">
+                    <div class="project-info" id="project-saap">
                         <h3>Snakebot</h3>
                         <p class="project-description">A modular snake robot with innovative Virtual Rolling Sphere Joint mechanism for versatile locomotion in confined spaces.</p>
                         <div class="project-specs">
@@ -263,7 +263,7 @@
                         </button>
                     </div>
                     
-                    <div class="project-info" id="arm">
+                    <div class="project-info" id="project-arm">
                         <h3>Robotic Arm</h3>
                         <p class="project-description">This project aims to develop a multi-DOF robotic arm that emulates industrial automation for executing tasks requiring high precision and repeatability.</p>
                         <div class="project-specs">
@@ -290,7 +290,7 @@
                         </button>
                     </div>
                     
-                    <div class="project-info" id="vulcan">
+                    <div class="project-info" id="project-vulcan">
                         <h3>Project Vulcan</h3>
                         <p class="project-description">The aim of project vulcan is to recreate a humanoid robot with capabilities to interact with both people and objects, and to act in response to its environment.</p>
                         <div class="project-specs">
@@ -317,7 +317,7 @@
                         </button>
                     </div>
                     
-                    <div class="project-info" id="drone">
+                    <div class="project-info" id="project-drone">
                         <h3>Drone Automation</h3>
                         <p class="project-description">Advanced autonomous drone system with GPS-less navigation using computer vision and SLAM algorithms for indoor and GPS-denied environments.</p>
                         <div class="project-specs">
@@ -344,7 +344,7 @@
                         </button>
                     </div>
                     
-                    <div class="project-info" id="embedded">
+                    <div class="project-info" id="project-embedded">
                         <h3>RISC-V Processor</h3>
                         <p class="project-description">Custom RISC-V processor implementation with advanced features for embedded systems and IoT applications.</p>
                         <div class="project-specs">
@@ -393,46 +393,22 @@
 <!-- About Us Section -->
 <section id="about" class="about-section">
     <div class="container">
-        <div class="section-header-left">
-            <h2 class="section-title">About ERC</h2>
-            <div class="about-tabs">
-                <button class="tab-btn active" data-tab="story">Our Story</button>
-                <button class="tab-btn" data-tab="values">Our Values</button>
-                <button class="tab-btn" data-tab="members">Current Members</button>
-                <button class="tab-btn" data-tab="alumni">Alumni</button>
-                <button class="tab-btn" data-tab="contact">Contact Us</button>
-            </div>
+        <h2 class="section-title">About Us</h2>
+        <div class="about-tabs">
+            <a href="#about-our-story" class="about-tab">Our Story</a>
+            <a href="#about-our-values" class="about-tab">Our Values</a>
+            <a href="#about-current-members" class="about-tab">Members</a>
+            <a href="#about-alumni" class="about-tab">Alumni</a>
+            <a href="#about-contact" class="about-tab">Contact</a>
         </div>
-        
-        <div class="about-content-wrapper">
-            <!-- Our Story -->
-            <div class="about-content story active">
-                <div class="story-layout">
-                    <div class="story-text">
-                        <h3>Our Journey of Innovation</h3>
-                        <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
-                        <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
-                    </div>
-                    <div class="story-stats">
-                        <div class="stat-card">
-                            <span class="stat-number">200+</span>
-                            <span class="stat-label">Active Members</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Projects Completed</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">15+</span>
-                            <span class="stat-label">Awards Won</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="about-content">
+            <div class="about-section" id="about-our-story">
+                <h3>Our Story</h3>
+                <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
+                <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
             </div>
-            
-            <!-- Our Values -->
-            <div class="about-content values">
-                <h3>What We Stand For</h3>
+            <div class="about-section" id="about-our-values">
+                <h3>Our Values</h3>
                 <div class="values-grid">
                     <div class="value-card">
                         <div class="value-icon">🚀</div>
@@ -456,18 +432,14 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Current Members -->
-            <div class="about-content members">
-                <h3>Current Team</h3>
+            <div class="about-section" id="about-current-members">
+                <h3>Members</h3>
                 <div class="members-grid">
                     <!-- Content will be populated by JavaScript -->
                 </div>
             </div>
-            
-            <!-- Alumni -->
-            <div class="about-content alumni">
-                <h3>Our Global Alumni Network</h3>
+            <div class="about-section" id="about-alumni">
+                <h3>Alumni</h3>
                 <div class="alumni-section">
                     <!-- Interactive World Map -->
                     <div class="world-map-container">
@@ -485,10 +457,8 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Contact Us -->
-            <div class="about-content contact">
-                <h3>Get In Touch</h3>
+            <div class="about-section" id="about-contact">
+                <h3>Contact</h3>
                 <div class="contact-layout">
                     <div class="contact-info">
                         <h4>Connect With Us</h4>

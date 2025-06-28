@@ -10,6 +10,7 @@ import { projectsData, membersData } from './js/data.js';
 class ERCWebsite {
     constructor() {
         this.init();
+        this.setupHashNavigation();
     }
 
     async init() {
@@ -122,6 +123,36 @@ class ERCWebsite {
         fontPreload.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap';
         fontPreload.as = 'style';
         document.head.appendChild(fontPreload);
+    }
+
+    setupHashNavigation() {
+        const scrollToHash = () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const target = document.querySelector(hash);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // For project/about modularity: show only the relevant content
+                    if (hash.startsWith('#project-')) {
+                        document.querySelectorAll('.project-info').forEach(el => el.classList.remove('active'));
+                        const proj = document.querySelector(hash);
+                        if (proj) proj.classList.add('active');
+                    }
+                    if (hash.startsWith('#about-')) {
+                        document.querySelectorAll('.about-section').forEach(el => el.style.display = 'none');
+                        const about = document.querySelector(hash);
+                        if (about) about.style.display = 'block';
+                    }
+                }
+            }
+        };
+        window.addEventListener('hashchange', scrollToHash);
+        // On page load
+        scrollToHash();
+        // For about-us: hide all but first by default
+        document.querySelectorAll('.about-section').forEach((el, i) => {
+            el.style.display = i === 0 ? 'block' : 'none';
+        });
     }
 }
 
