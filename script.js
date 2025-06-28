@@ -171,28 +171,28 @@ class TabManager {
     }
 
     setupAboutTabs() {
-        const aboutTabs = document.querySelectorAll('.about-tabs .about-tab');
-        const aboutSections = document.querySelectorAll('.about-content .about-section-content');
+        const aboutTabs = document.querySelectorAll('.about-tabs .tab-btn');
+        const aboutContents = document.querySelectorAll('.about-content');
 
         aboutTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                const targetSection = tab.dataset.about;
+                const targetTab = tab.dataset.tab;
                 
-                // Remove active class from all tabs and sections
+                // Remove active class from all tabs and contents
                 aboutTabs.forEach(t => t.classList.remove('active'));
-                aboutSections.forEach(section => section.classList.remove('active'));
+                aboutContents.forEach(content => content.classList.remove('active'));
                 
                 // Add active class to clicked tab
                 tab.classList.add('active');
                 
-                // Show corresponding section
-                const targetAboutSection = document.getElementById(targetSection);
-                if (targetAboutSection) {
-                    targetAboutSection.classList.add('active');
+                // Show corresponding content
+                const targetContent = document.querySelector(`.about-content.${targetTab}`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
                 }
                 
                 // Update URL hash
-                window.location.hash = `#${targetSection}`;
+                window.location.hash = `#about-${targetTab}`;
             });
         });
     }
@@ -231,6 +231,7 @@ class AnimationManager {
     init() {
         this.setupScrollAnimations();
         this.setupIntersectionObserver();
+        this.setupCounterAnimations();
     }
 
     setupScrollAnimations() {
@@ -261,6 +262,50 @@ class AnimationManager {
         document.querySelectorAll('.project-card, .about-tab, .value-card, .outreach-card').forEach(el => {
             observer.observe(el);
         });
+    }
+
+    setupCounterAnimations() {
+        const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+        
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = parseInt(target.dataset.count);
+                    this.animateCounter(target, 0, finalValue, 2000);
+                    counterObserver.unobserve(target);
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        statNumbers.forEach(stat => {
+            counterObserver.observe(stat);
+        });
+    }
+
+    animateCounter(element, start, end, duration) {
+        const startTime = performance.now();
+        const difference = end - start;
+        
+        const updateCounter = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const currentValue = Math.floor(start + (difference * easeOutQuart));
+            
+            element.textContent = currentValue.toLocaleString();
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            }
+        };
+        
+        requestAnimationFrame(updateCounter);
     }
 }
 
@@ -417,6 +462,14 @@ class ERCWebsite {
             const hash = window.location.hash;
             if (hash === '#about' || hash.startsWith('#about-')) {
                 document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Show correct about tab
+                const tab = hash.replace('#about-', '') || 'our-story';
+                document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab);
+                });
+                document.querySelectorAll('.about-content').forEach(ac => {
+                    ac.classList.toggle('active', ac.classList.contains(tab));
+                });
             } else if (hash === '#projects' || hash.startsWith('#projects')) {
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Show correct project tab
@@ -442,9 +495,9 @@ class ERCWebsite {
             });
         });
         // About tabs: update hash on click
-        document.querySelectorAll('.about-tab').forEach(tab => {
+        document.querySelectorAll('.about-tabs .tab-btn').forEach(tab => {
             tab.addEventListener('click', () => {
-                window.location.hash = '#' + tab.dataset.about;
+                window.location.hash = '#about-' + tab.dataset.tab;
             });
         });
     }

@@ -11,7 +11,7 @@
     margin-bottom: 2rem;
 }
 
-.about-tab {
+.tab-btn {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
@@ -23,19 +23,19 @@
     font-size: 0.9rem;
 }
 
-.about-tab.active,
-.about-tab:hover {
+.tab-btn.active,
+.tab-btn:hover {
     background: var(--primary-color);
     color: var(--bg-primary);
     border-color: var(--primary-color);
 }
 
-.about-content .about-section {
+.about-content {
     display: none;
     animation: fadeIn 0.5s ease;
 }
 
-.about-content .about-section.active {
+.about-content.active {
     display: block;
 }
 
@@ -150,7 +150,77 @@
     letter-spacing: 0.05em;
 }
 
-/* Values Section */
+/* Team Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.team-member {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.member-avatar {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.team-member h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.member-role {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.member-links {
+    margin-top: 1rem;
+}
+
+.linkedin-link {
+    color: #0077B5;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.linkedin-link:hover {
+    color: #005885;
+    text-decoration: underline;
+}
+
+/* Values Section (moved to outreach) */
+.values-section {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.values-section h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
 .values-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -200,12 +270,12 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .value-btn:hover {
     background: var(--secondary-color);
-    transform: scale(1.05);
+    transform: translateY(-2px);
 }
 
 /* Members Section */
@@ -528,6 +598,15 @@
     background: var(--primary-color);
     color: var(--bg-primary);
     border-color: var(--primary-color);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 /* Social Feed */

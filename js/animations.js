@@ -8,6 +8,7 @@ export class AnimationManager {
         this.setupLogoReveal();
         this.setupScrollAnimations();
         this.setupLoadingAnimation();
+        this.setupCounterAnimations();
     }
 
     setupLogoReveal() {
@@ -67,6 +68,50 @@ export class AnimationManager {
                 document.body.style.opacity = '1';
             }, 100);
         });
+    }
+
+    setupCounterAnimations() {
+        const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+        
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = parseInt(target.dataset.count);
+                    this.animateCounter(target, 0, finalValue, 2000);
+                    counterObserver.unobserve(target);
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        statNumbers.forEach(stat => {
+            counterObserver.observe(stat);
+        });
+    }
+
+    animateCounter(element, start, end, duration) {
+        const startTime = performance.now();
+        const difference = end - start;
+        
+        const updateCounter = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const currentValue = Math.floor(start + (difference * easeOutQuart));
+            
+            element.textContent = currentValue.toLocaleString();
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            }
+        };
+        
+        requestAnimationFrame(updateCounter);
     }
 }
 

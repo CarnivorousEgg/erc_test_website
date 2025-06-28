@@ -58,10 +58,10 @@
                     <li class="dropdown">
                         <a href="#about" class="nav-link">About Us</a>
                         <div class="dropdown-content">
-                            <a href="#our-story">Our Story</a>
-                            <a href="#our-values">Our Values</a>
-                            <a href="#alumni">Alumni</a>
-                            <a href="#contact">Contact</a>
+                            <a href="#about-our-story">Our Story</a>
+                            <a href="#about-current-team">Current Team</a>
+                            <a href="#about-alumni">Alumni</a>
+                            <a href="#about-contact">Contact</a>
                         </div>
                     </li>
                     <li><a href="#outreach" class="nav-link">Outreach</a></li>
@@ -422,156 +422,184 @@
 <!-- About Us Section -->
 <section id="about" class="about-section">
     <div class="container">
-        <h2 class="section-title">About Us</h2>
-        <div class="about-tabs">
-            <span class="about-tab active" data-about="about-our-story">Our Story</span>
-            <span class="about-tab" data-about="about-our-values">Our Values</span>
-            <span class="about-tab" data-about="about-alumni">Alumni</span>
-            <span class="about-tab" data-about="about-contact">Contact</span>
+        <div class="section-header-left">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-tabs">
+                <button class="tab-btn active" data-tab="our-story">Our Story</button>
+                <button class="tab-btn" data-tab="current-team">Current Team</button>
+                <button class="tab-btn" data-tab="alumni">Alumni</button>
+                <button class="tab-btn" data-tab="contact">Contact</button>
+            </div>
         </div>
-        <div class="about-content">
-            <div class="about-section-content active" id="about-our-story">
-                <div class="story-layout">
-                    <div class="story-text">
-                        <h3>Our Story</h3>
-                        <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
-                        <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
-                        <div class="story-actions">
-                            <button class="action-btn primary" onclick="window.open('https://github.com/ERC-BPGC', '_blank')">
-                                <span>View Our Projects</span>
-                                <div class="btn-icon">→</div>
-                            </button>
-                            <button class="action-btn secondary" onclick="document.querySelector('[data-about=\'about-current-members\']').click()">
-                                <span>Meet Our Team</span>
-                                <div class="btn-icon">👥</div>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="story-stats">
-                        <div class="stat-card">
-                            <span class="stat-number" data-count="15">0</span>
-                            <span class="stat-label">Years of Innovation</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number" data-count="50">0</span>
-                            <span class="stat-label">Projects Completed</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number" data-count="1000">0</span>
-                            <span class="stat-label">Alumni Worldwide</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="about-section-content" id="about-our-values">
-                <h3>Our Values</h3>
-                <div class="values-grid">
-                    <div class="value-card">
-                        <div class="value-icon">🚀</div>
-                        <h4>Innovation</h4>
-                        <p>Pushing boundaries through creative engineering solutions</p>
-                        <button class="value-btn" onclick="showValueDetails('innovation')">Learn More</button>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🤝</div>
-                        <h4>Collaboration</h4>
-                        <p>Building together, learning together, achieving more as a team</p>
-                        <button class="value-btn" onclick="showValueDetails('collaboration')">Learn More</button>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🎯</div>
-                        <h4>Excellence</h4>
-                        <p>Striving for the highest standards in every project</p>
-                        <button class="value-btn" onclick="showValueDetails('excellence')">Learn More</button>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🌱</div>
-                        <h4>Learning</h4>
-                        <p>Continuous growth through experimentation and iteration</p>
-                        <button class="value-btn" onclick="showValueDetails('learning')">Learn More</button>
-                    </div>
-                </div>
-            </div>
-            <div class="about-section-content" id="about-alumni">
-                <h3>Alumni Network</h3>
-                <div class="alumni-section">
-                    <!-- Interactive World Map -->
-                    <div class="world-map-container">
-                        <div id="alumni-map"></div>
-                        <div class="map-controls">
-                            <button class="map-btn" onclick="showAlumniByRegion('india')">India</button>
-                            <button class="map-btn" onclick="showAlumniByRegion('usa')">USA</button>
-                            <button class="map-btn" onclick="showAlumniByRegion('europe')">Europe</button>
-                            <button class="map-btn" onclick="showAlumniByRegion('asia')">Asia</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Company Scroller -->
-                    <div class="company-scroller">
-                        <h4>Where Our Alumni Work</h4>
-                        <div class="scroller-container">
-                            <div class="scroller-content">
-                                <!-- Content will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="alumni-actions">
-                        <button class="action-btn primary" onclick="window.open('https://linkedin.com/company/electronics-robotics-club-bits-goa', '_blank')">
-                            <span>Connect on LinkedIn</span>
-                            <div class="btn-icon">💼</div>
-                        </button>
-                        <button class="action-btn secondary" onclick="showAlumniStories()">
-                            <span>Alumni Stories</span>
-                            <div class="btn-icon">📖</div>
+        
+        <!-- Our Story -->
+        <div class="about-content our-story active">
+            <div class="story-layout">
+                <div class="story-text">
+                    <h3>Our Story</h3>
+                    <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
+                    <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
+                    <div class="story-actions">
+                        <button class="action-btn primary" onclick="window.open('https://github.com/ERC-BPGC', '_blank')">
+                            <span>View Our Projects</span>
+                            <div class="btn-icon">→</div>
                         </button>
                     </div>
                 </div>
-            </div>
-            <div class="about-section-content" id="about-contact">
-                <h3>Get In Touch</h3>
-                <div class="contact-layout">
-                    <div class="contact-info">
-                        <h4>Connect With Us</h4>
-                        <div class="social-links">
-                            <a href="mailto:bitsg.erc@gmail.com" class="social-link">
-                                <span class="social-icon">📧</span>
-                                <span>bitsg.erc@gmail.com</span>
-                            </a>
-                            <a href="https://www.instagram.com/erc_bitsgoa/" target="_blank" class="social-link">
-                                <span class="social-icon">📱</span>
-                                <span>Instagram</span>
-                            </a>
-                            <a href="https://www.linkedin.com/company/electronics-robotics-club-bits-goa/" target="_blank" class="social-link">
-                                <span class="social-icon">💼</span>
-                                <span>LinkedIn</span>
-                            </a>
-                            <a href="https://github.com/ERC-BPGC" target="_blank" class="social-link">
-                                <span class="social-icon">🐙</span>
-                                <span>GitHub</span>
-                            </a>
-                        </div>
-                        
-                        <div class="contact-form">
-                            <h5>Send us a message</h5>
-                            <form class="message-form">
-                                <input type="text" placeholder="Your Name" required>
-                                <input type="email" placeholder="Your Email" required>
-                                <textarea placeholder="Your Message" rows="4" required></textarea>
-                                <button type="submit" class="submit-btn">
-                                    <span>Send Message</span>
-                                    <div class="btn-icon">📤</div>
-                                </button>
-                            </form>
-                        </div>
+                <div class="story-stats">
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="14">0</span>
+                        <span class="stat-label">Years of Innovation</span>
                     </div>
-                    
-                    <!-- Social Media Feed -->
-                    <div class="social-feed">
-                        <h4>Latest Updates</h4>
-                        <div class="feed-container">
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="19">0</span>
+                        <span class="stat-label">Current Projects</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="472">0</span>
+                        <span class="stat-label">Alumni Worldwide</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Current Team -->
+        <div class="about-content current-team">
+            <h3>Current Team</h3>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">👨‍💼</div>
+                    <h4>Saransh Agrawal</h4>
+                    <p class="member-role">Chief Coordinator</p>
+                    <div class="member-links">
+                        <a href="#" class="linkedin-link" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">👨‍💻</div>
+                    <h4>Aryan Goyal</h4>
+                    <p class="member-role">Sub Coordinator</p>
+                    <div class="member-links">
+                        <a href="#" class="linkedin-link" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">👨‍🔬</div>
+                    <h4>Nilesh Bhatia</h4>
+                    <p class="member-role">Sub Coordinator</p>
+                    <div class="member-links">
+                        <a href="#" class="linkedin-link" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">💰</div>
+                    <h4>Parth Jaju</h4>
+                    <p class="member-role">Treasurer</p>
+                    <div class="member-links">
+                        <a href="#" class="linkedin-link" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">🔬</div>
+                    <h4>Kevin Matthews</h4>
+                    <p class="member-role">Research Head</p>
+                    <div class="member-links">
+                        <a href="#" class="linkedin-link" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">⚡</div>
+                    <h4>Dev Thacker</h4>
+                    <p class="member-role">Electronics Head</p>
+                    <div class="member-links">
+                        <a href="#" class="linkedin-link" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alumni -->
+        <div class="about-content alumni">
+            <h3>Alumni Network</h3>
+            <div class="alumni-section">
+                <!-- Interactive World Map -->
+                <div class="world-map-container">
+                    <div id="alumni-map"></div>
+                    <div class="map-controls">
+                        <button class="map-btn" onclick="showAlumniByRegion('india')">India</button>
+                        <button class="map-btn" onclick="showAlumniByRegion('usa')">USA</button>
+                        <button class="map-btn" onclick="showAlumniByRegion('europe')">Europe</button>
+                        <button class="map-btn" onclick="showAlumniByRegion('asia')">Asia</button>
+                    </div>
+                </div>
+                
+                <!-- Company Scroller -->
+                <div class="company-scroller">
+                    <h4>Where Our Alumni Work</h4>
+                    <div class="scroller-container">
+                        <div class="scroller-content">
                             <!-- Content will be populated by JavaScript -->
                         </div>
+                    </div>
+                </div>
+                
+                <div class="alumni-actions">
+                    <button class="action-btn primary" onclick="window.open('https://linkedin.com/company/electronics-robotics-club-bits-goa', '_blank')">
+                        <span>Connect on LinkedIn</span>
+                        <div class="btn-icon">💼</div>
+                    </button>
+                    <button class="action-btn secondary" onclick="showAlumniStories()">
+                        <span>Alumni Stories</span>
+                        <div class="btn-icon">📖</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact -->
+        <div class="about-content contact">
+            <h3>Get In Touch</h3>
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="mailto:bitsg.erc@gmail.com" class="social-link">
+                            <span class="social-icon">📧</span>
+                            <span>bitsg.erc@gmail.com</span>
+                        </a>
+                        <a href="https://www.instagram.com/erc_bitsgoa/" target="_blank" class="social-link">
+                            <span class="social-icon">📱</span>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://www.linkedin.com/company/electronics-robotics-club-bits-goa/" target="_blank" class="social-link">
+                            <span class="social-icon">💼</span>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/ERC-BPGC" target="_blank" class="social-link">
+                            <span class="social-icon">🐙</span>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h5>Send us a message</h5>
+                        <form class="message-form">
+                            <input type="text" placeholder="Your Name" required>
+                            <input type="email" placeholder="Your Email" required>
+                            <textarea placeholder="Your Message" rows="4" required></textarea>
+                            <button type="submit" class="submit-btn">
+                                <span>Send Message</span>
+                                <div class="btn-icon">📤</div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Social Media Feed -->
+                <div class="social-feed">
+                    <h4>Latest Updates</h4>
+                    <div class="feed-container">
+                        <!-- Content will be populated by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -600,6 +628,37 @@
                 <div class="outreach-icon">🌐</div>
                 <h3>Open Source</h3>
                 <p>Contributing to the global tech community through open source projects</p>
+            </div>
+        </div>
+        
+        <!-- Our Values Section (moved from About) -->
+        <div class="values-section">
+            <h3>Our Values</h3>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🚀</div>
+                    <h4>Innovation</h4>
+                    <p>Pushing boundaries through creative engineering solutions</p>
+                    <button class="value-btn" onclick="showValueDetails('innovation')">Learn More</button>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h4>Collaboration</h4>
+                    <p>Building together, learning together, achieving more as a team</p>
+                    <button class="value-btn" onclick="showValueDetails('collaboration')">Learn More</button>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h4>Excellence</h4>
+                    <p>Striving for the highest standards in every project</p>
+                    <button class="value-btn" onclick="showValueDetails('excellence')">Learn More</button>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌱</div>
+                    <h4>Learning</h4>
+                    <p>Continuous growth through experimentation and iteration</p>
+                    <button class="value-btn" onclick="showValueDetails('learning')">Learn More</button>
+                </div>
             </div>
         </div>
     </div>

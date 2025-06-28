@@ -38,28 +38,28 @@ export class TabManager {
     }
 
     setupAboutTabs() {
-        const aboutTabs = document.querySelectorAll('.about-tabs .about-tab');
-        const aboutSections = document.querySelectorAll('.about-content .about-section');
+        const aboutTabs = document.querySelectorAll('.about-tabs .tab-btn');
+        const aboutContents = document.querySelectorAll('.about-content');
 
         aboutTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                const targetSection = tab.dataset.about;
+                const targetTab = tab.dataset.tab;
                 
-                // Remove active class from all tabs and sections
+                // Remove active class from all tabs and contents
                 aboutTabs.forEach(t => t.classList.remove('active'));
-                aboutSections.forEach(section => section.classList.remove('active'));
+                aboutContents.forEach(content => content.classList.remove('active'));
                 
                 // Add active class to clicked tab
                 tab.classList.add('active');
                 
-                // Show corresponding section
-                const targetAboutSection = document.getElementById(targetSection);
-                if (targetAboutSection) {
-                    targetAboutSection.classList.add('active');
+                // Show corresponding content
+                const targetContent = document.querySelector(`.about-content.${targetTab}`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
                 }
                 
                 // Update URL hash
-                window.location.hash = `#${targetSection}`;
+                window.location.hash = `#about-${targetTab}`;
             });
         });
     }
