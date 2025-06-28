@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERC BITS Goa - Electronics & Robotics Club</title>
+    <meta name="description" content="Electronics & Robotics Club at BITS Pilani K K Birla Goa Campus - Innovation through cutting-edge technology and collaborative engineering">
+    <meta name="keywords" content="robotics, electronics, BITS Goa, engineering, innovation, technology">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/navigation.css">
     <link rel="stylesheet" href="styles/hero.css">
@@ -12,12 +16,16 @@
     <link rel="stylesheet" href="styles/outreach.css">
     <link rel="stylesheet" href="styles/footer.css">
     <link rel="stylesheet" href="styles/responsive.css">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="erc-logo.jpg">
 </head>
 <body data-theme="dark">
-
 
 <!-- Navigation -->
 <nav class="navbar">
@@ -62,7 +70,7 @@
             </div>
         </div>
         
-        <!-- Mobile Navigation Header (NO theme toggle here) -->
+        <!-- Mobile Navigation Header -->
         <div class="mobile-nav-header">
             <a href="#home" class="nav-logo">
                 <img src="erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
@@ -77,9 +85,7 @@
     </div>
 </nav>
 
-
-    
-<!-- Mobile Menu Overlay (Theme toggle ONLY here) -->
+<!-- Mobile Menu Overlay -->
 <div class="mobile-menu-overlay">
     <div class="mobile-menu-content">
         <ul class="mobile-menu-list">
@@ -87,7 +93,7 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#outreach">Outreach</a></li>
-            <li><a href="https://handbook.erc-bpgc.github.io" target="_blank">Handbook</a></li>
+            <li><a href="https://erc-bpgc.github.io/handbook/" target="_blank">Handbook</a></li>
         </ul>
         <div class="mobile-menu-footer">
             <button class="theme-toggle-mobile" aria-label="Toggle theme">
@@ -98,576 +104,463 @@
     </div>
 </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="video-container">
-            <video autoplay muted loop playsinline>
-                <source src="hero-video.mp4" type="video/mp4">
-            </video>
-            <div class="video-mask"></div>
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-title">Electronics & Robotics Club</h1>
-            <p class="hero-subtitle">BITS Pilani K K Birla Goa Campus</p>
-            <p class="hero-description">Innovation through cutting-edge technology and collaborative engineering</p>
-        </div>
-        <div class="scroll-indicator" onclick="scrollToReveal()">
-            <div class="scroll-arrow"></div>
-            <span>Scroll to explore</span>
-        </div>
-    </section>
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="video-container">
+        <video autoplay muted loop playsinline>
+            <source src="hero-video.mp4" type="video/mp4">
+        </video>
+        <div class="video-mask"></div>
+    </div>
+    <div class="hero-content">
+        <h1 class="hero-title">Electronics & Robotics Club</h1>
+        <p class="hero-subtitle">BITS Pilani K K Birla Goa Campus</p>
+        <p class="hero-description">Innovation through cutting-edge technology and collaborative engineering</p>
+    </div>
+    <div class="scroll-indicator" onclick="scrollToReveal()">
+        <div class="scroll-arrow"></div>
+        <span>Scroll to explore</span>
+    </div>
+</section>
 
-    <!-- Logo Reveal Section (Inverted Triangle) -->
-    <section class="logo-reveal-section">
-        <div class="reveal-background"></div>
-        <div class="reveal-triangle">
-            <div class="logo-content">
-                <img src="erc-logo.jpg" alt="ERC Logo" class="main-logo">
-                <h2>Innovation Through Technology</h2>
-                <p>Bridging imagination and reality through cutting-edge engineering</p>
+<!-- Logo Reveal Section -->
+<section class="logo-reveal-section">
+    <div class="reveal-background"></div>
+    <div class="reveal-triangle">
+        <div class="logo-content">
+            <img src="erc-logo.jpg" alt="ERC Logo" class="main-logo">
+            <h2>Innovation Through Technology</h2>
+            <p>Bridging imagination and reality through cutting-edge engineering</p>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="projects-section">
+    <div class="container">
+        <div class="section-header-left">
+            <h2 class="section-title">Our Projects</h2>
+            <div class="project-tabs">
+                <button class="tab-btn active" data-tab="current">Current</button>
+                <button class="tab-btn" data-tab="completed">Completed</button>
+                <button class="tab-btn" data-tab="mini">Mini Projects</button>
             </div>
         </div>
-    </section>
+        
+        <!-- Current Projects -->
+        <div class="project-content current active">
+            <div class="current-projects-layout">
+                <div class="project-sidebar">
+                    <div class="project-card active" data-project="kutta">
+                        <h3>Quadruped Robot</h3>
+                        <p>Advanced four-legged robot</p>
+                    </div>
+                    <div class="project-card" data-project="swarm">
+                        <h3>Swarm Drones</h3>
+                        <p>Coordinated UAV systems</p>
+                    </div>
+                    <div class="project-card" data-project="saap">
+                        <h3>Snakebot</h3>
+                        <p>Modular Snake Robot</p>
+                    </div>
+                    <div class="project-card" data-project="arm">
+                        <h3>Robotic Arm</h3>
+                        <p>6DOF Robotic Arm</p>
+                    </div>
+                    <div class="project-card" data-project="vulcan">
+                        <h3>Project Vulcan</h3>
+                        <p>Humanoid Robot</p>
+                    </div>
+                    <div class="project-card" data-project="drone">
+                        <h3>Drone Automation</h3>
+                        <p>GPS-less Navigation</p>
+                    </div>
+                    <div class="project-card" data-project="embedded">
+                        <h3>RISC-V Processor</h3>
+                        <p>Custom processor design</p>
+                    </div>
+                </div>
+                
+                <div class="project-display">
+                    <div class="project-info active" id="kutta">
+                        <h3>Quadruped Robot</h3>
+                        <p class="project-description">This project focuses on applying real-world reinforcement learning and torque-controlled actuation to develop a quadruped robot capable of agile, terrain-adaptive locomotion using advanced sensing and optimized mechanical design.</p>
+                        <div class="project-specs">
+                            <div class="spec">
+                                <strong>Navigation Range</strong>
+                                <span>500m autonomous radius</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Sensors</strong>
+                                <span>LiDAR + RGB-D + IMU</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Processing</strong>
+                                <span>NVIDIA Jetson Xavier NX</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Contributors</strong>
+                                <span>Ritwik Sharma, Saransh Agarwal, Sniggdha Semwal, Kshayik Champawat</span>
+                            </div>
+                        </div>
+                        <button class="github-btn" onclick="window.open('https://github.com/erc-bpgc/autonomous-rover', '_blank')">
+                            <span>VIEW GITHUB REPOSITORY</span>
+                            <div class="btn-icon">→</div>
+                        </button>
+                    </div>
+                    
+                    <div class="project-info" id="swarm">
+                        <h3>Swarm Drones</h3>
+                        <p class="project-description">Coordinated multi-drone systems for surveillance, mapping, and autonomous delivery with advanced swarm intelligence algorithms.</p>
+                        <div class="project-specs">
+                            <div class="spec">
+                                <strong>Swarm Size</strong>
+                                <span>Up to 10 coordinated units</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Flight Time</strong>
+                                <span>45+ minutes per unit</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Communication</strong>
+                                <span>Mesh network topology</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Contributors</strong>
+                                <span>Indrajit Mandal, Omakar Shrikanth</span>
+                            </div>
+                        </div>
+                        <button class="github-btn" onclick="window.open('https://github.com/erc-bpgc/swarm-drones', '_blank')">
+                            <span>VIEW GITHUB REPOSITORY</span>
+                            <div class="btn-icon">→</div>
+                        </button>
+                    </div>
+                    
+                    <div class="project-info" id="saap">
+                        <h3>Snakebot</h3>
+                        <p class="project-description">A modular snake robot with innovative Virtual Rolling Sphere Joint mechanism for versatile locomotion in confined spaces.</p>
+                        <div class="project-specs">
+                            <div class="spec">
+                                <strong>Number of Modules</strong>
+                                <span>6+</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Unique Mechanism</strong>
+                                <span>Virtual Rolling Sphere Joint</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Control System</strong>
+                                <span>Distributed processing</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Contributors</strong>
+                                <span>Dev Thacker, Nilesh Bhatia, Harsh Jain, Hritik Joglekar</span>
+                            </div>
+                        </div>
+                        <button class="github-btn" onclick="window.open('https://github.com/ERC-BPGC/SnakeBot', '_blank')">
+                            <span>VIEW GITHUB REPOSITORY</span>
+                            <div class="btn-icon">→</div>
+                        </button>
+                    </div>
+                    
+                    <div class="project-info" id="arm">
+                        <h3>Robotic Arm</h3>
+                        <p class="project-description">This project aims to develop a multi-DOF robotic arm that emulates industrial automation for executing tasks requiring high precision and repeatability.</p>
+                        <div class="project-specs">
+                            <div class="spec">
+                                <strong>DOF</strong>
+                                <span>6</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Payload</strong>
+                                <span>2kg maximum</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Precision</strong>
+                                <span>±0.1mm repeatability</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Contributors</strong>
+                                <span>Sudhanshu Kulkarni, Ayush Gupta</span>
+                            </div>
+                        </div>
+                        <button class="github-btn" onclick="window.open('https://github.com/ERC-BPGC/RoboticArm', '_blank')">
+                            <span>VIEW GITHUB REPOSITORY</span>
+                            <div class="btn-icon">→</div>
+                        </button>
+                    </div>
+                    
+                    <div class="project-info" id="vulcan">
+                        <h3>Project Vulcan</h3>
+                        <p class="project-description">The aim of project vulcan is to recreate a humanoid robot with capabilities to interact with both people and objects, and to act in response to its environment.</p>
+                        <div class="project-specs">
+                            <div class="spec">
+                                <strong>Height</strong>
+                                <span>1.2m</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Sensors</strong>
+                                <span>Computer Vision + Audio</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Interaction</strong>
+                                <span>Voice + Gesture Recognition</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Contributors</strong>
+                                <span>Aryan Goyal, Kevin Matthews, Parth Shah, Vimarsh Shah, Sharvil Potdar, Indrajit Mandal</span>
+                            </div>
+                        </div>
+                        <button class="github-btn" onclick="window.open('https://github.com/ERC-BPGC/project-vulcan', '_blank')">
+                            <span>VIEW GITHUB REPOSITORY</span>
+                            <div class="btn-icon">→</div>
+                        </button>
+                    </div>
+                    
+                    <div class="project-info" id="drone">
+                        <h3>Drone Automation</h3>
+                        <p class="project-description">Advanced autonomous drone system with GPS-less navigation using computer vision and SLAM algorithms for indoor and GPS-denied environments.</p>
+                        <div class="project-specs">
+                            <div class="spec">
+                                <strong>Navigation</strong>
+                                <span>Visual SLAM</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Flight Time</strong>
+                                <span>30+ minutes</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Payload</strong>
+                                <span>500g</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Contributors</strong>
+                                <span>Parth Shah, Yash Mote, Parth Jaju, Nathan Sequira</span>
+                            </div>
+                        </div>
+                        <button class="github-btn" onclick="window.open('https://github.com/erc-bpgc/drone-automation', '_blank')">
+                            <span>VIEW GITHUB REPOSITORY</span>
+                            <div class="btn-icon">→</div>
+                        </button>
+                    </div>
+                    
+                    <div class="project-info" id="embedded">
+                        <h3>RISC-V Processor</h3>
+                        <p class="project-description">Custom RISC-V processor implementation with advanced features for embedded systems and IoT applications.</p>
+                        <div class="project-specs">
+                            <div class="spec">
+                                <strong>Architecture</strong>
+                                <span>RISC-V 32-bit</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Pipeline</strong>
+                                <span>5-stage</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Features</strong>
+                                <span>Custom ISA extensions</span>
+                            </div>
+                            <div class="spec">
+                                <strong>Contributors</strong>
+                                <span>Yash Kamath, Soumaditya, Dev Thacker</span>
+                            </div>
+                        </div>
+                        <button class="github-btn" onclick="window.open('https://github.com/erc-bpgc/risc-v-processor', '_blank')">
+                            <span>VIEW GITHUB REPOSITORY</span>
+                            <div class="btn-icon">→</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Completed Projects -->
+        <div class="project-content completed">
+            <div class="archive-grid">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Mini Projects -->
+        <div class="project-content mini">
+            <div class="archive-grid">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <div class="section-header-left">
-                <h2 class="section-title">Our Projects</h2>
-                <div class="project-tabs">
-                    <button class="tab-btn active" data-tab="current">Current</button>
-                    <button class="tab-btn" data-tab="completed">Completed</button>
-                    <button class="tab-btn" data-tab="mini">Mini Projects</button>
+<!-- About Us Section -->
+<section id="about" class="about-section">
+    <div class="container">
+        <div class="section-header-left">
+            <h2 class="section-title">About ERC</h2>
+            <div class="about-tabs">
+                <button class="tab-btn active" data-tab="story">Our Story</button>
+                <button class="tab-btn" data-tab="values">Our Values</button>
+                <button class="tab-btn" data-tab="members">Current Members</button>
+                <button class="tab-btn" data-tab="alumni">Alumni</button>
+                <button class="tab-btn" data-tab="contact">Contact Us</button>
+            </div>
+        </div>
+        
+        <div class="about-content-wrapper">
+            <!-- Our Story -->
+            <div class="about-content story active">
+                <div class="story-layout">
+                    <div class="story-text">
+                        <h3>Our Journey of Innovation</h3>
+                        <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
+                        <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
+                    </div>
+                    <div class="story-stats">
+                        <div class="stat-card">
+                            <span class="stat-number">200+</span>
+                            <span class="stat-label">Active Members</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Projects Completed</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Awards Won</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Current Projects -->
-            <div class="project-content current active">
-                <div class="current-projects-layout">
-                    <div class="project-sidebar">
-                        <div class="project-card active" data-project="kutta">
-                            <h3>Quadruped</h3>
-                            <p>Spot on a budget</p>
+            <!-- Our Values -->
+            <div class="about-content values">
+                <h3>What We Stand For</h3>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🚀</div>
+                        <h4>Innovation</h4>
+                        <p>Pushing boundaries through creative engineering solutions</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🤝</div>
+                        <h4>Collaboration</h4>
+                        <p>Building together, learning together, achieving more as a team</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🎯</div>
+                        <h4>Excellence</h4>
+                        <p>Striving for the highest standards in every project</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🌱</div>
+                        <h4>Learning</h4>
+                        <p>Continuous growth through experimentation and iteration</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Current Members -->
+            <div class="about-content members">
+                <h3>Current Team</h3>
+                <div class="members-grid">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Alumni -->
+            <div class="about-content alumni">
+                <h3>Our Global Alumni Network</h3>
+                <div class="alumni-section">
+                    <!-- Interactive World Map -->
+                    <div class="world-map-container">
+                        <div id="alumni-map"></div>
+                    </div>
+                    
+                    <!-- Company Scroller -->
+                    <div class="company-scroller">
+                        <h4>Where Our Alumni Work</h4>
+                        <div class="scroller-container">
+                            <div class="scroller-content">
+                                <!-- Content will be populated by JavaScript -->
+                            </div>
                         </div>
-                        <div class="project-card" data-project="swarm">
-                            <h3>Swarm Drones</h3>
-                            <p>Coordinated UAV systems</p>
-                        </div>
-                        <div class="project-card" data-project="saap">
-                            <h3>Snakebot</h3>
-                            <p>Modular Snake Robot</p>
-                        </div>
-                        <div class="project-card" data-project="arm">
-                            <h3>Robotic Arm</h3>
-                            <p>6DOF Robotic Arm</p>
-                        </div>
-                        <div class="project-card" data-project="vulcan">
-                            <h3>Vulcan</h3>
-                            <p>Humanoid Robot</p>
-                        </div>
-                        <div class="project-card" data-project="drone">
-                            <h3>Drone Automation</h3>
-                            <p>GPS Less Navigation</p>
-                        </div>
-                        <div class="project-card" data-project="embedded">
-                            <h3>Embedded Systsems</h3>
-                            <p>Our RISC V implementation</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Us -->
+            <div class="about-content contact">
+                <h3>Get In Touch</h3>
+                <div class="contact-layout">
+                    <div class="contact-info">
+                        <h4>Connect With Us</h4>
+                        <div class="social-links">
+                            <a href="mailto:bitsg.erc@gmail.com" class="social-link">
+                                <span class="social-icon">📧</span>
+                                <span>bitsg.erc@gmail.com</span>
+                            </a>
+                            <a href="https://www.instagram.com/erc_bitsgoa/" target="_blank" class="social-link">
+                                <span class="social-icon">📱</span>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="https://www.linkedin.com/company/electronics-robotics-club-bits-goa/" target="_blank" class="social-link">
+                                <span class="social-icon">💼</span>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://github.com/ERC-BPGC" target="_blank" class="social-link">
+                                <span class="social-icon">🐙</span>
+                                <span>GitHub</span>
+                            </a>
                         </div>
                     </div>
                     
-                    <div class="project-display">
-                        <div class="project-info active" id="kutta">
-                            <h3>Quadruped</h3>
-                            <p class="project-description">This project focuses on applying real-world reinforcement learning and torque-controlled actuation to develop a quadruped robot capable of agile, terrain-adaptive locomotion using advanced sensing and optimized mechanical design.</p>
-                            <div class="project-specs">
-                                <div class="spec">
-                                    <strong>Navigation Range</strong>
-                                    <span>500m autonomous radius</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Sensors</strong>
-                                    <span>LiDAR + RGB-D + IMU</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Processing</strong>
-                                    <span>NVIDIA Jetson Xavier NX</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Contributors</strong>
-                                    <span>Ritwik Sharma, Saransh Agarwal, Sniggdha Semwal, Kshayik Champawat</span>
-                                </div>
-                            </div>
-                            <button class="github-btn" onclick="window.open('https://github.com/erc-bpgc/autonomous-rover', '_blank')">
-                                <span>VIEW GITHUB REPOSITORY</span>
-                                <div class="btn-icon">→</div>
-                            </button>
-                        </div>
-                        
-                        <div class="project-info" id="swarm">
-                            <h3>Swarm Drone Technology</h3>
-                            <p class="project-description">Coordinated multi-drone systems for surveillance, mapping, and autonomous delivery with advanced swarm intelligence algorithms.</p>
-                            <div class="project-specs">
-                                <div class="spec">
-                                    <strong>Swarm Size</strong>
-                                    <span>Up to 10 coordinated units</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Flight Time</strong>
-                                    <span>45+ minutes per unit</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Communication</strong>
-                                    <span>Mesh network topology</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Contributors</strong>
-                                    <span>Indrajit Mandal, Omakar Shrikanth</span>
-                                </div>
-                            </div>
-                            <button class="github-btn" onclick="window.open('', '_blank')">
-                                <span>VIEW GITHUB REPOSITORY</span>
-                                <div class="btn-icon">→</div>
-                            </button>
-                        </div>
-                        <div class="project-info" id="saap">
-                            <h3>Snakebot</h3>
-                            <p class="project-description">Coordinated multi-drone systems for surveillance, mapping, and autonomous delivery with advanced swarm intelligence algorithms.</p>
-                            <div class="project-specs">
-                                <div class="spec">
-                                    <strong>Number of Modules</strong>
-                                    <span>6+</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Unique Mechanism</strong>
-                                    <span>Virtual Rolling Sphere Joint</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Communication</strong>
-                                    <span>Mesh network topology</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Contributors</strong>
-                                    <span>Dev Thacker, Nilesh Bhatia, Harsh Jain, Hritik Joglekar</span>
-                                </div>
-                            </div>
-                            <button class="github-btn" onclick="window.open('https://github.com/ERC-BPGC/SnakeBot', '_blank')">
-                                <span>VIEW GITHUB REPOSITORY</span>
-                                <div class="btn-icon">→</div>
-                            </button>
-                        </div>
-                        <div class="project-info" id="arm">
-                            <h3>Robotic Arm</h3>
-                            <p class="project-description">This project aims to develop a multi-DOF robotic arm that emulates industrial automation for executing tasks requiring high precision and repeatability.</p>
-                            <div class="project-specs">
-                                <div class="spec">
-                                    <strong>DOF</strong>
-                                    <span>6</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Flight Time</strong>
-                                    <span>45+ minutes per unit</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Communication</strong>
-                                    <span>Mesh network topology</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Contributors</strong>
-                                    <span>Sudhanshu Kulkarni, Ayush Gupta</span>
-                                </div>
-                            </div>
-                            <button class="github-btn" onclick="window.open('https://github.com/ERC-BPGC/RoboticArm', '_blank')">
-                                <span>VIEW GITHUB REPOSITORY</span>
-                                <div class="btn-icon">→</div>
-                            </button>
-                        </div>
-                        <div class="project-info" id="vulcan">
-                            <h3>Swarm Drone Technology</h3>
-                            <p class="project-description">The aim of project vulcan is to recreate a humanoid robot with capabilities to interact with both people and objects, and to act in response to it's environment.</p>
-                            <div class="project-specs">
-                                <div class="spec">
-                                    <strong>Swarm Size</strong>
-                                    <span>Up to 10 coordinated units</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Flight Time</strong>
-                                    <span>45+ minutes per unit</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Communication</strong>
-                                    <span>Mesh network topology</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Contributors</strong>
-                                    <span>Aryan Goyal, Kevin Matthews, Parth Shah, Vimarsh Shah, Sharvil Potdar, Indrajit Mandal</span>
-                                </div>
-                            </div>
-                            <button class="github-btn" onclick="window.open('https://github.com/ERC-BPGC/project-vulcan', '_blank')">
-                                <span>VIEW GITHUB REPOSITORY</span>
-                                <div class="btn-icon">→</div>
-                            </button>
-                        </div>
-                        <div class="project-info" id="drone">
-                            <h3>Drone Automation</h3>
-                            <p class="project-description">Coordinated multi-drone systems for surveillance, mapping, and autonomous delivery with advanced swarm intelligence algorithms.</p>
-                            <div class="project-specs">
-                                <div class="spec">
-                                    <strong>Swarm Size</strong>
-                                    <span>Up to 10 coordinated units</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Flight Time</strong>
-                                    <span>45+ minutes per unit</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Communication</strong>
-                                    <span>Mesh network topology</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Contributors</strong>
-                                    <span>Parth Shah, Yash Mote, Parth Jaju, Nathan Sequira</span>
-                                </div>
-                            </div>
-                            <button class="github-btn" onclick="window.open('https://github.com/erc-bpgc/swarm-drones', '_blank')">
-                                <span>VIEW GITHUB REPOSITORY</span>
-                                <div class="btn-icon">→</div>
-                            </button>
-                        </div>
-                        <div class="project-info" id="embedded">
-                            <h3>Swarm Drone Technology</h3>
-                            <p class="project-description">Coordinated multi-drone systems for surveillance, mapping, and autonomous delivery with advanced swarm intelligence algorithms.</p>
-                            <div class="project-specs">
-                                <div class="spec">
-                                    <strong>Swarm Size</strong>
-                                    <span>Up to 10 coordinated units</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Flight Time</strong>
-                                    <span>45+ minutes per unit</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Communication</strong>
-                                    <span>Mesh network topology</span>
-                                </div>
-                                <div class="spec">
-                                    <strong>Contributors</strong>
-                                    <span>Yash Kamath, Soumaditya, Dev Thacker</span>
-                                </div>
-                            </div>
-                            <button class="github-btn" onclick="window.open('https://github.com/erc-bpgc/swarm-drones', '_blank')">
-                                <span>VIEW GITHUB REPOSITORY</span>
-                                <div class="btn-icon">→</div>
-                            </button>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Completed & Mini Projects remain the same -->
-            <div class="project-content completed">
-                <div class="archive-grid">
-                    <a href="https://github.com/erc-bpgc/line-follower" target="_blank" class="archive-card">
-                        <div class="archive-image">
-                            <div class="archive-placeholder">🏆</div>
-                        </div>
-                        <h4>Line Following Robot</h4>
-                        <p>Award-winning autonomous navigation</p>
-                    </a>
-                    <!-- Add more completed projects -->
-                </div>
-            </div>
-            
-            <div class="project-content mini">
-                <div class="archive-grid">
-                    <a href="https://github.com/erc-bpgc/led-matrix" target="_blank" class="archive-card">
-                        <div class="archive-image">
-                            <div class="archive-placeholder">💡</div>
-                        </div>
-                        <h4>Arduino LED Matrix</h4>
-                        <p>Programmable display system</p>
-                    </a>
-                    <!-- Add more mini projects -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Us Section (Reorganized) -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="section-header-left">
-                <h2 class="section-title">About ERC</h2>
-                <div class="about-tabs">
-                    <button class="tab-btn active" data-tab="story">Our Story</button>
-                    <button class="tab-btn" data-tab="values">Our Values</button>
-                    <button class="tab-btn" data-tab="members">Current Members</button>
-                    <button class="tab-btn" data-tab="alumni">Alumni</button>
-                    <button class="tab-btn" data-tab="contact">Contact Us</button>
-                </div>
-            </div>
-            
-            <div class="about-content-wrapper">
-                <!-- Our Story -->
-                <div class="about-content story active">
-                    <div class="story-layout">
-                        <div class="story-text">
-                            <h3>Our Journey of Innovation</h3>
-                            <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
-                            <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
-                        </div>
-                        <div class="story-stats">
-                            <div class="stat-card">
-                                <span class="stat-number">200+</span>
-                                <span class="stat-label">Active Members</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">50+</span>
-                                <span class="stat-label">Projects Completed</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">15+</span>
-                                <span class="stat-label">Awards Won</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Our Values -->
-                <div class="about-content values">
-                    <h3>What We Stand For</h3>
-                    <div class="values-grid">
-                        <div class="value-card">
-                            <div class="value-icon">🚀</div>
-                            <h4>Innovation</h4>
-                            <p>Pushing boundaries through creative engineering solutions</p>
-                        </div>
-                        <div class="value-card">
-                            <div class="value-icon">🤝</div>
-                            <h4>Collaboration</h4>
-                            <p>Building together, learning together, achieving more as a team</p>
-                        </div>
-                        <div class="value-card">
-                            <div class="value-icon">🎯</div>
-                            <h4>Excellence</h4>
-                            <p>Striving for the highest standards in every project</p>
-                        </div>
-                        <div class="value-card">
-                            <div class="value-icon">🌱</div>
-                            <h4>Learning</h4>
-                            <p>Continuous growth through experimentation and iteration</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Current Members -->
-                <div class="about-content members">
-                    <h3>Current Team</h3>
-                    <div class="members-grid">
-                        <div class="member-card">
-                            <div class="member-avatar">👨‍💻</div>
-                            <h4>Technical Lead</h4>
-                            <p>Leading innovation in robotics and AI</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-avatar">👩‍🔬</div>
-                            <h4>Research Head</h4>
-                            <p>Advancing cutting-edge research initiatives</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-avatar">👨‍🎓</div>
-                            <h4>Project Manager</h4>
-                            <p>Coordinating development and deliverables</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Alumni -->
-                <div class="about-content alumni">
-                    <h3>Our Global Alumni Network</h3>
-                    <div class="alumni-section">
-                        <!-- World Map -->
-                        <div class="world-map">
-                            <svg viewBox="0 0 1000 500" class="world-svg">
-                                <!-- World continents outline -->
-                                <path d="M150,200 Q200,180 250,200 Q300,190 350,200 Q400,185 450,200 Q500,195 550,200" stroke="var(--border-color)" stroke-width="1" fill="none" opacity="0.3"/>
-                                <path d="M100,250 Q150,240 200,250 Q250,245 300,250 Q350,240 400,250 Q450,245 500,250" stroke="var(--border-color)" stroke-width="1" fill="none" opacity="0.3"/>
-                                <path d="M600,180 Q650,175 700,180 Q750,185 800,180 Q850,175 900,180" stroke="var(--border-color)" stroke-width="1" fill="none" opacity="0.3"/>
-                                <path d="M580,220 Q630,215 680,220 Q730,225 780,220 Q830,215 880,220" stroke="var(--border-color)" stroke-width="1" fill="none" opacity="0.3"/>
-                                
-                                <!-- Continent shapes (simplified) -->
-                                <ellipse cx="200" cy="220" rx="80" ry="40" fill="var(--bg-tertiary)" opacity="0.3"/>
-                                <ellipse cx="450" cy="200" rx="60" ry="35" fill="var(--bg-tertiary)" opacity="0.3"/>
-                                <ellipse cx="700" cy="200" rx="70" ry="45" fill="var(--bg-tertiary)" opacity="0.3"/>
-                                <ellipse cx="800" cy="240" rx="50" ry="30" fill="var(--bg-tertiary)" opacity="0.3"/>
-                                
-                                <!-- Alumni location dots with glow effect -->
-                                <circle cx="180" cy="200" r="4" fill="var(--primary-color)" class="alumni-dot">
-                                    <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="220" cy="220" r="3" fill="var(--secondary-color)" class="alumni-dot">
-                                    <animate attributeName="r" values="3;5;3" dur="2.5s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="450" cy="180" r="5" fill="var(--primary-color)" class="alumni-dot">
-                                    <animate attributeName="r" values="5;7;5" dur="1.8s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="480" cy="200" r="3" fill="var(--secondary-color)" class="alumni-dot">
-                                    <animate attributeName="r" values="3;5;3" dur="2.2s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="680" cy="190" r="4" fill="var(--primary-color)" class="alumni-dot">
-                                    <animate attributeName="r" values="4;6;4" dur="2.8s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="720" cy="210" r="3" fill="var(--secondary-color)" class="alumni-dot">
-                                    <animate attributeName="r" values="3;5;3" dur="2.1s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="750" cy="180" r="4" fill="var(--primary-color)" class="alumni-dot">
-                                    <animate attributeName="r" values="4;6;4" dur="2.4s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="800" cy="240" r="3" fill="var(--secondary-color)" class="alumni-dot">
-                                    <animate attributeName="r" values="3;5;3" dur="2.6s" repeatCount="indefinite"/>
-                                </circle>
-                            </svg>
-                        </div>
-                        
-                        
-                        <!-- Company Scroller -->
-                        <div class="company-scroller">
-                            <h4>Where Our Alumni Work</h4>
-                            <div class="scroller-container">
-                                <div class="scroller-content">
-                                    <span class="company-tag">Google</span>
-                                    <span class="company-tag">Microsoft</span>
-                                    <span class="company-tag">Amazon</span>
-                                    <span class="company-tag">Tesla</span>
-                                    <span class="company-tag">Apple</span>
-                                    <span class="company-tag">Meta</span>
-                                    <span class="company-tag">NVIDIA</span>
-                                    <span class="company-tag">Intel</span>
-                                    <span class="company-tag">IBM</span>
-                                    <span class="company-tag">Qualcomm</span>
-                                    <!-- Duplicate for seamless scroll -->
-                                    <span class="company-tag">Google</span>
-                                    <span class="company-tag">Microsoft</span>
-                                    <span class="company-tag">Amazon</span>
-                                    <span class="company-tag">Tesla</span>
-                                    <span class="company-tag">Apple</span>
-                                    <span class="company-tag">Meta</span>
-                                    <span class="company-tag">NVIDIA</span>
-                                    <span class="company-tag">Intel</span>
-                                    <span class="company-tag">IBM</span>
-                                    <span class="company-tag">Qualcomm</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Contact Us -->
-                <div class="about-content contact">
-                    <h3>Get In Touch</h3>
-                    <div class="contact-layout">
-                        <div class="contact-info">
-                            <h4>Connect With Us</h4>
-                            <div class="social-links">
-                                <a href="#" class="social-link">
-                                    <span class="social-icon">📧</span>
-                                    <span>bitsg.erc@gmail.com</span>
-                                </a>
-                                <a href="https://www.instagram.com/erc_bitsgoa/?hl=en" class="social-link">
-                                    <span class="social-icon">📱</span>
-                                    <span>Instagram</span>
-                                </a>
-                                <a href="https://www.linkedin.com/company/electronics-robotics-club-bits-goa/" class="social-link">
-                                    <span class="social-icon">💼</span>
-                                    <span>LinkedIn</span>
-                                </a>
-                                <a href="https://github.com/ERC-BPGC" class="social-link">
-                                    <span class="social-icon">🐙</span>
-                                    <span>GitHub</span>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Social Media Feed -->
-                        <div class="social-feed">
-                            <h4>Latest Updates</h4>
-                            <div class="feed-container">
-                                <div class="feed-post instagram-post">
-                                    <div class="post-header">
-                                        <span class="platform-icon">📷</span>
-                                        <span class="platform-name">Instagram</span>
-                                    </div>
-                                    <div class="post-content">
-                                        <p>🤖 Our autonomous rover just completed its first successful navigation test! #Robotics #Innovation</p>
-                                    </div>
-                                    <div class="post-meta">2 days ago</div>
-                                </div>
-                                
-                                <div class="feed-post linkedin-post">
-                                    <div class="post-header">
-                                        <span class="platform-icon">💼</span>
-                                        <span class="platform-name">LinkedIn</span>
-                                    </div>
-                                    <div class="post-content">
-                                        <p>Excited to announce our collaboration with industry partners for the next generation of IoT solutions.</p>
-                                    </div>
-                                    <div class="post-meta">1 week ago</div>
-                                </div>
-                                
-                                <div class="feed-post instagram-post">
-                                    <div class="post-header">
-                                        <span class="platform-icon">📷</span>
-                                        <span class="platform-name">Instagram</span>
-                                    </div>
-                                    <div class="post-content">
-                                        <p>Behind the scenes: Team working on the bionic arm project 🦾 #TeamWork #Engineering</p>
-                                    </div>
-                                    <div class="post-meta">3 days ago</div>
-                                </div>
-                            </div>
+                    <!-- Social Media Feed -->
+                    <div class="social-feed">
+                        <h4>Latest Updates</h4>
+                        <div class="feed-container">
+                            <!-- Content will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Outreach Section -->
-    <section id="outreach" class="outreach-section">
-        <div class="container">
-            <div class="section-header-left">
-                <h2 class="section-title">Outreach & Impact</h2>
+<!-- Outreach Section -->
+<section id="outreach" class="outreach-section">
+    <div class="container">
+        <div class="section-header-left">
+            <h2 class="section-title">Outreach & Impact</h2>
+        </div>
+        <div class="outreach-grid">
+            <div class="outreach-card">
+                <div class="outreach-icon">🏫</div>
+                <h3>School Workshops</h3>
+                <p>Inspiring the next generation through hands-on robotics workshops in local schools</p>
             </div>
-            <div class="outreach-grid">
-                <div class="outreach-card">
-                    <div class="outreach-icon">🏫</div>
-                    <h3>School Workshops</h3>
-                    <p>Inspiring the next generation through hands-on robotics workshops in local schools</p>
-                </div>
-                <div class="outreach-card">
-                    <div class="outreach-icon">🏆</div>
-                    <h3>Competition Mentoring</h3>
-                    <p>Guiding teams to victory in national robotics competitions and hackathons</p>
-                </div>
-                <div class="outreach-card">
-                    <div class="outreach-icon">🌐</div>
-                    <h3>Open Source</h3>
-                    <p>Contributing to the global tech community through open source projects</p>
-                </div>
+            <div class="outreach-card">
+                <div class="outreach-icon">🏆</div>
+                <h3>Competition Mentoring</h3>
+                <p>Guiding teams to victory in national robotics competitions and hackathons</p>
+            </div>
+            <div class="outreach-card">
+                <div class="outreach-icon">🌐</div>
+                <h3>Open Source</h3>
+                <p>Contributing to the global tech community through open source projects</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2024 Electronics & Robotics Club, BITS Goa. All rights reserved.</p>
-                <p class="credits">Made with ❤️ by Parth Jaju</p>
-            </div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <p>&copy; 2024 Electronics & Robotics Club, BITS Goa. All rights reserved.</p>
+            <p class="credits">Made with ❤️ by ERC Web Team</p>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>

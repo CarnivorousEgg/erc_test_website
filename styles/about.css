@@ -1,4 +1,3 @@
-
 /* About Section */
 .about-section {
     padding: 6rem 0;
@@ -127,7 +126,7 @@
 /* Members Grid */
 .members-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
@@ -158,6 +157,13 @@
     margin-bottom: 0.5rem;
 }
 
+.member-role {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem !important;
+}
+
 .member-card p {
     color: var(--text-secondary);
     font-size: 0.9rem;
@@ -172,26 +178,13 @@
     margin-bottom: 3rem;
 }
 
-.world-map {
+#alumni-map {
+    height: 400px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 2rem;
     margin-bottom: 2rem;
-    background-image: url('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/img/section/Map150.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    min-height: 400px;
     position: relative;
-}
-
-.world-svg {
-    width: 100%;
-    height: 400px;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 /* Company Scroller */
@@ -251,14 +244,6 @@
 
 .company-tag:hover::after {
     width: 100%;
-}
-
-.company-tag:not(:last-child)::before {
-    content: '•';
-    position: absolute;
-    right: -1.5rem;
-    color: var(--border-color);
-    font-size: 0.8rem;
 }
 
 /* Contact Section */

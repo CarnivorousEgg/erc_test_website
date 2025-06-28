@@ -1,493 +1,132 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Theme Management
-    const themeToggleNav = document.querySelector('.theme-toggle-nav'); // Desktop only
-    const themeToggleMobile = document.querySelector('.theme-toggle-mobile'); // Mobile menu only
-    const themeIcons = document.querySelectorAll('.theme-icon');
-    const themeText = document.querySelector('.theme-text');
-    const body = document.body;
+// Main Application Entry Point
+import { ThemeManager } from './js/theme.js';
+import { NavigationManager } from './js/navigation.js';
+import { TabManager } from './js/tabs.js';
+import { AnimationManager } from './js/animations.js';
+import { AlumniMap } from './js/alumni-map.js';
+import { SocialFeedManager } from './js/social-feed.js';
+import { projectsData, membersData } from './js/data.js';
 
-    function setTheme(theme) {
-        body.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        
-        // Update all theme icons
-        themeIcons.forEach(icon => {
-            if (theme === 'dark') {
-                icon.textContent = '🌙';
-            } else {
-                icon.textContent = '☀️';
-            }
-        });
-
-        // Update theme text in mobile menu
-        if (themeText) {
-            themeText.textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
-        }
+class ERCWebsite {
+    constructor() {
+        this.init();
     }
 
-    function toggleTheme() {
-        const currentTheme = body.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
-    }
-
-    // Desktop theme toggle (always visible in nav)
-    if (themeToggleNav) {
-        themeToggleNav.addEventListener('click', toggleTheme);
-    }
-
-    // Mobile theme toggle (only visible in opened menu)
-    if (themeToggleMobile) {
-        themeToggleMobile.addEventListener('click', toggleTheme);
-    }
-
-    // Initialize theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
-
-    // Logo Reveal Effect (Inverted Triangle - Diligent Robotics Style)
-    const revealTriangle = document.querySelector('.reveal-triangle');
-    const logoRevealSection = document.querySelector('.logo-reveal-section');
-
-    if (revealTriangle && logoRevealSection) {
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        revealTriangle.classList.add('revealed');
-                    }, 500);
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        });
-
-        revealObserver.observe(logoRevealSection);
-    }
-
-    // Navigation Hide/Show Logic
-    const navbar = document.querySelector('.navbar');
-    const heroSection = document.querySelector('.hero');
-    let lastScrollY = window.scrollY;
-
-    const navObserver = new IntersectionObserver((entries) => {
-        const [entry] = entries;
-        if (!entry.isIntersecting) {
-            window.addEventListener('scroll', handleNavScroll, { passive: true });
+    async init() {
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.initializeModules());
         } else {
-            navbar.classList.remove('hidden');
-            window.removeEventListener('scroll', handleNavScroll);
+            this.initializeModules();
         }
-    }, { 
-        rootMargin: '-100px 0px 0px 0px' 
-    });
-
-    if (heroSection) {
-        navObserver.observe(heroSection);
     }
 
-    function handleNavScroll() {
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
-            navbar.classList.add('hidden');
-        } else {
-            navbar.classList.remove('hidden');
+    initializeModules() {
+        try {
+            // Initialize core modules
+            this.themeManager = new ThemeManager();
+            this.navigationManager = new NavigationManager();
+            this.tabManager = new TabManager();
+            this.animationManager = new AnimationManager();
+            
+            // Initialize content modules
+            this.updateProjectsContent();
+            this.updateMembersContent();
+            
+            // Initialize interactive modules
+            this.alumniMap = new AlumniMap();
+            this.socialFeedManager = new SocialFeedManager();
+            
+            // Setup performance optimizations
+            this.setupPerformanceOptimizations();
+            
+            console.log('🤖 ERC Website loaded successfully!');
+            console.log('🎨 Theme system active');
+            console.log('📱 Responsive design ready');
+            console.log('✨ All animations initialized');
+            console.log('🌍 Alumni map interactive');
+            console.log('📱 Social feed live');
+            
+        } catch (error) {
+            console.error('Error initializing website:', error);
         }
-        
-        lastScrollY = currentScrollY;
     }
 
-    // Mobile Menu Logic
-    const hamburger = document.querySelector('.hamburger');
-    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-list a');
+    updateProjectsContent() {
+        // Update completed projects
+        const completedGrid = document.querySelector('.project-content.completed .archive-grid');
+        if (completedGrid) {
+            completedGrid.innerHTML = projectsData.completed.map(project => `
+                <a href="${project.github}" target="_blank" class="archive-card">
+                    <div class="archive-image">
+                        <div class="archive-placeholder">${project.icon}</div>
+                    </div>
+                    <h4>${project.name}</h4>
+                    <p>${project.description}</p>
+                </a>
+            `).join('');
+        }
 
-    if (hamburger && mobileMenuOverlay) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenuOverlay.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (mobileMenuOverlay.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        });
-
-        // Close menu when clicking on links
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Close menu when clicking outside
-        mobileMenuOverlay.addEventListener('click', (e) => {
-            if (e.target === mobileMenuOverlay) {
-                hamburger.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
+        // Update mini projects
+        const miniGrid = document.querySelector('.project-content.mini .archive-grid');
+        if (miniGrid) {
+            miniGrid.innerHTML = projectsData.mini.map(project => `
+                <a href="${project.github}" target="_blank" class="archive-card">
+                    <div class="archive-image">
+                        <div class="archive-placeholder">${project.icon}</div>
+                    </div>
+                    <h4>${project.name}</h4>
+                    <p>${project.description}</p>
+                </a>
+            `).join('');
+        }
     }
 
-    // Tab Functionality
-    function setupTabs(tabSelector, contentSelector) {
-        const tabContainer = document.querySelector(tabSelector);
-        if (!tabContainer) return;
-
-        const tabs = tabContainer.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll(contentSelector);
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                const targetTab = this.dataset.tab;
-
-                tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-
-                this.classList.add('active');
-
-                const targetContent = document.querySelector(`${contentSelector}.${targetTab}`);
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-            });
-        });
-    }
-
-    setupTabs('.project-tabs', '.project-content');
-    setupTabs('.about-tabs', '.about-content');
-
-    // Current Project Selection
-    const projectCards = document.querySelectorAll('.project-card');
-    const projectInfos = document.querySelectorAll('.project-info');
-
-    projectCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const targetProject = this.dataset.project;
-
-            projectCards.forEach(c => c.classList.remove('active'));
-            projectInfos.forEach(i => i.classList.remove('active'));
-
-            this.classList.add('active');
-
-            const targetInfo = document.getElementById(targetProject);
-            if (targetInfo) {
-                targetInfo.classList.add('active');
-            }
-        });
-    });
-
-    // Alumni Map Dots Interaction
-    const alumniDots = document.querySelectorAll('.alumni-dot');
-    alumniDots.forEach(dot => {
-        dot.addEventListener('mouseenter', function() {
-            this.style.filter = 'drop-shadow(0 0 15px currentColor)';
-            this.style.transform = 'scale(1.5)';
-        });
-
-        dot.addEventListener('mouseleave', function() {
-            this.style.filter = 'drop-shadow(0 0 8px currentColor)';
-            this.style.transform = 'scale(1)';
-        });
-    });
-
-    // Social Feed Auto-refresh (simulate new posts)
-    const feedContainer = document.querySelector('.feed-container');
-    if (feedContainer) {
-        const samplePosts = [
-            {
-                platform: 'instagram',
-                icon: '📷',
-                content: '🚀 Just launched our new drone swarm project! Amazing teamwork from our members. #Innovation #Drones',
-                time: '5 minutes ago'
-            },
-            {
-                platform: 'linkedin',
-                icon: '💼',
-                content: 'Proud to announce our collaboration with leading tech companies for internship opportunities.',
-                time: '1 hour ago'
-            },
-            {
-                platform: 'instagram',
-                icon: '📷',
-                content: '⚡ Working late nights on the bionic arm project. The future is here! #Robotics #Engineering',
-                time: '3 hours ago'
-            }
-        ];
-
-        function addNewPost() {
-            const randomPost = samplePosts[Math.floor(Math.random() * samplePosts.length)];
-            const newPost = document.createElement('div');
-            newPost.className = `feed-post ${randomPost.platform}-post`;
-            newPost.style.opacity = '0';
-            newPost.style.transform = 'translateY(-20px)';
-            
-            newPost.innerHTML = `
-                <div class="post-header">
-                    <span class="platform-icon">${randomPost.icon}</span>
-                    <span class="platform-name">${randomPost.platform === 'instagram' ? 'Instagram' : 'LinkedIn'}</span>
+    updateMembersContent() {
+        const membersGrid = document.querySelector('.about-content.members .members-grid');
+        if (membersGrid) {
+            membersGrid.innerHTML = membersData.current.map(member => `
+                <div class="member-card">
+                    <div class="member-avatar">${member.avatar}</div>
+                    <h4>${member.name}</h4>
+                    <p class="member-role">${member.role}</p>
+                    <p>${member.description}</p>
                 </div>
-                <div class="post-content">
-                    <p>${randomPost.content}</p>
-                </div>
-                <div class="post-meta">${randomPost.time}</div>
-            `;
-
-            feedContainer.insertBefore(newPost, feedContainer.firstChild);
-            
-            // Animate in
-            setTimeout(() => {
-                newPost.style.transition = 'all 0.5s ease';
-                newPost.style.opacity = '1';
-                newPost.style.transform = 'translateY(0)';
-            }, 100);
-
-            // Remove oldest post if more than 5
-            const posts = feedContainer.querySelectorAll('.feed-post');
-            if (posts.length > 5) {
-                const oldestPost = posts[posts.length - 1];
-                oldestPost.style.transition = 'all 0.5s ease';
-                oldestPost.style.opacity = '0';
-                oldestPost.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    if (oldestPost.parentNode) {
-                        oldestPost.parentNode.removeChild(oldestPost);
-                    }
-                }, 500);
-            }
-        }
-
-        // Add new post every 30 seconds
-        setInterval(addNewPost, 30000);
-    }
-
-    // Company Scroller Pause on Hover
-    const scrollerContent = document.querySelector('.scroller-content');
-    if (scrollerContent) {
-        scrollerContent.addEventListener('mouseenter', () => {
-            scrollerContent.style.animationPlayState = 'paused';
-        });
-
-        scrollerContent.addEventListener('mouseleave', () => {
-            scrollerContent.style.animationPlayState = 'running';
-        });
-    }
-
-    // Scroll to Reveal Function
-    window.scrollToReveal = function() {
-        if (logoRevealSection) {
-            logoRevealSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    };
-
-    // Smooth scroll for navigation links
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-menu-list a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const targetSection = document.querySelector(href);
-
-                if (targetSection) {
-                    const navHeight = navbar.offsetHeight;
-                    const targetPosition = targetSection.offsetTop - navHeight;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-
-    // Handle dropdown navigation with tab activation
-    const dropdownLinks = document.querySelectorAll('.dropdown-content a');
-    dropdownLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-
-            if (href && href.startsWith('#')) {
-                // Handle Projects dropdown
-                let projectTabName = '';
-                if (href === '#current-projects') {
-                    projectTabName = 'current';
-                } else if (href === '#completed-projects') {
-                    projectTabName = 'completed';
-                } else if (href === '#mini-projects') {
-                    projectTabName = 'mini';
-                }
-
-                // Handle About Us dropdown
-                let aboutTabName = '';
-                if (href === '#our-story') {
-                    aboutTabName = 'story';
-                } else if (href === '#our-values') {
-                    aboutTabName = 'values';
-                } else if (href === '#current-members') {
-                    aboutTabName = 'members';
-                } else if (href === '#alumni') {
-                    aboutTabName = 'alumni';
-                } else if (href === '#contact') {
-                    aboutTabName = 'contact';
-                }
-
-                // Navigate to projects section
-                if (projectTabName) {
-                    const projectsSection = document.querySelector('#projects');
-                    if (projectsSection) {
-                        const navHeight = navbar.offsetHeight;
-                        const targetPosition = projectsSection.offsetTop - navHeight;
-
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-
-                        // Activate the correct tab after scrolling
-                        setTimeout(() => {
-                            activateProjectTab(projectTabName);
-                        }, 500); // Delay to allow scroll to complete
-                    }
-                }
-
-                // Navigate to about section
-                if (aboutTabName) {
-                    const aboutSection = document.querySelector('#about');
-                    if (aboutSection) {
-                        const navHeight = navbar.offsetHeight;
-                        const targetPosition = aboutSection.offsetTop - navHeight;
-
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-
-                        // Activate the correct tab after scrolling
-                        setTimeout(() => {
-                            activateAboutTab(aboutTabName);
-                        }, 500); // Delay to allow scroll to complete
-                    }
-                }
-            }
-        });
-    });
-
-    // Function to activate specific project tab
-    function activateProjectTab(tabName) {
-        const tabs = document.querySelectorAll('.project-tabs .tab-btn');
-        const contents = document.querySelectorAll('.project-content');
-
-        // Remove active class from all tabs and contents
-        tabs.forEach(tab => tab.classList.remove('active'));
-        contents.forEach(content => content.classList.remove('active'));
-
-        // Activate the target tab and content
-        const targetTab = document.querySelector(`.project-tabs .tab-btn[data-tab="${tabName}"]`);
-        const targetContent = document.querySelector(`.project-content.${tabName}`);
-
-        if (targetTab) {
-            targetTab.classList.add('active');
-        }
-        if (targetContent) {
-            targetContent.classList.add('active');
+            `).join('');
         }
     }
 
-    // Function to activate specific about tab
-    function activateAboutTab(tabName) {
-        const tabs = document.querySelectorAll('.about-tabs .tab-btn');
-        const contents = document.querySelectorAll('.about-content');
-
-        // Remove active class from all tabs and contents
-        tabs.forEach(tab => tab.classList.remove('active'));
-        contents.forEach(content => content.classList.remove('active'));
-
-        // Activate the target tab and content
-        const targetTab = document.querySelector(`.about-tabs .tab-btn[data-tab="${tabName}"]`);
-        const targetContent = document.querySelector(`.about-content.${tabName}`);
-
-        if (targetTab) {
-            targetTab.classList.add('active');
-        }
-        if (targetContent) {
-            targetContent.classList.add('active');
-        }
-    }
-
-    // Intersection Observer for animations
-    const animatedElements = document.querySelectorAll(
-        '.outreach-card, .archive-card, .stat-card, .value-card, .member-card'
-    );
-    
-    const animationObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s ease';
-        animationObserver.observe(el);
-    });
-
-    // Add loading animation
-    window.addEventListener('load', function() {
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.5s ease';
+    setupPerformanceOptimizations() {
+        // Throttle scroll events
+        let ticking = false;
         
-        setTimeout(() => {
-            document.body.style.opacity = '1';
-        }, 100);
-    });
+        const updateOnScroll = () => {
+            ticking = false;
+        };
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        }, { passive: true });
 
-    // Performance optimization: Throttle scroll events
-    let ticking = false;
-    
-    function updateOnScroll() {
-        ticking = false;
+        // Preload critical resources
+        this.preloadCriticalResources();
     }
-    
-    window.addEventListener('scroll', function() {
-        if (!ticking) {
-            requestAnimationFrame(updateOnScroll);
-            ticking = true;
-        }
-    });
 
-    console.log('🤖 ERC Website loaded successfully!');
-    console.log('🎨 Theme system active');
-    console.log('📱 Responsive design ready');
-    console.log('✨ All animations initialized');
-    console.log('🌍 Alumni map interactive');
-    console.log('📱 Social feed live');
-});
+    preloadCriticalResources() {
+        // Preload fonts
+        const fontPreload = document.createElement('link');
+        fontPreload.rel = 'preload';
+        fontPreload.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap';
+        fontPreload.as = 'style';
+        document.head.appendChild(fontPreload);
+    }
+}
 
 // Utility functions
-function debounce(func, wait) {
+window.debounce = function(func, wait) {
     let timeout;
     return function executedFunction(...args) {
         const later = () => {
@@ -497,7 +136,7 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
-}
+};
 
 // Smooth scroll polyfill for older browsers
 if (!('scrollBehavior' in document.documentElement.style)) {
@@ -505,3 +144,6 @@ if (!('scrollBehavior' in document.documentElement.style)) {
     smoothScrollPolyfill.src = 'https://cdn.jsdelivr.net/gh/iamdustan/smoothscroll@master/src/smoothscroll.js';
     document.head.appendChild(smoothScrollPolyfill);
 }
+
+// Initialize the application
+new ERCWebsite();
