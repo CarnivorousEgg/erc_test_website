@@ -470,3 +470,30 @@ window.alumniData = [
         batch: "2006"
     }
 ];
+
+// Add region property to alumni for map filtering
+window.alumniData = window.alumniData.map(alumni => {
+    if (!alumni.coordinates) return alumni;
+    // USA
+    if (alumni.location && /usa|united states|san jose|san francisco|cupertino|reno|colorado|houston|palo alto|mountain view|princeton|miami|new york|santa clara|menlo park|ann arbor|college station|pittsburgh|seattle|nevada|california|ca|ny|tx|nv|co|wa|mi/i.test(alumni.location)) {
+        return { ...alumni, region: 'usa' };
+    }
+    // India
+    if (alumni.location && /india|bangalore|mumbai|hyderabad|gurgaon/i.test(alumni.location)) {
+        return { ...alumni, region: 'india' };
+    }
+    // Europe
+    if (alumni.location && /germany|uk|london|berlin|prague|lisbon|darmstadt|sweden|stockholm|czech|portugal/i.test(alumni.location)) {
+        return { ...alumni, region: 'europe' };
+    }
+    // Asia
+    if (alumni.location && /china|shanghai|singapore|asia/i.test(alumni.location)) {
+        return { ...alumni, region: 'asia' };
+    }
+    // Australia
+    if (alumni.location && /australia|sydney/i.test(alumni.location)) {
+        return { ...alumni, region: 'asia' };
+    }
+    // Default to world
+    return { ...alumni, region: 'world' };
+});

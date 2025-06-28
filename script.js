@@ -567,9 +567,9 @@ new ERCWebsite();
 window.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('alumni-map')) {
         if (window.AlumniMap) {
-            new window.AlumniMap();
+            window.alumniMap = new window.AlumniMap();
         } else if (typeof AlumniMap !== 'undefined') {
-            new AlumniMap();
+            window.alumniMap = new AlumniMap();
         }
     }
 });

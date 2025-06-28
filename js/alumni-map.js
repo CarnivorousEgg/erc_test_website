@@ -61,17 +61,23 @@ class AlumniMap {
                     </div>
                 </div>
                 <div class="map-controls" style="margin-top:1.5rem;">
-                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('world')">World</button>
-                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('india')">India</button>
-                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('usa')">USA</button>
-                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('europe')">Europe</button>
-                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('asia')">Asia</button>
+                    <button class="map-btn${region==='world'?' active':''}" onclick="window.alumniMap.createStaticMap('world')">World</button>
+                    <button class="map-btn${region==='india'?' active':''}" onclick="window.alumniMap.createStaticMap('india')">India</button>
+                    <button class="map-btn${region==='usa'?' active':''}" onclick="window.alumniMap.createStaticMap('usa')">USA</button>
+                    <button class="map-btn${region==='europe'?' active':''}" onclick="window.alumniMap.createStaticMap('europe')">Europe</button>
+                    <button class="map-btn${region==='asia'?' active':''}" onclick="window.alumniMap.createStaticMap('asia')">Asia</button>
                 </div>
                 <div class="company-scroller" style="margin-top:2.5rem;">
                     <h4>Where Our Alumni Work</h4>
                     <div class="scroller-container">
                         <div class="scroller-content"></div>
                     </div>
+                </div>
+                <div class="alumni-actions" style="display:flex;justify-content:center;margin-top:2rem;">
+                    <button class="action-btn secondary">
+                        <span>Alumni Stories</span>
+                        <div class="btn-icon">📖</div>
+                    </button>
                 </div>
             `;
 
