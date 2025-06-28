@@ -553,28 +553,6 @@ window.debounce = function(func, wait) {
     };
 };
 
-// Missing utility functions for interactive features
-window.showValueDetails = function(value) {
-    const valueDetails = {
-        innovation: "Our innovation approach focuses on cutting-edge technologies like AI, robotics, and IoT. We encourage creative problem-solving and experimental projects.",
-        collaboration: "We believe in the power of teamwork. Our projects are collaborative efforts that bring together diverse skills and perspectives.",
-        excellence: "We maintain high standards in all our projects, from concept to completion. Quality and attention to detail are our priorities.",
-        learning: "Continuous learning is at our core. We provide workshops, mentorship, and hands-on experience to help members grow."
-    };
-    
-    alert(valueDetails[value] || "Details coming soon!");
-};
-
-window.showAlumniByRegion = function(region) {
-    console.log(`Showing alumni from ${region}`);
-    // This would typically load alumni data for the specific region
-    alert(`Alumni from ${region} - Feature coming soon!`);
-};
-
-window.showAlumniStories = function() {
-    alert("Alumni stories feature coming soon!");
-};
-
 // Smooth scroll polyfill for older browsers
 if (!('scrollBehavior' in document.documentElement.style)) {
     const smoothScrollPolyfill = document.createElement('script');
