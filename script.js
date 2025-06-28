@@ -126,6 +126,8 @@ class NavigationManager {
                     const target = document.querySelector(href);
                     if (target) {
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Update URL hash
+                        window.location.hash = href;
                     }
                 }
             });
@@ -141,6 +143,8 @@ class NavigationManager {
                     const target = document.querySelector(href.includes('about-') ? '#about' : href.includes('project') ? '#projects' : href);
                     if (target) {
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Update URL hash
+                        window.location.hash = href;
                     }
                     // Activate the correct tab if needed
                     if (href.startsWith('#about-')) {
@@ -226,6 +230,15 @@ class TabManager {
                 const targetContent = document.querySelector(`.about-content.${targetTab}`);
                 if (targetContent) {
                     targetContent.classList.add('active');
+                    
+                    // Initialize alumni map if alumni tab is clicked
+                    if (targetTab === 'alumni' && !window.alumniMap) {
+                        setTimeout(() => {
+                            if (window.AlumniMap) {
+                                window.alumniMap = new window.AlumniMap();
+                            }
+                        }, 100);
+                    }
                 }
                 
                 // Update URL hash
@@ -507,6 +520,15 @@ class ERCWebsite {
                 document.querySelectorAll('.about-content').forEach(ac => {
                     ac.classList.toggle('active', ac.classList.contains(tab));
                 });
+                
+                // Initialize alumni map if navigating to alumni tab
+                if (tab === 'alumni' && !window.alumniMap) {
+                    setTimeout(() => {
+                        if (window.AlumniMap) {
+                            window.alumniMap = new window.AlumniMap();
+                        }
+                    }, 1000);
+                }
             } else if (hash === '#projects' || hash.startsWith('#projects')) {
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Show correct project tab
@@ -566,10 +588,11 @@ new ERCWebsite();
 // Initialize AlumniMap if alumni section is present
 window.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('alumni-map')) {
-        if (window.AlumniMap) {
-            window.alumniMap = new window.AlumniMap();
-        } else if (typeof AlumniMap !== 'undefined') {
-            window.alumniMap = new AlumniMap();
-        }
+        // Wait a bit for all scripts to load
+        setTimeout(() => {
+            if (window.AlumniMap && !window.alumniMap) {
+                window.alumniMap = new window.AlumniMap();
+            }
+        }, 500);
     }
 });

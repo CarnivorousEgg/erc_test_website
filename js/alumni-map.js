@@ -4,18 +4,30 @@ class AlumniMap {
         this.mapContainer = document.getElementById('alumni-map');
         this.alumniData = window.alumniData; // Use global alumni data
         
+        console.log('AlumniMap constructor called');
+        console.log('Map container:', this.mapContainer);
+        console.log('Alumni data:', this.alumniData);
+        
         this.init();
     }
 
     init() {
-        if (!this.mapContainer) return;
+        console.log('AlumniMap init called');
+        if (!this.mapContainer) {
+            console.log('No map container found');
+            return;
+        }
         
+        console.log('Creating static map...');
         this.createStaticMap();
         this.attachRegionButtons();
         this.setupCompanyScroller();
     }
 
     createStaticMap(region = 'world') {
+        console.log('Creating static map for region:', region);
+        console.log('Alumni data length:', this.alumniData ? this.alumniData.length : 'undefined');
+        
         // Fade out current map
         if (this.mapContainer.firstChild) {
             this.mapContainer.firstChild.classList.add('fade-out');
@@ -27,12 +39,16 @@ class AlumniMap {
             else if (region === 'europe') mapImage = `public/europe_night.jpg`;
             else if (region === 'asia') mapImage = `public/asia_night.jpg`;
 
+            console.log('Using map image:', mapImage);
+
             let alumniToShow = this.alumniData;
             let interactive = false;
             if (region !== 'world') {
                 interactive = true;
                 alumniToShow = this.alumniData.filter(alumni => alumni.region === region);
             }
+
+            console.log('Alumni to show:', alumniToShow.length);
 
             this.mapContainer.innerHTML = `
                 <div class="static-world-map fade-in">
@@ -73,8 +89,8 @@ class AlumniMap {
                         <div class="scroller-content"></div>
                     </div>
                 </div>
-                <div class="alumni-actions" style="display:flex;justify-content:center;margin-top:2rem;">
-                    <button class="action-btn secondary">
+                <div class="alumni-actions" style="display:flex;justify-content:center;align-items:center;margin-top:2rem;width:100%;">
+                    <button class="action-btn secondary" style="margin:0 auto;">
                         <span>Alumni Stories</span>
                         <div class="btn-icon">📖</div>
                     </button>
