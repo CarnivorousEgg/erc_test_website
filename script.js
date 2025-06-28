@@ -1,22 +1,296 @@
-// Main Application Entry Point
-import { ThemeManager } from './js/theme.js';
-import { NavigationManager } from './js/navigation.js';
-import { TabManager } from './js/tabs.js';
-import { AnimationManager } from './js/animations.js';
-import { AlumniMap } from './js/alumni-map.js';
-import { SocialFeedManager } from './js/social-feed.js';
-import { projectsData, membersData } from './js/data.js';
-import { loadHomeSection, initHomeSection } from './sections/home.js';
-import { loadProjectsSection } from './sections/projects.js';
-import { loadAboutSection } from './sections/about.js';
-import { loadOutreachSection } from './sections/outreach.js';
-import { InteractiveFeatures } from './js/interactive-features.js';
+// Main Application Entry Point - Non-module version for GitHub Pages
+// Theme Management Module
+class ThemeManager {
+    constructor() {
+        this.themeToggleNav = document.querySelector('.theme-toggle-nav');
+        this.themeToggleMobile = document.querySelector('.theme-toggle-mobile');
+        this.themeIcons = document.querySelectorAll('.theme-icon');
+        this.themeText = document.querySelector('.theme-text');
+        this.body = document.body;
+        
+        this.init();
+    }
 
+    init() {
+        this.bindEvents();
+        this.loadSavedTheme();
+    }
+
+    bindEvents() {
+        if (this.themeToggleNav) {
+            this.themeToggleNav.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.toggleTheme();
+            });
+        }
+
+        if (this.themeToggleMobile) {
+            this.themeToggleMobile.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.toggleTheme();
+            });
+        }
+    }
+
+    setTheme(theme) {
+        console.log(`🎨 Setting theme to: ${theme}`);
+        this.body.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        
+        this.themeIcons.forEach(icon => {
+            icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+        });
+
+        if (this.themeText) {
+            this.themeText.textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
+        }
+
+        // Trigger custom event for other components
+        window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
+        console.log(`✅ Theme changed to: ${theme}`);
+    }
+
+    toggleTheme() {
+        const currentTheme = this.body.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        console.log(`🔄 Toggling theme from ${currentTheme} to ${newTheme}`);
+        this.setTheme(newTheme);
+    }
+
+    loadSavedTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        this.setTheme(savedTheme);
+    }
+}
+
+// Navigation Management Module
+class NavigationManager {
+    constructor() {
+        this.hamburger = document.querySelector('.hamburger');
+        this.mobileMenu = document.querySelector('.mobile-menu-overlay');
+        this.navLinks = document.querySelectorAll('.nav-link, .mobile-menu-list a');
+        
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.setupSmoothScrolling();
+    }
+
+    bindEvents() {
+        if (this.hamburger) {
+            this.hamburger.addEventListener('click', () => {
+                this.toggleMobileMenu();
+            });
+        }
+
+        if (this.mobileMenu) {
+            this.mobileMenu.addEventListener('click', (e) => {
+                if (e.target === this.mobileMenu) {
+                    this.closeMobileMenu();
+                }
+            });
+        }
+
+        // Close mobile menu when clicking on a link
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
+        });
+    }
+
+    toggleMobileMenu() {
+        this.mobileMenu.classList.toggle('active');
+        this.hamburger.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    }
+
+    closeMobileMenu() {
+        this.mobileMenu.classList.remove('active');
+        this.hamburger.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
+
+    setupSmoothScrolling() {
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    }
+}
+
+// Tab Management Module
+class TabManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupProjectTabs();
+        this.setupAboutTabs();
+        this.setupProjectSelection();
+    }
+
+    setupProjectTabs() {
+        const tabButtons = document.querySelectorAll('.project-tabs .tab-btn');
+        const projectContents = document.querySelectorAll('.project-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+                
+                // Remove active class from all tabs and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                projectContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                button.classList.add('active');
+                
+                // Show corresponding content
+                const targetContent = document.querySelector(`.project-content.${targetTab}`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+                
+                // Update URL hash
+                window.location.hash = `#projects-${targetTab}`;
+            });
+        });
+    }
+
+    setupAboutTabs() {
+        const aboutTabs = document.querySelectorAll('.about-tabs .about-tab');
+        const aboutSections = document.querySelectorAll('.about-content .about-section-content');
+
+        aboutTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetSection = tab.dataset.about;
+                
+                // Remove active class from all tabs and sections
+                aboutTabs.forEach(t => t.classList.remove('active'));
+                aboutSections.forEach(section => section.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding section
+                const targetAboutSection = document.getElementById(targetSection);
+                if (targetAboutSection) {
+                    targetAboutSection.classList.add('active');
+                }
+                
+                // Update URL hash
+                window.location.hash = `#${targetSection}`;
+            });
+        });
+    }
+
+    setupProjectSelection() {
+        const projectCards = document.querySelectorAll('.project-card');
+        const projectInfos = document.querySelectorAll('.project-info');
+
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const targetProject = card.dataset.project;
+                
+                // Remove active class from all cards and infos
+                projectCards.forEach(c => c.classList.remove('active'));
+                projectInfos.forEach(info => info.classList.remove('active'));
+                
+                // Add active class to clicked card
+                card.classList.add('active');
+                
+                // Show corresponding project info
+                const targetInfo = document.getElementById(`project-${targetProject}`);
+                if (targetInfo) {
+                    targetInfo.classList.add('active');
+                }
+            });
+        });
+    }
+}
+
+// Animation Management Module
+class AnimationManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupScrollAnimations();
+        this.setupIntersectionObserver();
+    }
+
+    setupScrollAnimations() {
+        // Smooth scroll for scroll indicator
+        window.scrollToReveal = () => {
+            const revealSection = document.querySelector('.logo-reveal-section');
+            if (revealSection) {
+                revealSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+    }
+
+    setupIntersectionObserver() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.project-card, .about-tab, .value-card, .outreach-card').forEach(el => {
+            observer.observe(el);
+        });
+    }
+}
+
+// Data for projects and members
+const projectsData = {
+    completed: [
+        { name: "Autonomous Rover", description: "GPS-guided exploration robot", icon: "🤖", github: "https://github.com/erc-bpgc/autonomous-rover" },
+        { name: "Smart Home System", description: "IoT-based home automation", icon: "🏠", github: "https://github.com/erc-bpgc/smart-home" },
+        { name: "Gesture Controller", description: "Hand gesture recognition system", icon: "👋", github: "https://github.com/erc-bpgc/gesture-controller" }
+    ],
+    mini: [
+        { name: "LED Cube", description: "3D LED display matrix", icon: "🔲", github: "https://github.com/erc-bpgc/led-cube" },
+        { name: "Weather Station", description: "Environmental monitoring system", icon: "🌤️", github: "https://github.com/erc-bpgc/weather-station" },
+        { name: "Music Visualizer", description: "Audio-reactive LED display", icon: "🎵", github: "https://github.com/erc-bpgc/music-visualizer" }
+    ]
+};
+
+const membersData = {
+    current: [
+        { name: "Ritwik Sharma", role: "President", description: "Leading innovation in robotics", avatar: "👨‍💻" },
+        { name: "Saransh Agarwal", role: "Vice President", description: "Driving technical excellence", avatar: "👨‍🔬" },
+        { name: "Sniggdha Semwal", role: "Secretary", description: "Coordinating club activities", avatar: "👩‍💼" }
+    ]
+};
+
+// Main Application Class
 class ERCWebsite {
     constructor() {
         this.init();
         this.setupHashNavigation();
-        this.interactiveFeatures = new InteractiveFeatures();
     }
 
     async init() {
@@ -30,38 +304,39 @@ class ERCWebsite {
 
     async initializeModules() {
         try {
+            console.log('🚀 Initializing ERC Website...');
+            
             // Initialize core modules
             this.themeManager = new ThemeManager();
+            console.log('✅ Theme manager initialized');
+            
             this.navigationManager = new NavigationManager();
+            console.log('✅ Navigation manager initialized');
+            
             this.tabManager = new TabManager();
+            console.log('✅ Tab manager initialized');
+            
             this.animationManager = new AnimationManager();
+            console.log('✅ Animation manager initialized');
 
-            // Render each section's content (load partials)
-            await loadHomeSection();
-            await loadProjectsSection();
-            await loadAboutSection();
-            await loadOutreachSection();
-
-            // Initialize content modules
+            // Update content
             this.updateProjectsContent();
+            console.log('✅ Projects content updated');
+            
             this.updateMembersContent();
-
-            // Initialize interactive modules
-            this.alumniMap = new AlumniMap();
-            this.socialFeedManager = new SocialFeedManager();
+            console.log('✅ Members content updated');
 
             // Setup performance optimizations
             this.setupPerformanceOptimizations();
+            console.log('✅ Performance optimizations setup');
 
             console.log('🤖 ERC Website loaded successfully!');
             console.log('🎨 Theme system active');
             console.log('📱 Responsive design ready');
             console.log('✨ All animations initialized');
-            console.log('🌍 Alumni map interactive');
-            console.log('📱 Social feed live');
 
         } catch (error) {
-            console.error('Error initializing website:', error);
+            console.error('❌ Error initializing website:', error);
         }
     }
 
@@ -186,6 +461,28 @@ window.debounce = function(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
+};
+
+// Missing utility functions for interactive features
+window.showValueDetails = function(value) {
+    const valueDetails = {
+        innovation: "Our innovation approach focuses on cutting-edge technologies like AI, robotics, and IoT. We encourage creative problem-solving and experimental projects.",
+        collaboration: "We believe in the power of teamwork. Our projects are collaborative efforts that bring together diverse skills and perspectives.",
+        excellence: "We maintain high standards in all our projects, from concept to completion. Quality and attention to detail are our priorities.",
+        learning: "Continuous learning is at our core. We provide workshops, mentorship, and hands-on experience to help members grow."
+    };
+    
+    alert(valueDetails[value] || "Details coming soon!");
+};
+
+window.showAlumniByRegion = function(region) {
+    console.log(`Showing alumni from ${region}`);
+    // This would typically load alumni data for the specific region
+    alert(`Alumni from ${region} - Feature coming soon!`);
+};
+
+window.showAlumniStories = function() {
+    alert("Alumni stories feature coming soon!");
 };
 
 // Smooth scroll polyfill for older browsers
