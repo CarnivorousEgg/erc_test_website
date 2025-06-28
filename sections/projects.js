@@ -252,7 +252,33 @@ export const projectsSection = `
     }
 
     export function initProjectsSection() {
-        // Add any projects section-specific JS here
+        // Tab switching for project categories
+        const tabBtns = document.querySelectorAll('.project-tabs .tab-btn');
+        const projectContents = document.querySelectorAll('.project-content');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const tab = btn.dataset.tab;
+                projectContents.forEach(pc => {
+                    pc.classList.toggle('active', pc.classList.contains(tab));
+                });
+            });
+        });
+
+        // Sidebar project card switching
+        const sidebarCards = document.querySelectorAll('.project-sidebar .project-card');
+        const projectInfos = document.querySelectorAll('.project-display .project-info');
+        sidebarCards.forEach(card => {
+            card.addEventListener('click', function() {
+                sidebarCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                const project = card.dataset.project;
+                projectInfos.forEach(info => {
+                    info.classList.toggle('active', info.id === 'project-' + project);
+                });
+            });
+        });
     }
 </script>
 `;

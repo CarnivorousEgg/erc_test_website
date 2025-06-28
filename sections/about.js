@@ -3,19 +3,19 @@ export const aboutSection = `
     <div class="container">
         <h2 class="section-title">About Us</h2>
         <div class="about-tabs">
-            <span class="about-tab" data-about="about-our-story">Our Story</span>
-            <span class="about-tab" data-about="about-our-values">Our Values</span>
-            <span class="about-tab" data-about="about-current-members">Members</span>
-            <span class="about-tab" data-about="about-alumni">Alumni</span>
-            <span class="about-tab" data-about="about-contact">Contact</span>
+            <span class="about-tab" data-about="our-story">Our Story</span>
+            <span class="about-tab" data-about="our-values">Our Values</span>
+            <span class="about-tab" data-about="current-members">Members</span>
+            <span class="about-tab" data-about="alumni">Alumni</span>
+            <span class="about-tab" data-about="contact">Contact</span>
         </div>
         <div class="about-content">
-            <div class="about-section" id="about-our-story">
+            <div class="about-section-content" id="about-our-story">
                 <h3>Our Story</h3>
                 <p>Founded in 2010, the Electronics & Robotics Club has been the driving force of hands-on engineering at BITS Goa. From a small group of enthusiasts to a thriving hub of over 200 members, we build, we break, we learn, and we innovate.</p>
                 <p>Our projects have been featured in tech conferences and our alumni work at leading technology companies worldwide, forming a network that spans continents.</p>
             </div>
-            <div class="about-section" id="about-our-values">
+            <div class="about-section-content" id="about-our-values">
                 <h3>Our Values</h3>
                 <div class="values-grid">
                     <div class="value-card">
@@ -40,13 +40,13 @@ export const aboutSection = `
                     </div>
                 </div>
             </div>
-            <div class="about-section" id="about-current-members">
+            <div class="about-section-content" id="about-current-members">
                 <h3>Members</h3>
                 <div class="members-grid">
                     <!-- Content will be populated by JavaScript -->
                 </div>
             </div>
-            <div class="about-section" id="about-alumni">
+            <div class="about-section-content" id="about-alumni">
                 <h3>Alumni</h3>
                 <div class="alumni-section">
                     <!-- Interactive World Map -->
@@ -64,7 +64,7 @@ export const aboutSection = `
                     </div>
                 </div>
             </div>
-            <div class="about-section" id="about-contact">
+            <div class="about-section-content" id="about-contact">
                 <h3>Contact</h3>
                 <div class="contact-layout">
                     <div class="contact-info">
@@ -102,7 +102,7 @@ export const aboutSection = `
 </section>
 
 <script>
-    // About Section Logic
+    // About Section Logic (restored tab logic)
     export async function loadAboutSection() {
         const res = await fetch('partials/about.html');
         const html = await res.text();
@@ -110,7 +110,19 @@ export const aboutSection = `
     }
 
     export function initAboutSection() {
-        // Add any about section-specific JS here
+        // Tab switching logic for About Us section
+        const tabs = document.querySelectorAll('.about-tab');
+        const sections = document.querySelectorAll('.about-section-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+                const target = tab.dataset.about;
+                sections.forEach(function(sec) {
+                    sec.classList.toggle('active', sec.id === 'about-' + target);
+                });
+            });
+        });
     }
 </script>
 `;
