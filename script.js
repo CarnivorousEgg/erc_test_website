@@ -149,11 +149,18 @@ class NavigationManager {
                     // Activate the correct tab if needed
                     if (href.startsWith('#about-')) {
                         const tab = href.replace('#about-', '');
+                        // Map dropdown hash values to tab names
+                        let tabName = tab;
+                        if (tab === 'current-team') tabName = 'current-team';
+                        else if (tab === 'our-story') tabName = 'our-story';
+                        else if (tab === 'alumni') tabName = 'alumni';
+                        else if (tab === 'contact') tabName = 'contact';
+                        
                         document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
-                            btn.classList.toggle('active', btn.dataset.tab === tab);
+                            btn.classList.toggle('active', btn.dataset.tab === tabName);
                         });
                         document.querySelectorAll('.about-content').forEach(ac => {
-                            ac.classList.toggle('active', ac.classList.contains(tab));
+                            ac.classList.toggle('active', ac.classList.contains(tabName));
                         });
                     } else if (href.startsWith('#current-projects') || href.startsWith('#completed-projects') || href.startsWith('#mini-projects')) {
                         let tab = 'current';
@@ -212,12 +219,18 @@ class TabManager {
     }
 
     setupAboutTabs() {
-        const aboutTabs = document.querySelectorAll('.about-tabs .about-tab');
-        const aboutContents = document.querySelectorAll('.about-section-content');
+        const aboutTabs = document.querySelectorAll('.about-tabs .tab-btn');
+        const aboutContents = document.querySelectorAll('.about-content');
+
+        console.log('🔧 Setting up About Us tabs...');
+        console.log('Found tabs:', aboutTabs.length);
+        console.log('Found content sections:', aboutContents.length);
 
         aboutTabs.forEach(tab => {
+            console.log('Tab:', tab.textContent, 'data-tab:', tab.dataset.tab);
             tab.addEventListener('click', () => {
-                const targetTab = tab.dataset.about;
+                const targetTab = tab.dataset.tab;
+                console.log('Tab clicked:', targetTab);
                 
                 // Remove active class from all tabs and contents
                 aboutTabs.forEach(t => t.classList.remove('active'));
@@ -227,26 +240,23 @@ class TabManager {
                 tab.classList.add('active');
                 
                 // Show corresponding content
-                const targetContent = document.querySelector(`#about-${targetTab}`);
+                const targetContent = document.querySelector(`.about-content.${targetTab}`);
                 if (targetContent) {
                     targetContent.classList.add('active');
+                    console.log('✅ Content section activated:', targetTab);
                     
                     // Initialize alumni map if alumni tab is clicked
-                    if (targetTab === 'alumni' && !window.alumniMapInitialized) {
+                    if (targetTab === 'alumni') {
                         setTimeout(() => {
-                            try {
-                                if (window.AlumniMap && !window.alumniMapInitialized) {
-                                    window.alumniMap = new window.AlumniMap();
-                                    window.alumniMapInitialized = true;
-                                    console.log('✅ Alumni map initialized successfully');
-                                } else {
-                                    console.warn('⚠️ AlumniMap class not available or already initialized');
-                                }
-                            } catch (error) {
-                                console.error('❌ Error initializing alumni map:', error);
+                            if (window.AlumniMap && !window.alumniMapInitialized) {
+                                console.log('Initializing AlumniMap from tab click');
+                                window.alumniMap = new window.AlumniMap();
+                                window.alumniMapInitialized = true;
                             }
                         }, 100);
                     }
+                } else {
+                    console.warn('⚠️ Content section not found for tab:', targetTab);
                 }
                 
                 // Update URL hash
@@ -503,10 +513,10 @@ class ERCWebsite {
     }
 
     updateMembersContent() {
-        const membersGrid = document.querySelector('#about-current-members .members-grid');
+        const membersGrid = document.querySelector('.about-content.current-team .team-grid');
         if (membersGrid) {
             membersGrid.innerHTML = membersData.current.map(member => `
-                <div class="member-card">
+                <div class="team-member">
                     <div class="member-avatar">${member.avatar}</div>
                     <h4>${member.name}</h4>
                     <p class="member-role">${member.role}</p>
@@ -564,11 +574,11 @@ class ERCWebsite {
             if (!hash) {
                 console.log('No hash found, setting defaults');
                 // Set default tabs
-                document.querySelectorAll('.about-tabs .about-tab').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.about === 'our-story');
+                document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === 'our-story');
                 });
-                document.querySelectorAll('.about-section-content').forEach(ac => {
-                    ac.classList.toggle('active', ac.id === 'about-our-story');
+                document.querySelectorAll('.about-content').forEach(ac => {
+                    ac.classList.toggle('active', ac.classList.contains('our-story'));
                 });
                 
                 document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
@@ -585,25 +595,19 @@ class ERCWebsite {
                 // Show correct about tab
                 const tab = hash.replace('#about-', '') || 'our-story';
                 console.log('Setting about tab to:', tab);
-                document.querySelectorAll('.about-tabs .about-tab').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.about === tab);
+                document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab);
                 });
-                document.querySelectorAll('.about-section-content').forEach(ac => {
-                    ac.classList.toggle('active', ac.id === 'about-' + tab);
+                document.querySelectorAll('.about-content').forEach(ac => {
+                    ac.classList.toggle('active', ac.classList.contains(tab));
                 });
                 // Initialize alumni map if navigating to alumni tab
-                if (tab === 'alumni' && !window.alumniMapInitialized) {
+                if (tab === 'alumni') {
                     setTimeout(() => {
-                        try {
-                            if (window.AlumniMap && !window.alumniMapInitialized) {
-                                window.alumniMap = new window.AlumniMap();
-                                window.alumniMapInitialized = true;
-                                console.log('✅ Alumni map initialized successfully');
-                            } else {
-                                console.warn('⚠️ AlumniMap class not available or already initialized');
-                            }
-                        } catch (error) {
-                            console.error('❌ Error initializing alumni map:', error);
+                        if (window.AlumniMap && !window.alumniMapInitialized) {
+                            console.log('Initializing AlumniMap from hash navigation');
+                            window.alumniMap = new window.AlumniMap();
+                            window.alumniMapInitialized = true;
                         }
                     }, 100);
                 }
@@ -633,9 +637,9 @@ class ERCWebsite {
             });
         });
         // About tabs: update hash on click
-        document.querySelectorAll('.about-tabs .about-tab').forEach(tab => {
+        document.querySelectorAll('.about-tabs .tab-btn').forEach(tab => {
             tab.addEventListener('click', () => {
-                window.location.hash = '#about-' + tab.dataset.about;
+                window.location.hash = '#about-' + tab.dataset.tab;
             });
         });
     }
