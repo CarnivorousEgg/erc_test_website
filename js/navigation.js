@@ -133,11 +133,10 @@ export class NavigationManager {
         else if (href === '#mini-projects') projectTabName = 'mini';
 
         // Handle About Us dropdown
-        if (href === '#our-story') aboutTabName = 'about-our-story';
-        else if (href === '#our-values') aboutTabName = 'about-our-values';
-        else if (href === '#current-members') aboutTabName = 'about-current-members';
-        else if (href === '#alumni') aboutTabName = 'about-alumni';
-        else if (href === '#contact') aboutTabName = 'about-contact';
+        if (href === '#about-our-story') aboutTabName = 'our-story';
+        else if (href === '#about-current-team') aboutTabName = 'current-team';
+        else if (href === '#about-alumni') aboutTabName = 'alumni';
+        else if (href === '#about-contact') aboutTabName = 'contact';
 
         if (projectTabName) {
             this.navigateToSection('#projects', () => this.activateProjectTab(projectTabName));

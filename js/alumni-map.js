@@ -14,39 +14,81 @@ export class AlumniMap {
         if (!this.mapContainer) return;
         
         this.createStaticMap();
+        this.attachRegionButtons();
         this.setupCompanyScroller();
     }
 
-    createStaticMap() {
-        this.mapContainer.innerHTML = `
-            <div class="static-world-map">
-                <img src="public/world_map.jpg" 
-                     alt="World Map" class="world-map-image">
-                <div class="map-overlay"></div>
-                <div class="alumni-markers">
-                    ${this.alumniData.map((alumni, index) => `
-                        <div class="alumni-marker" 
-                             style="left: ${this.getXFromLng(alumni.coordinates.lng)}%; top: ${this.getYFromLat(alumni.coordinates.lat)}%;"
-                             data-alumni='${JSON.stringify(alumni)}'
-                             data-index="${index}">
-                            <div class="marker-dot"></div>
-                            <div class="marker-pulse"></div>
+    createStaticMap(region = 'world') {
+        // Fade out current map
+        if (this.mapContainer.firstChild) {
+            this.mapContainer.firstChild.classList.add('fade-out');
+        }
+        setTimeout(() => {
+            let mapImage = `public/world_night.jpg`;
+            if (region === 'india') mapImage = 'public/india_night.jpg';
+            else if (region === 'usa') mapImage = 'public/usa_night.jpg';
+            else if (region === 'europe') mapImage = 'public/europe_night.jpg';
+            else if (region === 'asia') mapImage = 'public/asia_night.jpg';
+
+            let alumniToShow = this.alumniData;
+            let interactive = false;
+            if (region !== 'world') {
+                interactive = true;
+                alumniToShow = this.alumniData.filter(alumni => {
+                    if (region === 'india') return alumni.location && alumni.location.toLowerCase().includes('india');
+                    if (region === 'usa') return alumni.location && (alumni.location.toLowerCase().includes('usa') || alumni.location.toLowerCase().includes('united states'));
+                    if (region === 'europe') return alumni.location && (
+                        alumni.location.toLowerCase().includes('europe') ||
+                        alumni.location.toLowerCase().includes('germany') ||
+                        alumni.location.toLowerCase().includes('france') ||
+                        alumni.location.toLowerCase().includes('uk') ||
+                        alumni.location.toLowerCase().includes('portugal') ||
+                        alumni.location.toLowerCase().includes('czech') ||
+                        alumni.location.toLowerCase().includes('prague') ||
+                        alumni.location.toLowerCase().includes('lisbon')
+                    );
+                    if (region === 'asia') return alumni.location && (
+                        alumni.location.toLowerCase().includes('asia') ||
+                        alumni.location.toLowerCase().includes('singapore') ||
+                        alumni.location.toLowerCase().includes('japan') ||
+                        alumni.location.toLowerCase().includes('china')
+                    );
+                    return false;
+                });
+            }
+
+            this.mapContainer.innerHTML = `
+                <div class="static-world-map fade-in">
+                    <img src="${mapImage}" 
+                         alt="${region.charAt(0).toUpperCase() + region.slice(1)} Map" class="world-map-image">
+                    <div class="map-overlay"></div>
+                    <div class="alumni-markers">
+                        ${alumniToShow.map((alumni, index) => `
+                            <div class="alumni-marker${interactive ? '' : ' non-interactive'}" 
+                                 style="left: ${this.getXFromLng(alumni.coordinates.lng)}%; top: ${this.getYFromLat(alumni.coordinates.lat)}%;"
+                                 data-alumni='${JSON.stringify(alumni)}'
+                                 data-index="${index}">
+                                <div class="marker-dot"></div>
+                                <div class="marker-pulse"></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="alumni-tooltip" id="alumni-tooltip">
+                        <div class="tooltip-content">
+                            <h4 class="tooltip-name"></h4>
+                            <p class="tooltip-company"></p>
+                            <p class="tooltip-location"></p>
+                            <a class="tooltip-linkedin" href="#" target="_blank" style="display:none; color:#0a66c2; text-decoration:underline;">LinkedIn</a>
                         </div>
-                    `).join('')}
-                </div>
-                <div class="alumni-tooltip" id="alumni-tooltip">
-                    <div class="tooltip-content">
-                        <h4 class="tooltip-name"></h4>
-                        <p class="tooltip-company"></p>
-                        <p class="tooltip-location"></p>
-                        <a class="tooltip-linkedin" href="#" target="_blank" style="display:none; color:#0a66c2; text-decoration:underline;">LinkedIn</a>
                     </div>
                 </div>
-            </div>
-        `;
+            `;
 
-        this.setupMarkerInteractions();
-        this.addMapStyles();
+            if (interactive) {
+                this.setupMarkerInteractions();
+            }
+            this.addMapStyles();
+        }, 300);
     }
 
     // Mercator-like projection for world map image (simple linear mapping)
@@ -130,7 +172,13 @@ export class AlumniMap {
                 overflow: hidden;
                 border: 1px solid var(--border-color);
                 background: var(--bg-tertiary);
+                transition: opacity 0.4s;
             }
+            .fade-in { opacity: 0; animation: fadeInMap 0.5s forwards; }
+            .fade-out { opacity: 1; animation: fadeOutMap 0.3s forwards; }
+            @keyframes fadeInMap { from { opacity: 0; } to { opacity: 1; } }
+            @keyframes fadeOutMap { from { opacity: 1; } to { opacity: 0; } }
+            .alumni-marker.non-interactive { pointer-events: none; }
 
             .world-map-image {
                 width: 100%;
@@ -299,28 +347,48 @@ export class AlumniMap {
     setupCompanyScroller() {
         const companies = [...new Set(this.alumniData.map(alumni => alumni.company))];
         const scrollerContent = document.querySelector('.scroller-content');
-        
         if (scrollerContent) {
             scrollerContent.innerHTML = '';
-            
             // Add companies twice for seamless scrolling
             const allCompanies = [...companies, ...companies];
-            
             allCompanies.forEach(company => {
                 const span = document.createElement('span');
                 span.className = 'company-tag';
                 span.textContent = company;
                 scrollerContent.appendChild(span);
             });
-
+            // Add animation for horizontal scroll
+            scrollerContent.style.display = 'flex';
+            scrollerContent.style.gap = '2rem';
+            scrollerContent.style.animation = 'scroll-companies 30s linear infinite';
             // Pause on hover
             scrollerContent.addEventListener('mouseenter', () => {
                 scrollerContent.style.animationPlayState = 'paused';
             });
-
             scrollerContent.addEventListener('mouseleave', () => {
                 scrollerContent.style.animationPlayState = 'running';
             });
         }
+        // Add keyframes if not present
+        if (!document.getElementById('company-scroll-keyframes')) {
+            const style = document.createElement('style');
+            style.id = 'company-scroll-keyframes';
+            style.textContent = `@keyframes scroll-companies {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }`;
+            document.head.appendChild(style);
+        }
+    }
+
+    // Add this to allow region switching
+    attachRegionButtons() {
+        const regions = ['india', 'usa', 'europe', 'asia'];
+        regions.forEach(region => {
+            const btn = document.querySelector(`.map-btn[onclick*="${region}"]`);
+            if (btn) {
+                btn.onclick = () => this.createStaticMap(region);
+            }
+        });
     }
 }
