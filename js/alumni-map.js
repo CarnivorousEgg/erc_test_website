@@ -1,44 +1,11 @@
+// Import alumni data
+import { alumniData } from './alumni-data.js';
+
 // Simple Static Alumni Map Module
 export class AlumniMap {
     constructor() {
         this.mapContainer = document.getElementById('alumni-map');
-        this.alumniData = [
-            // North America - West Coast
-            { name: "Rahul Sharma", company: "Google", position: { x: 18, y: 38 }, city: "Mountain View, CA" },
-            { name: "Priya Patel", company: "Microsoft", position: { x: 15, y: 32 }, city: "Seattle, WA" },
-            { name: "Arjun Kumar", company: "Amazon", position: { x: 15, y: 32 }, city: "Seattle, WA" },
-            { name: "Sneha Reddy", company: "Tesla", position: { x: 18, y: 38 }, city: "Palo Alto, CA" },
-            { name: "Vikram Singh", company: "Apple", position: { x: 18, y: 38 }, city: "Cupertino, CA" },
-            { name: "Ananya Gupta", company: "Meta", position: { x: 18, y: 38 }, city: "Menlo Park, CA" },
-            { name: "Rohit Agarwal", company: "NVIDIA", position: { x: 18, y: 38 }, city: "Santa Clara, CA" },
-            { name: "Kavya Nair", company: "Intel", position: { x: 18, y: 38 }, city: "Santa Clara, CA" },
-            
-            // North America - East Coast
-            { name: "Aditya Joshi", company: "IBM", position: { x: 32, y: 36 }, city: "New York, NY" },
-            { name: "Karthik Rao", company: "Goldman Sachs", position: { x: 32, y: 36 }, city: "New York, NY" },
-            { name: "Divya Menon", company: "JPMorgan", position: { x: 32, y: 36 }, city: "New York, NY" },
-            { name: "Amit Verma", company: "Spotify", position: { x: 32, y: 36 }, city: "New York, NY" },
-            
-            // Europe
-            { name: "Siddharth Bhat", company: "Spotify", position: { x: 54, y: 30 }, city: "London, UK" },
-            { name: "Riya Kapoor", company: "DeepMind", position: { x: 54, y: 30 }, city: "London, UK" },
-            { name: "Pooja Desai", company: "SAP", position: { x: 58, y: 32 }, city: "Berlin, Germany" },
-            { name: "Nikhil Pandey", company: "ASML", position: { x: 56, y: 31 }, city: "Netherlands" },
-            
-            // Asia - India
-            { name: "Shreya Ghosh", company: "Flipkart", position: { x: 80, y: 52 }, city: "Bangalore, India" },
-            { name: "Varun Malhotra", company: "Zomato", position: { x: 80, y: 46 }, city: "Delhi, India" },
-            { name: "Isha Bansal", company: "Paytm", position: { x: 80, y: 52 }, city: "Bangalore, India" },
-            { name: "Meera Iyer", company: "TCS", position: { x: 76, y: 53 }, city: "Mumbai, India" },
-            { name: "Rajesh Kumar", company: "Infosys", position: { x: 80, y: 52 }, city: "Bangalore, India" },
-            
-            // Asia - Southeast
-            { name: "Anjali Singh", company: "ByteDance", position: { x: 88, y: 58 }, city: "Singapore" },
-            
-            // Australia
-            { name: "Akash Patel", company: "Atlassian", position: { x: 93, y: 80 }, city: "Sydney, Australia" },
-            { name: "Nisha Reddy", company: "Canva", position: { x: 93, y: 80 }, city: "Sydney, Australia" }
-        ];
+        this.alumniData = alumniData; // Use imported data
         
         this.init();
     }
@@ -53,13 +20,13 @@ export class AlumniMap {
     createStaticMap() {
         this.mapContainer.innerHTML = `
             <div class="static-world-map">
-                <img src="/world_map.jpg" 
+                <img src="/public/world_map.jpg" 
                      alt="World Map" class="world-map-image">
                 <div class="map-overlay"></div>
                 <div class="alumni-markers">
                     ${this.alumniData.map((alumni, index) => `
                         <div class="alumni-marker" 
-                             style="left: ${alumni.position.x}%; top: ${alumni.position.y}%;"
+                             style="left: ${this.getXFromLng(alumni.coordinates.lng)}%; top: ${this.getYFromLat(alumni.coordinates.lat)}%;"
                              data-alumni='${JSON.stringify(alumni)}'
                              data-index="${index}">
                             <div class="marker-dot"></div>
@@ -72,6 +39,7 @@ export class AlumniMap {
                         <h4 class="tooltip-name"></h4>
                         <p class="tooltip-company"></p>
                         <p class="tooltip-location"></p>
+                        <a class="tooltip-linkedin" href="#" target="_blank" style="display:none; color:#0a66c2; text-decoration:underline;">LinkedIn</a>
                     </div>
                 </div>
             </div>
@@ -81,12 +49,21 @@ export class AlumniMap {
         this.addMapStyles();
     }
 
+    // Mercator-like projection for world map image (simple linear mapping)
+    getXFromLng(lng) {
+        // World map image: -180 (left) to 180 (right)
+        return ((lng + 180) / 360) * 100;
+    }
+    getYFromLat(lat) {
+        // World map image: 90 (top) to -90 (bottom)
+        return ((90 - lat) / 180) * 100;
+    }
+
     setupMarkerInteractions() {
         const markers = this.mapContainer.querySelectorAll('.alumni-marker');
         const tooltip = this.mapContainer.querySelector('#alumni-tooltip');
 
         markers.forEach((marker, index) => {
-            // Add staggered animation
             setTimeout(() => {
                 marker.classList.add('visible');
             }, index * 100);
@@ -110,10 +87,17 @@ export class AlumniMap {
         const nameEl = tooltip.querySelector('.tooltip-name');
         const companyEl = tooltip.querySelector('.tooltip-company');
         const locationEl = tooltip.querySelector('.tooltip-location');
+        const linkedinEl = tooltip.querySelector('.tooltip-linkedin');
 
         nameEl.textContent = alumni.name;
-        companyEl.textContent = alumni.company;
-        locationEl.textContent = alumni.city;
+        companyEl.textContent = `${alumni.position} @ ${alumni.company}`;
+        locationEl.textContent = alumni.location;
+        if (alumni.linkedin) {
+            linkedinEl.href = alumni.linkedin;
+            linkedinEl.style.display = 'inline';
+        } else {
+            linkedinEl.style.display = 'none';
+        }
 
         tooltip.classList.add('visible');
         this.updateTooltipPosition(tooltip, event);
@@ -274,6 +258,12 @@ export class AlumniMap {
                 margin: 0;
                 color: var(--text-secondary);
                 font-size: 12px;
+            }
+
+            .tooltip-linkedin {
+                display: inline-block;
+                margin-top: 0.5em;
+                font-weight: 600;
             }
 
             /* Responsive adjustments */

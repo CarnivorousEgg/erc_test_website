@@ -17,11 +17,19 @@ export class ThemeManager {
 
     bindEvents() {
         if (this.themeToggleNav) {
-            this.themeToggleNav.addEventListener('click', () => this.toggleTheme());
+            this.themeToggleNav.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.toggleTheme();
+            });
         }
 
         if (this.themeToggleMobile) {
-            this.themeToggleMobile.addEventListener('click', () => this.toggleTheme());
+            this.themeToggleMobile.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.toggleTheme();
+            });
         }
     }
 
@@ -36,10 +44,13 @@ export class ThemeManager {
         if (this.themeText) {
             this.themeText.textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
         }
+
+        // Trigger custom event for other components
+        window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
     }
 
     toggleTheme() {
-        const currentTheme = this.body.getAttribute('data-theme');
+        const currentTheme = this.body.getAttribute('data-theme') || 'dark';
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         this.setTheme(newTheme);
     }

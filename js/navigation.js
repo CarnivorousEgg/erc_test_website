@@ -133,18 +133,18 @@ export class NavigationManager {
         else if (href === '#mini-projects') projectTabName = 'mini';
 
         // Handle About Us dropdown
-        if (href === '#our-story') aboutTabName = 'story';
-        else if (href === '#our-values') aboutTabName = 'values';
-        else if (href === '#current-members') aboutTabName = 'members';
-        else if (href === '#alumni') aboutTabName = 'alumni';
-        else if (href === '#contact') aboutTabName = 'contact';
+        if (href === '#our-story') aboutTabName = 'about-our-story';
+        else if (href === '#our-values') aboutTabName = 'about-our-values';
+        else if (href === '#current-members') aboutTabName = 'about-current-members';
+        else if (href === '#alumni') aboutTabName = 'about-alumni';
+        else if (href === '#contact') aboutTabName = 'about-contact';
 
         if (projectTabName) {
-            this.navigateToSection('#projects', () => this.activateTab('project', projectTabName));
+            this.navigateToSection('#projects', () => this.activateProjectTab(projectTabName));
         }
 
         if (aboutTabName) {
-            this.navigateToSection('#about', () => this.activateTab('about', aboutTabName));
+            this.navigateToSection('#about', () => this.activateAboutTab(aboutTabName));
         }
     }
 
@@ -163,17 +163,31 @@ export class NavigationManager {
         }
     }
 
-    activateTab(type, tabName) {
-        const tabs = document.querySelectorAll(`.${type}-tabs .tab-btn`);
-        const contents = document.querySelectorAll(`.${type === 'project' ? 'project-content' : 'about-content'}`);
+    activateProjectTab(tabName) {
+        const tabButtons = document.querySelectorAll('.project-tabs .tab-btn');
+        const projectContents = document.querySelectorAll('.project-content');
 
-        tabs.forEach(tab => tab.classList.remove('active'));
-        contents.forEach(content => content.classList.remove('active'));
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        projectContents.forEach(content => content.classList.remove('active'));
 
-        const targetTab = document.querySelector(`.${type}-tabs .tab-btn[data-tab="${tabName}"]`);
-        const targetContent = document.querySelector(`.${type === 'project' ? 'project-content' : 'about-content'}.${tabName}`);
+        const targetTab = document.querySelector(`.project-tabs .tab-btn[data-tab="${tabName}"]`);
+        const targetContent = document.querySelector(`.project-content.${tabName}`);
 
         if (targetTab) targetTab.classList.add('active');
         if (targetContent) targetContent.classList.add('active');
+    }
+
+    activateAboutTab(tabName) {
+        const aboutTabs = document.querySelectorAll('.about-tabs .about-tab');
+        const aboutSections = document.querySelectorAll('.about-content .about-section');
+
+        aboutTabs.forEach(tab => tab.classList.remove('active'));
+        aboutSections.forEach(section => section.classList.remove('active'));
+
+        const targetTab = document.querySelector(`.about-tabs .about-tab[data-about="${tabName}"]`);
+        const targetSection = document.getElementById(tabName);
+
+        if (targetTab) targetTab.classList.add('active');
+        if (targetSection) targetSection.classList.add('active');
     }
 }
