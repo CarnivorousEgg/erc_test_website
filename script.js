@@ -10,11 +10,13 @@ import { loadHomeSection, initHomeSection } from './sections/home.js';
 import { loadProjectsSection } from './sections/projects.js';
 import { loadAboutSection } from './sections/about.js';
 import { loadOutreachSection } from './sections/outreach.js';
+import { InteractiveFeatures } from './js/interactive-features.js';
 
 class ERCWebsite {
     constructor() {
         this.init();
         this.setupHashNavigation();
+        this.interactiveFeatures = new InteractiveFeatures();
     }
 
     async init() {

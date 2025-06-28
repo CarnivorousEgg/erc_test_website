@@ -5,31 +5,61 @@ export class TabManager {
     }
 
     init() {
-        this.setupTabs('.project-tabs', '.project-content');
-        this.setupTabs('.about-tabs', '.about-content');
+        this.setupProjectTabs();
+        this.setupAboutTabs();
         this.setupProjectSelection();
     }
 
-    setupTabs(tabSelector, contentSelector) {
-        const tabContainer = document.querySelector(tabSelector);
-        if (!tabContainer) return;
+    setupProjectTabs() {
+        const tabButtons = document.querySelectorAll('.project-tabs .tab-btn');
+        const projectContents = document.querySelectorAll('.project-content');
 
-        const tabs = tabContainer.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll(contentSelector);
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetTab = tab.dataset.tab;
-
-                tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-
-                tab.classList.add('active');
-
-                const targetContent = document.querySelector(`${contentSelector}.${targetTab}`);
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+                
+                // Remove active class from all tabs and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                projectContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                button.classList.add('active');
+                
+                // Show corresponding content
+                const targetContent = document.querySelector(`.project-content.${targetTab}`);
                 if (targetContent) {
                     targetContent.classList.add('active');
                 }
+                
+                // Update URL hash
+                window.location.hash = `#projects-${targetTab}`;
+            });
+        });
+    }
+
+    setupAboutTabs() {
+        const aboutTabs = document.querySelectorAll('.about-tabs .about-tab');
+        const aboutSections = document.querySelectorAll('.about-content .about-section');
+
+        aboutTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetSection = tab.dataset.about;
+                
+                // Remove active class from all tabs and sections
+                aboutTabs.forEach(t => t.classList.remove('active'));
+                aboutSections.forEach(section => section.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding section
+                const targetAboutSection = document.getElementById(targetSection);
+                if (targetAboutSection) {
+                    targetAboutSection.classList.add('active');
+                }
+                
+                // Update URL hash
+                window.location.hash = `#${targetSection}`;
             });
         });
     }
@@ -41,13 +71,16 @@ export class TabManager {
         projectCards.forEach(card => {
             card.addEventListener('click', () => {
                 const targetProject = card.dataset.project;
-
+                
+                // Remove active class from all cards and infos
                 projectCards.forEach(c => c.classList.remove('active'));
-                projectInfos.forEach(i => i.classList.remove('active'));
-
+                projectInfos.forEach(info => info.classList.remove('active'));
+                
+                // Add active class to clicked card
                 card.classList.add('active');
-
-                const targetInfo = document.getElementById(targetProject);
+                
+                // Show corresponding project info
+                const targetInfo = document.getElementById(`project-${targetProject}`);
                 if (targetInfo) {
                     targetInfo.classList.add('active');
                 }
