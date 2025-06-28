@@ -22,36 +22,16 @@ class AlumniMap {
         }
         setTimeout(() => {
             let mapImage = `public/world_night.jpg`;
-            if (region === 'india') mapImage = 'public/india_night.jpg';
-            else if (region === 'usa') mapImage = 'public/usa_night.jpg';
-            else if (region === 'europe') mapImage = 'public/europe_night.jpg';
-            else if (region === 'asia') mapImage = 'public/asia_night.jpg';
+            if (region === 'india') mapImage = `public/india_night.jpg`;
+            else if (region === 'usa') mapImage = `public/usa_night.jpg`;
+            else if (region === 'europe') mapImage = `public/europe_night.jpg`;
+            else if (region === 'asia') mapImage = `public/asia_night.jpg`;
 
             let alumniToShow = this.alumniData;
             let interactive = false;
             if (region !== 'world') {
                 interactive = true;
-                alumniToShow = this.alumniData.filter(alumni => {
-                    if (region === 'india') return alumni.location && alumni.location.toLowerCase().includes('india');
-                    if (region === 'usa') return alumni.location && (alumni.location.toLowerCase().includes('usa') || alumni.location.toLowerCase().includes('united states'));
-                    if (region === 'europe') return alumni.location && (
-                        alumni.location.toLowerCase().includes('europe') ||
-                        alumni.location.toLowerCase().includes('germany') ||
-                        alumni.location.toLowerCase().includes('france') ||
-                        alumni.location.toLowerCase().includes('uk') ||
-                        alumni.location.toLowerCase().includes('portugal') ||
-                        alumni.location.toLowerCase().includes('czech') ||
-                        alumni.location.toLowerCase().includes('prague') ||
-                        alumni.location.toLowerCase().includes('lisbon')
-                    );
-                    if (region === 'asia') return alumni.location && (
-                        alumni.location.toLowerCase().includes('asia') ||
-                        alumni.location.toLowerCase().includes('singapore') ||
-                        alumni.location.toLowerCase().includes('japan') ||
-                        alumni.location.toLowerCase().includes('china')
-                    );
-                    return false;
-                });
+                alumniToShow = this.alumniData.filter(alumni => alumni.region === region);
             }
 
             this.mapContainer.innerHTML = `
@@ -61,13 +41,14 @@ class AlumniMap {
                     <div class="map-overlay"></div>
                     <div class="alumni-markers">
                         ${alumniToShow.map((alumni, index) => `
-                            <div class="alumni-marker${interactive ? '' : ' non-interactive'}" 
+                            <a class="alumni-marker${interactive ? '' : ' non-interactive'}" 
                                  style="left: ${this.getXFromLng(alumni.coordinates.lng)}%; top: ${this.getYFromLat(alumni.coordinates.lat)}%;"
                                  data-alumni='${JSON.stringify(alumni)}'
-                                 data-index="${index}">
+                                 data-index="${index}"
+                                 ${interactive && alumni.linkedin ? `href='${alumni.linkedin}' target='_blank'` : ''}>
                                 <div class="marker-dot"></div>
                                 <div class="marker-pulse"></div>
-                            </div>
+                            </a>
                         `).join('')}
                     </div>
                     <div class="alumni-tooltip" id="alumni-tooltip">
@@ -79,12 +60,26 @@ class AlumniMap {
                         </div>
                     </div>
                 </div>
+                <div class="map-controls" style="margin-top:1.5rem;">
+                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('world')">World</button>
+                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('india')">India</button>
+                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('usa')">USA</button>
+                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('europe')">Europe</button>
+                    <button class="map-btn" onclick="window.alumniMap.createStaticMap('asia')">Asia</button>
+                </div>
+                <div class="company-scroller" style="margin-top:2.5rem;">
+                    <h4>Where Our Alumni Work</h4>
+                    <div class="scroller-container">
+                        <div class="scroller-content"></div>
+                    </div>
+                </div>
             `;
 
             if (interactive) {
                 this.setupMarkerInteractions();
             }
             this.addMapStyles();
+            this.setupCompanyScroller();
         }, 300);
     }
 

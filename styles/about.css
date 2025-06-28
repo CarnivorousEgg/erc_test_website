@@ -422,6 +422,7 @@
     gap: 0.5rem;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 1.5rem;
 }
 
 .map-btn {
@@ -436,18 +437,59 @@
     font-size: 0.8rem;
 }
 
+.map-btn.active,
 .map-btn:hover {
     background: var(--primary-color);
     color: var(--bg-primary);
     border-color: var(--primary-color);
 }
 
-.alumni-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
+.company-scroller {
+    text-align: center;
     margin-top: 2rem;
-    flex-wrap: wrap;
+}
+
+.company-scroller h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.2rem;
+}
+
+.scroller-container {
+    overflow: hidden;
+    position: relative;
+    height: 60px;
+}
+
+.scroller-content {
+    display: flex;
+    animation: scroll-companies 30s linear infinite;
+    gap: 2rem;
+}
+
+.company-tag {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    margin: 0 0.5rem;
+    position: relative;
+}
+
+.company-tag:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border-color: var(--primary-color);
+}
+
+@keyframes scroll-companies {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* Contact Section */
@@ -547,66 +589,6 @@
 .submit-btn:hover {
     background: var(--secondary-color);
     transform: translateY(-2px);
-}
-
-/* Company Scroller */
-.company-scroller {
-    text-align: center;
-}
-
-.company-scroller h4 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-}
-
-.scroller-container {
-    overflow: hidden;
-    position: relative;
-    height: 60px;
-}
-
-.scroller-content {
-    display: flex;
-    animation: scroll 20s linear infinite;
-    gap: 2rem;
-}
-
-.company-tag {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    transition: all 0.3s ease;
-}
-
-.company-tag::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    background: linear-gradient(to right, transparent, var(--bg-secondary));
-    pointer-events: none;
-}
-
-.company-tag:hover {
-    background: var(--primary-color);
-    color: var(--bg-primary);
-    border-color: var(--primary-color);
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
 }
 
 /* Social Feed */

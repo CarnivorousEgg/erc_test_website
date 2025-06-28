@@ -469,4 +469,4 @@ window.alumniData = [
         linkedin: "https://www.linkedin.com/in/jayanthvaranasi/",
         batch: "2006"
     }
-]; 
+];
