@@ -131,12 +131,14 @@ export class NavigationManager {
         if (href === '#current-projects') projectTabName = 'current';
         else if (href === '#completed-projects') projectTabName = 'completed';
         else if (href === '#mini-projects') projectTabName = 'mini';
+        else if (href === '#projects') projectTabName = 'current'; // Always default to current
 
         // Handle About Us dropdown
         if (href === '#about-our-story') aboutTabName = 'our-story';
         else if (href === '#about-current-team') aboutTabName = 'current-team';
         else if (href === '#about-alumni') aboutTabName = 'alumni';
         else if (href === '#about-contact') aboutTabName = 'contact';
+        else if (href === '#about') aboutTabName = 'our-story'; // Always default to our-story
 
         if (projectTabName) {
             this.navigateToSection('#projects', () => this.activateProjectTab(projectTabName));

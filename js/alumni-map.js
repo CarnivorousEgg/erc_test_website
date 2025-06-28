@@ -24,13 +24,17 @@ class AlumniMap {
         this.setupCompanyScroller();
     }
 
-    createStaticMap(region = 'world') {
+    createStaticMap(region = 'world', direction = null) {
         console.log('Creating static map for region:', region);
         console.log('Alumni data length:', this.alumniData ? this.alumniData.length : 'undefined');
         
-        // Fade out current map
+        // Fade out current map with direction
         if (this.mapContainer.firstChild) {
-            this.mapContainer.firstChild.classList.add('fade-out');
+            if (direction) {
+                this.mapContainer.firstChild.classList.add('fade-out-' + direction);
+            } else {
+                this.mapContainer.firstChild.classList.add('fade-out');
+            }
         }
         setTimeout(() => {
             let mapImage = `public/world_night.jpg`;
@@ -51,7 +55,7 @@ class AlumniMap {
             console.log('Alumni to show:', alumniToShow.length);
 
             this.mapContainer.innerHTML = `
-                <div class="static-world-map fade-in">
+                <div class="static-world-map fade-in${direction ? '-' + direction : ''}">
                     <img src="${mapImage}" 
                          alt="${region.charAt(0).toUpperCase() + region.slice(1)} Map" class="world-map-image">
                     <div class="map-overlay"></div>
@@ -76,12 +80,8 @@ class AlumniMap {
                         </div>
                     </div>
                 </div>
-                <div class="map-controls" style="margin-top:1.5rem;">
-                    <button class="map-btn${region==='world'?' active':''}" onclick="window.alumniMap.createStaticMap('world')">World</button>
-                    <button class="map-btn${region==='india'?' active':''}" onclick="window.alumniMap.createStaticMap('india')">India</button>
-                    <button class="map-btn${region==='usa'?' active':''}" onclick="window.alumniMap.createStaticMap('usa')">USA</button>
-                    <button class="map-btn${region==='europe'?' active':''}" onclick="window.alumniMap.createStaticMap('europe')">Europe</button>
-                    <button class="map-btn${region==='asia'?' active':''}" onclick="window.alumniMap.createStaticMap('asia')">Asia</button>
+                <div class="map-controls" style="margin-top:1.5rem; display: flex; gap: 0.5rem; justify-content: center;">
+                    ${['world','india','usa','europe','asia'].map(r => `<button class="map-btn${region===r?' active':''}" onclick="window.alumniMap.handleRegionClick('${r}')">${r.charAt(0).toUpperCase() + r.slice(1)}</button>`).join('')}
                 </div>
                 <div class="company-scroller" style="margin-top:2.5rem;">
                     <h4>Where Our Alumni Work</h4>
@@ -190,8 +190,16 @@ class AlumniMap {
             }
             .fade-in { opacity: 0; animation: fadeInMap 0.5s forwards; }
             .fade-out { opacity: 1; animation: fadeOutMap 0.3s forwards; }
+            .fade-in-right { opacity: 0; animation: fadeInMapRight 0.5s forwards; }
+            .fade-out-right { opacity: 1; animation: fadeOutMapRight 0.3s forwards; }
+            .fade-in-left { opacity: 0; animation: fadeInMapLeft 0.5s forwards; }
+            .fade-out-left { opacity: 1; animation: fadeOutMapLeft 0.3s forwards; }
             @keyframes fadeInMap { from { opacity: 0; } to { opacity: 1; } }
             @keyframes fadeOutMap { from { opacity: 1; } to { opacity: 0; } }
+            @keyframes fadeInMapRight { from { opacity: 0; transform: translateX(60px);} to { opacity: 1; transform: translateX(0);} }
+            @keyframes fadeOutMapRight { from { opacity: 1; transform: translateX(0);} to { opacity: 0; transform: translateX(-60px);} }
+            @keyframes fadeInMapLeft { from { opacity: 0; transform: translateX(-60px);} to { opacity: 1; transform: translateX(0);} }
+            @keyframes fadeOutMapLeft { from { opacity: 1; transform: translateX(0);} to { opacity: 0; transform: translateX(60px);} }
             .alumni-marker.non-interactive { pointer-events: none; }
 
             .world-map-image {
@@ -261,18 +269,22 @@ class AlumniMap {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                animation: pulse 2s ease-out infinite;
+                animation: pulse-breathe 1.5s ease-in-out infinite;
                 opacity: 0.6;
             }
 
-            @keyframes pulse {
+            @keyframes pulse-breathe {
                 0% {
-                    transform: translate(-50%, -50%) scale(0.8);
-                    opacity: 0.8;
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.7;
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.3);
+                    opacity: 1;
                 }
                 100% {
-                    transform: translate(-50%, -50%) scale(2);
-                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.7;
                 }
             }
 
@@ -395,15 +407,19 @@ class AlumniMap {
         }
     }
 
-    // Add this to allow region switching
+    handleRegionClick(region) {
+        // Determine direction for fade animation
+        const order = ['world','india','usa','europe','asia'];
+        const prev = this.currentRegion || 'world';
+        let direction = null;
+        if (order.indexOf(region) > order.indexOf(prev)) direction = 'right';
+        else if (order.indexOf(region) < order.indexOf(prev)) direction = 'left';
+        this.currentRegion = region;
+        this.createStaticMap(region, direction);
+    }
+
     attachRegionButtons() {
-        const regions = ['india', 'usa', 'europe', 'asia'];
-        regions.forEach(region => {
-            const btn = document.querySelector(`.map-btn[onclick*="${region}"]`);
-            if (btn) {
-                btn.onclick = () => this.createStaticMap(region);
-            }
-        });
+        // No-op: buttons are now rendered in createStaticMap
     }
 }
 
