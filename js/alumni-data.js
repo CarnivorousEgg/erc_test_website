@@ -1,4 +1,4 @@
-// Alumni Data with Corrected and Consistent Coordinates
+// Alumni Data with Corrected and Consistent Coordinates - REAL DATA ONLY
 window.alumniData = [
     // Recent Alumni (2017-2018)
     {
@@ -468,8 +468,5 @@ window.alumniData = [
         coordinates: { lat: 19.0760, lng: 72.8777 },
         linkedin: "https://www.linkedin.com/in/jayanthvaranasi/",
         batch: "2006"
-    },
-
-    
-   
+    }
 ];
