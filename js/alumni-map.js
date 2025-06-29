@@ -1,4 +1,4 @@
-// Enhanced Alumni Map Module with Precise Coordinate System
+// Enhanced Alumni Map Module with Corrected Asia Coordinates
 class AlumniMap {
     constructor() {
         this.mapContainer = document.getElementById('alumni-map');
@@ -95,7 +95,7 @@ class AlumniMap {
 
     // Precise region detection
     isInUSA(location) {
-        const usaKeywords = ['usa', 'united states', 'california', 'texas', 'new york', 'florida', 'washington', 'oregon', 'colorado', 'nevada', 'michigan', 'pennsylvania', 'massachusetts', 'illinois', 'georgia', 'north carolina', 'virginia'];
+        const usaKeywords = ['usa', 'united states', 'california', 'texas', 'new york', 'florida', 'washington', 'oregon', 'colorado', 'nevada', 'michigan', 'pennsylvania', 'massachusetts', 'illinois', 'georgia', 'north carolina', 'virginia', 'ca, usa', 'tx, usa', 'ny, usa', 'fl, usa', 'wa, usa', 'co, usa'];
         return usaKeywords.some(keyword => location.toLowerCase().includes(keyword));
     }
 
@@ -105,7 +105,7 @@ class AlumniMap {
     }
 
     isInAsia(location) {
-        const asiaKeywords = ['india', 'china', 'japan', 'singapore', 'south korea', 'thailand', 'malaysia', 'indonesia', 'philippines', 'vietnam', 'bangladesh', 'pakistan', 'sri lanka', 'nepal', 'myanmar', 'cambodia', 'laos', 'brunei', 'mongolia', 'taiwan', 'hong kong', 'macau', 'bangalore', 'mumbai', 'delhi', 'chennai', 'hyderabad', 'pune', 'kolkata', 'ahmedabad', 'surat', 'jaipur', 'lucknow', 'kanpur', 'nagpur', 'indore', 'thane', 'bhopal', 'visakhapatnam', 'pimpri', 'patna', 'vadodara', 'ghaziabad', 'ludhiana', 'agra', 'nashik', 'faridabad', 'meerut', 'rajkot', 'kalyan', 'vasai', 'varanasi', 'srinagar', 'aurangabad', 'dhanbad', 'amritsar', 'navi mumbai', 'allahabad', 'ranchi', 'howrah', 'coimbatore', 'jabalpur', 'gwalior', 'vijayawada', 'jodhpur', 'madurai', 'raipur', 'kota', 'guwahati', 'chandigarh', 'solapur', 'hubballi', 'tiruchirappalli', 'bareilly', 'mysore', 'tiruppur', 'gurgaon', 'aligarh', 'jalandhar', 'bhubaneswar', 'salem', 'warangal', 'guntur', 'bhiwandi', 'saharanpur', 'gorakhpur', 'bikaner', 'amravati', 'noida', 'jamshedpur', 'bhilai', 'cuttack', 'firozabad', 'kochi', 'nellore', 'bhavnagar', 'dehradun', 'durgapur', 'asansol', 'rourkela', 'nanded', 'kolhapur', 'ajmer', 'akola', 'gulbarga', 'jamnagar', 'ujjain', 'loni', 'siliguri', 'jhansi', 'ulhasnagar', 'jammu', 'sangli', 'mangalore', 'erode', 'belgaum', 'ambattur', 'tirunelveli', 'malegaon', 'gaya', 'jalgaon', 'udaipur', 'maheshtala', 'beijing', 'shanghai', 'guangzhou', 'shenzhen', 'chengdu', 'hangzhou', 'wuhan', 'xian', 'suzhou', 'tianjin', 'nanjing', 'shenyang', 'harbin', 'jinan', 'changchun', 'dalian', 'kunming', 'taiyuan', 'shijiazhuang', 'urumqi', 'guiyang', 'hefei', 'lanzhou', 'zhengzhou', 'changsha', 'nanning', 'haikou', 'yinchuan', 'xining', 'hohhot', 'lhasa', 'tokyo', 'osaka', 'yokohama', 'nagoya', 'sapporo', 'fukuoka', 'kobe', 'kawasaki', 'kyoto', 'saitama', 'hiroshima', 'sendai', 'kitakyushu', 'chiba', 'sakai', 'niigata', 'hamamatsu', 'okayama', 'sagamihara', 'seoul', 'busan', 'incheon', 'daegu', 'daejeon', 'gwangju', 'suwon', 'ulsan', 'changwon', 'goyang', 'yongin', 'seongnam', 'bucheon', 'ansan', 'cheongju', 'jeonju', 'anyang', 'pohang', 'uijeongbu', 'siheung', 'cheonan', 'hwaseong', 'gimhae', 'gumi', 'pyeongtaek', 'iksan', 'gunpo', 'osan', 'yangsan', 'jeju', 'chuncheon', 'gangneung', 'andong', 'mokpo', 'yeosu', 'suncheon', 'gimcheon', 'naju', 'sangju', 'jeongeup', 'gongju', 'yeongju', 'seosan', 'nonsan', 'boryeong', 'asan', 'gyeongju', 'miryang', 'tongyeong', 'sacheon', 'kimhae', 'yangju', 'icheon', 'anju', 'namyangju', 'paju', 'gimpo', 'hanam', 'guri', 'gwangmyeong', 'gwacheon', 'uiwang', 'gunsan', 'jecheon', 'chungju', 'wonju', 'gangneung', 'samcheok', 'sokcho', 'donghae', 'taebaek', '속초', 'bangkok', 'kuala lumpur', 'jakarta', 'manila', 'ho chi minh city', 'hanoi', 'phnom penh', 'vientiane', 'bandar seri begawan', 'ulaanbaatar', 'taipei', 'dhaka', 'karachi', 'lahore', 'islamabad', 'rawalpindi', 'faisalabad', 'multan', 'gujranwala', 'peshawar', 'quetta', 'sialkot', 'sargodha', 'bahawalpur', 'sukkur', 'larkana', 'sheikhupura', 'jhang', 'rahim yar khan', 'gujrat', 'kasur', 'mardan', 'mingora', 'dera ghazi khan', 'sahiwal', 'nawabshah', 'okara', 'mirpur khas', 'chiniot', 'kamoke', 'mandi bahauddin', 'jhelum', 'sadiqabad', 'jacobabad', 'shikarpur', 'khanewal', 'hafizabad', 'kohat', 'muzaffargarh', 'khanpur', 'gojra', 'mianwali', 'bahawalnagar', 'muridke', 'pak pattan', 'abottabad', 'tando allahyar', 'jaranwala', 'chishtian', 'daska', 'mandi burewala', 'ahmadpur east', 'kamalia', 'vihari', 'wah cantonment', 'dera ismail khan', 'chaman', 'zhob', 'gwadar', 'turbat', 'khuzdar', 'colombo', 'kandy', 'galle', 'jaffna', 'negombo', 'batticaloa', 'matara', 'ratnapura', 'badulla', 'gampaha', 'kalutara', 'kurunegala', 'anuradhapura', 'polonnaruwa', 'trincomalee', 'vavuniya', 'mannar', 'puttalam', 'hambantota', 'monaragala', 'ampara', 'kegalle', 'nuwara eliya', 'kathmandu', 'pokhara', 'lalitpur', 'bharatpur', 'biratnagar', 'birgunj', 'dharan', 'butwal', 'hetauda', 'janakpur', 'dhangadhi', 'tulsipur', 'siddharthanagar', 'bhairahawa', 'kalaiya', 'itahari', 'gorkha', 'baglung', 'nepalgunj', 'tansen', 'dhankuta', 'ilam', 'rajbiraj', 'lahan', 'gaur', 'malangwa', 'siraha', 'rangoon', 'mandalay', 'naypyidaw', 'mawlamyine', 'bago', 'pathein', 'monywa', 'meiktila', 'myitkyina', 'dawei', 'pyay', 'hpa-an', 'taunggyi', 'sittwe', 'lashio', 'pakokku', 'magway', 'thaton', 'chauk', 'shwebo', 'sagaing', 'myeik', 'kawthaung', 'kyaukpyu', 'loikaw', 'hakha', 'falam', 'tamu', 'kalay', 'mindat', 'tedim', 'tonzang', 'rihkhawdar', 'thantlang'];
+        const asiaKeywords = ['india', 'china', 'japan', 'singapore', 'south korea', 'thailand', 'malaysia', 'indonesia', 'philippines', 'vietnam', 'bangladesh', 'pakistan', 'sri lanka', 'nepal', 'myanmar', 'cambodia', 'laos', 'brunei', 'mongolia', 'taiwan', 'hong kong', 'macau', 'bangalore', 'mumbai', 'delhi', 'chennai', 'hyderabad', 'pune', 'kolkata', 'ahmedabad', 'surat', 'jaipur', 'lucknow', 'kanpur', 'nagpur', 'indore', 'thane', 'bhopal', 'visakhapatnam', 'pimpri', 'patna', 'vadodara', 'ghaziabad', 'ludhiana', 'agra', 'nashik', 'faridabad', 'meerut', 'rajkot', 'kalyan', 'vasai', 'varanasi', 'srinagar', 'aurangabad', 'dhanbad', 'amritsar', 'navi mumbai', 'allahabad', 'ranchi', 'howrah', 'coimbatore', 'jabalpur', 'gwalior', 'vijayawada', 'jodhpur', 'madurai', 'raipur', 'kota', 'guwahati', 'chandigarh', 'solapur', 'hubballi', 'tiruchirappalli', 'bareilly', 'mysore', 'tiruppur', 'gurgaon', 'aligarh', 'jalandhar', 'bhubaneswar', 'salem', 'warangal', 'guntur', 'bhiwandi', 'saharanpur', 'gorakhpur', 'bikaner', 'amravati', 'noida', 'jamshedpur', 'bhilai', 'cuttack', 'firozabad', 'kochi', 'nellore', 'bhavnagar', 'dehradun', 'durgapur', 'asansol', 'rourkela', 'nanded', 'kolhapur', 'ajmer', 'akola', 'gulbarga', 'jamnagar', 'ujjain', 'loni', 'siliguri', 'jhansi', 'ulhasnagar', 'jammu', 'sangli', 'mangalore', 'erode', 'belgaum', 'ambattur', 'tirunelveli', 'malegaon', 'gaya', 'jalgaon', 'udaipur', 'maheshtala', 'beijing', 'shanghai', 'guangzhou', 'shenzhen', 'chengdu', 'hangzhou', 'wuhan', 'xian', 'suzhou', 'tianjin', 'nanjing', 'shenyang', 'harbin', 'jinan', 'changchun', 'dalian', 'kunming', 'taiyuan', 'shijiazhuang', 'urumqi', 'guiyang', 'hefei', 'lanzhou', 'zhengzhou', 'changsha', 'nanning', 'haikou', 'yinchuan', 'xining', 'hohhot', 'lhasa', 'tokyo', 'osaka', 'yokohama', 'nagoya', 'sapporo', 'fukuoka', 'kobe', 'kawasaki', 'kyoto', 'saitama', 'hiroshima', 'sendai', 'kitakyushu', 'chiba', 'sakai', 'niigata', 'hamamatsu', 'okayama', 'sagamihara', 'seoul', 'busan', 'incheon', 'daegu', 'daejeon', 'gwangju', 'suwon', 'ulsan', 'changwon', 'goyang', 'yongin', 'seongnam', 'bucheon', 'ansan', 'cheongju', 'jeonju', 'anyang', 'pohang', 'uijeongbu', 'siheung', 'cheonan', 'hwaseong', 'gimhae', 'gumi', 'pyeongtaek', 'iksan', 'gunpo', 'osan', 'yangsan', 'jeju', 'chuncheon', 'gangneung', 'andong', 'mokpo', 'yeosu', 'suncheon', 'gimcheon', 'naju', 'sangju', 'jeongeup', 'gongju', 'yeongju', 'seosan', 'nonsan', 'boryeong', 'asan', 'gyeongju', 'miryang', 'tongyeong', 'sacheon', 'kimhae', 'yangju', 'icheon', 'anju', 'namyangju', 'paju', 'gimpo', 'hanam', 'guri', 'gwangmyeong', 'gwacheon', 'uiwang', 'gunsan', 'jecheon', 'chungju', 'wonju', 'gangneung', 'samcheok', 'sokcho', 'donghae', 'taebaek', 'bangkok', 'kuala lumpur', 'jakarta', 'manila', 'ho chi minh city', 'hanoi', 'phnom penh', 'vientiane', 'bandar seri begawan', 'ulaanbaatar', 'taipei', 'dhaka', 'karachi', 'lahore', 'islamabad', 'rawalpindi', 'faisalabad', 'multan', 'gujranwala', 'peshawar', 'quetta', 'sialkot', 'sargodha', 'bahawalpur', 'sukkur', 'larkana', 'sheikhupura', 'jhang', 'rahim yar khan', 'gujrat', 'kasur', 'mardan', 'mingora', 'dera ghazi khan', 'sahiwal', 'nawabshah', 'okara', 'mirpur khas', 'chiniot', 'kamoke', 'mandi bahauddin', 'jhelum', 'sadiqabad', 'jacobabad', 'shikarpur', 'khanewal', 'hafizabad', 'kohat', 'muzaffargarh', 'khanpur', 'gojra', 'mianwali', 'bahawalnagar', 'muridke', 'pak pattan', 'abottabad', 'tando allahyar', 'jaranwala', 'chishtian', 'daska', 'mandi burewala', 'ahmadpur east', 'kamalia', 'vihari', 'wah cantonment', 'dera ismail khan', 'chaman', 'zhob', 'gwadar', 'turbat', 'khuzdar', 'colombo', 'kandy', 'galle', 'jaffna', 'negombo', 'batticaloa', 'matara', 'ratnapura', 'badulla', 'gampaha', 'kalutara', 'kurunegala', 'anuradhapura', 'polonnaruwa', 'trincomalee', 'vavuniya', 'mannar', 'puttalam', 'hambantota', 'monaragala', 'ampara', 'kegalle', 'nuwara eliya', 'kathmandu', 'pokhara', 'lalitpur', 'bharatpur', 'biratnagar', 'birgunj', 'dharan', 'butwal', 'hetauda', 'janakpur', 'dhangadhi', 'tulsipur', 'siddharthanagar', 'bhairahawa', 'kalaiya', 'itahari', 'gorkha', 'baglung', 'nepalgunj', 'tansen', 'dhankuta', 'ilam', 'rajbiraj', 'lahan', 'gaur', 'malangwa', 'siraha', 'rangoon', 'mandalay', 'naypyidaw', 'mawlamyine', 'bago', 'pathein', 'monywa', 'meiktila', 'myitkyina', 'dawei', 'pyay', 'hpa-an', 'taunggyi', 'sittwe', 'lashio', 'pakokku', 'magway', 'thaton', 'chauk', 'shwebo', 'sagaing', 'myeik', 'kawthaung', 'kyaukpyu', 'loikaw', 'hakha', 'falam', 'tamu', 'kalay', 'mindat', 'tedim', 'tonzang', 'rihkhawdar', 'thantlang', 'karnataka', 'maharashtra', 'tamil nadu', 'telangana', 'haryana', 'uttar pradesh'];
         return asiaKeywords.some(keyword => location.toLowerCase().includes(keyword));
     }
 
@@ -118,7 +118,7 @@ class AlumniMap {
         let threshold;
         if (region === 'usa') threshold = 1.5; // Smaller threshold for dense USA
         else if (region === 'europe') threshold = 2.0;
-        else if (region === 'asia') threshold = 2.5;
+        else if (region === 'asia') threshold = 1.8; // Adjusted for Asia
         else threshold = 3.0; // World view
 
         alumni.forEach((alumnus, index) => {
@@ -171,7 +171,7 @@ class AlumniMap {
                 if (groupData.alumni.length === 1) {
                     // Single alumni - open LinkedIn
                     const alumni = groupData.alumni[0];
-                    if (alumni.linkedin) {
+                    if (alumni.linkedin && alumni.linkedin !== '#') {
                         window.open(alumni.linkedin, '_blank');
                     }
                 } else {
@@ -201,7 +201,7 @@ class AlumniMap {
                                     <p class="location">${alumni.location}</p>
                                     <p class="role">${alumni.position}</p>
                                 </div>
-                                ${alumni.linkedin ? `
+                                ${alumni.linkedin && alumni.linkedin !== '#' ? `
                                     <a href="${alumni.linkedin}" target="_blank" class="linkedin-btn">
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="linkedin-icon">
                                         LinkedIn
@@ -224,7 +224,7 @@ class AlumniMap {
         });
     }
 
-    // Enhanced projection system for accurate positioning
+    // Enhanced projection system for accurate positioning - CORRECTED FOR ASIA
     getXFromLng(lng, region) {
         switch (region) {
             case 'usa':
@@ -234,8 +234,8 @@ class AlumniMap {
                 // Europe: -10° to 40° longitude (50° range)
                 return Math.max(0, Math.min(100, ((lng + 10) / 50) * 100));
             case 'asia':
-                // Asia: 60° to 150° longitude (90° range)
-                return Math.max(0, Math.min(100, ((lng - 60) / 90) * 100));
+                // Asia: 65° to 150° longitude (85° range) - CORRECTED
+                return Math.max(0, Math.min(100, ((lng - 65) / 85) * 100));
             default:
                 // World: -180° to 180° longitude (360° range)
                 return Math.max(0, Math.min(100, ((lng + 180) / 360) * 100));
@@ -251,8 +251,8 @@ class AlumniMap {
                 // Europe: 35° to 70° latitude (35° range)
                 return Math.max(0, Math.min(100, ((70 - lat) / 35) * 100));
             case 'asia':
-                // Asia: 10° to 55° latitude (45° range)
-                return Math.max(0, Math.min(100, ((55 - lat) / 45) * 100));
+                // Asia: 5° to 55° latitude (50° range) - CORRECTED
+                return Math.max(0, Math.min(100, ((55 - lat) / 50) * 100));
             default:
                 // World: -90° to 90° latitude (180° range)
                 return Math.max(0, Math.min(100, ((90 - lat) / 180) * 100));
