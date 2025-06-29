@@ -1,4 +1,4 @@
-// Enhanced Alumni Map Module with Interactive Features
+// Enhanced Alumni Map Module with Fixed Interactions
 class AlumniMap {
     constructor() {
         this.mapContainer = document.getElementById('alumni-map');
@@ -26,8 +26,9 @@ class AlumniMap {
         this.currentRegion = region;
         
         // Fade out current map
-        if (this.mapContainer.firstChild) {
-            this.mapContainer.firstChild.classList.add('fade-out');
+        const currentMap = this.mapContainer.querySelector('.static-world-map');
+        if (currentMap) {
+            currentMap.classList.add('fade-out');
         }
         
         setTimeout(() => {
@@ -37,10 +38,32 @@ class AlumniMap {
             else if (region === 'europe') mapImage = 'public/europe_night.jpg';
             else if (region === 'asia') mapImage = 'public/asia_night.jpg';
 
-            // Filter alumni data - use last 3-4 years (2017-2021 batches)
+            // Filter alumni data - use last 3-4 years (2017-2021 batches) with corrected coordinates
             let alumniToShow = this.alumniData.filter(alumni => {
                 const batch = parseInt(alumni.batch);
                 return batch >= 2017 && batch <= 2021;
+            }).map(alumni => {
+                // Fix coordinates that are in the sea
+                let correctedCoordinates = { ...alumni.coordinates };
+                
+                // Fix specific problematic locations
+                if (alumni.location.includes('Pittsburgh')) {
+                    correctedCoordinates = { lat: 40.4406, lng: -79.9959 };
+                } else if (alumni.location.includes('Miami')) {
+                    correctedCoordinates = { lat: 25.7617, lng: -80.1918 };
+                } else if (alumni.location.includes('Bangalore')) {
+                    correctedCoordinates = { lat: 12.9716, lng: 77.5946 };
+                } else if (alumni.location.includes('Lisbon')) {
+                    correctedCoordinates = { lat: 38.7223, lng: -9.1393 };
+                } else if (alumni.location.includes('San Francisco')) {
+                    correctedCoordinates = { lat: 37.7749, lng: -122.4194 };
+                } else if (alumni.location.includes('Cupertino')) {
+                    correctedCoordinates = { lat: 37.3230, lng: -122.0322 };
+                } else if (alumni.location.includes('San Diego')) {
+                    correctedCoordinates = { lat: 32.7157, lng: -117.1611 };
+                }
+                
+                return { ...alumni, coordinates: correctedCoordinates };
             });
 
             console.log(`📊 Found ${alumniToShow.length} alumni from 2017-2021`);
@@ -54,7 +77,10 @@ class AlumniMap {
                         alumni.location.toLowerCase().includes('united states') ||
                         alumni.location.toLowerCase().includes('ca, usa') ||
                         alumni.location.toLowerCase().includes('tx, usa') ||
-                        alumni.location.toLowerCase().includes('ny, usa')
+                        alumni.location.toLowerCase().includes('ny, usa') ||
+                        alumni.location.toLowerCase().includes('florida') ||
+                        alumni.location.toLowerCase().includes('california') ||
+                        alumni.location.toLowerCase().includes('pennsylvania')
                     );
                     if (region === 'europe') return alumni.location && (
                         alumni.location.toLowerCase().includes('europe') ||
@@ -70,7 +96,8 @@ class AlumniMap {
                         alumni.location.toLowerCase().includes('asia') ||
                         alumni.location.toLowerCase().includes('singapore') ||
                         alumni.location.toLowerCase().includes('japan') ||
-                        alumni.location.toLowerCase().includes('china')
+                        alumni.location.toLowerCase().includes('china') ||
+                        alumni.location.toLowerCase().includes('india')
                     );
                     return false;
                 });
@@ -129,37 +156,37 @@ class AlumniMap {
     getXFromLng(lng, region) {
         if (region === 'usa') {
             // USA specific projection (-125 to -65 longitude)
-            return ((lng + 125) / 60) * 100;
+            return Math.max(0, Math.min(100, ((lng + 125) / 60) * 100));
         } else if (region === 'india') {
             // India specific projection (68 to 97 longitude)
-            return ((lng - 68) / 29) * 100;
+            return Math.max(0, Math.min(100, ((lng - 68) / 29) * 100));
         } else if (region === 'europe') {
             // Europe specific projection (-10 to 40 longitude)
-            return ((lng + 10) / 50) * 100;
+            return Math.max(0, Math.min(100, ((lng + 10) / 50) * 100));
         } else if (region === 'asia') {
             // Asia specific projection (60 to 150 longitude)
-            return ((lng - 60) / 90) * 100;
+            return Math.max(0, Math.min(100, ((lng - 60) / 90) * 100));
         }
         // World projection
-        return ((lng + 180) / 360) * 100;
+        return Math.max(0, Math.min(100, ((lng + 180) / 360) * 100));
     }
 
     getYFromLat(lat, region) {
         if (region === 'usa') {
             // USA specific projection (25 to 50 latitude)
-            return ((50 - lat) / 25) * 100;
+            return Math.max(0, Math.min(100, ((50 - lat) / 25) * 100));
         } else if (region === 'india') {
             // India specific projection (8 to 37 latitude)
-            return ((37 - lat) / 29) * 100;
+            return Math.max(0, Math.min(100, ((37 - lat) / 29) * 100));
         } else if (region === 'europe') {
             // Europe specific projection (35 to 70 latitude)
-            return ((70 - lat) / 35) * 100;
+            return Math.max(0, Math.min(100, ((70 - lat) / 35) * 100));
         } else if (region === 'asia') {
             // Asia specific projection (10 to 55 latitude)
-            return ((55 - lat) / 45) * 100;
+            return Math.max(0, Math.min(100, ((55 - lat) / 45) * 100));
         }
         // World projection
-        return ((90 - lat) / 180) * 100;
+        return Math.max(0, Math.min(100, ((90 - lat) / 180) * 100));
     }
 
     setupMarkerInteractions() {
@@ -174,8 +201,12 @@ class AlumniMap {
             }, index * 100);
 
             marker.addEventListener('mouseenter', (e) => {
-                const alumniData = JSON.parse(marker.dataset.alumni);
-                this.showTooltip(tooltip, alumniData, e);
+                try {
+                    const alumniData = JSON.parse(marker.dataset.alumni);
+                    this.showTooltip(tooltip, alumniData, e);
+                } catch (error) {
+                    console.error('Error parsing alumni data:', error);
+                }
             });
 
             marker.addEventListener('mouseleave', () => {
@@ -189,20 +220,24 @@ class AlumniMap {
     }
 
     showTooltip(tooltip, alumni, event) {
+        if (!tooltip) return;
+        
         const nameEl = tooltip.querySelector('.tooltip-name');
         const companyEl = tooltip.querySelector('.tooltip-company');
         const locationEl = tooltip.querySelector('.tooltip-location');
         const linkedinEl = tooltip.querySelector('.tooltip-linkedin');
 
-        nameEl.textContent = alumni.name;
-        companyEl.textContent = `${alumni.position} @ ${alumni.company}`;
-        locationEl.textContent = alumni.location;
+        if (nameEl) nameEl.textContent = alumni.name;
+        if (companyEl) companyEl.textContent = `${alumni.position} @ ${alumni.company}`;
+        if (locationEl) locationEl.textContent = alumni.location;
         
-        if (alumni.linkedin) {
-            linkedinEl.href = alumni.linkedin;
-            linkedinEl.style.display = 'inline';
-        } else {
-            linkedinEl.style.display = 'none';
+        if (linkedinEl) {
+            if (alumni.linkedin) {
+                linkedinEl.href = alumni.linkedin;
+                linkedinEl.style.display = 'inline';
+            } else {
+                linkedinEl.style.display = 'none';
+            }
         }
 
         tooltip.classList.add('visible');
@@ -210,10 +245,14 @@ class AlumniMap {
     }
 
     hideTooltip(tooltip) {
-        tooltip.classList.remove('visible');
+        if (tooltip) {
+            tooltip.classList.remove('visible');
+        }
     }
 
     updateTooltipPosition(tooltip, event) {
+        if (!tooltip) return;
+        
         const rect = this.mapContainer.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
@@ -248,7 +287,7 @@ class AlumniMap {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                filter: brightness(0.8) contrast(1.1) saturate(1.2);
+                filter: brightness(1.0) contrast(1.2) saturate(1.3);
             }
 
             .alumni-markers {
@@ -322,8 +361,8 @@ class AlumniMap {
                     opacity: 0.8;
                 }
                 50% {
-                    transform: translate(-50%, -50%) scale(1.5);
-                    opacity: 0.3;
+                    transform: translate(-50%, -50%) scale(1.8);
+                    opacity: 0.2;
                 }
             }
 
