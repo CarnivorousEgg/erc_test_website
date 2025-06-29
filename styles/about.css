@@ -379,7 +379,7 @@
     box-shadow: 0 10px 25px rgba(0, 119, 181, 0.2);
 }
 
-/* GitHub Styling */
+/* GitHub Styling with Dark Mode Fix */
 .social-link[href*="github"]::before {
     background: linear-gradient(135deg, #333 0%, #24292e 100%);
 }
@@ -410,20 +410,15 @@
     position: relative;
 }
 
-/* Colorful Icon Filters */
-.social-link[href*="gmail"] .social-icon {
-    filter: none;
+/* GitHub Icon Dark Mode Fix - Invert colors in dark theme */
+[data-theme="dark"] .social-link[href*="github"] .social-icon {
+    filter: invert(1) brightness(1.2);
 }
 
-.social-link[href*="instagram"] .social-icon {
-    filter: none;
-}
-
+/* Keep other icons unchanged */
+.social-link[href*="gmail"] .social-icon,
+.social-link[href*="instagram"] .social-icon,
 .social-link[href*="linkedin"] .social-icon {
-    filter: none;
-}
-
-.social-link[href*="github"] .social-icon {
     filter: none;
 }
 
