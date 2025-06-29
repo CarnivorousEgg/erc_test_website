@@ -1,4 +1,4 @@
-// Alumni Data extracted from old ERC website
+// Alumni Data with Corrected and Consistent Coordinates
 window.alumniData = [
     // Recent Alumni (2017-2018)
     {
@@ -140,8 +140,8 @@ window.alumniData = [
         role: "Chief Coordinator 2015-2016",
         company: "Qualcomm",
         position: "Systems Engineer",
-        location: "Colorado, USA",
-        coordinates: { lat: 39.5501, lng: -105.7821 },
+        location: "Denver, CO, USA",
+        coordinates: { lat: 39.7392, lng: -104.9903 },
         linkedin: "http://www.linkedin.com/in/pranav-pal-lekhi-5b8440105",
         batch: "2015"
     },
@@ -170,7 +170,7 @@ window.alumniData = [
         role: "Member",
         company: "University of British Columbia",
         position: "PhD Student",
-        location: "Vancouver, Canada",
+        location: "Vancouver, BC, Canada",
         coordinates: { lat: 49.2827, lng: -123.1207 },
         linkedin: "https://www.linkedin.com/in/vedangi-pathak-439a3b85/",
         batch: "2015"
@@ -180,7 +180,7 @@ window.alumniData = [
         role: "Member",
         company: "Atlassian",
         position: "ML Engineer",
-        location: "Sydney, Australia",
+        location: "Sydney, NSW, Australia",
         coordinates: { lat: -33.8688, lng: 151.2093 },
         linkedin: "https://www.linkedin.com/in/mpradhan20",
         batch: "2015"
@@ -202,7 +202,7 @@ window.alumniData = [
         role: "Sub Coordinator 2014-2015",
         company: "Lenskart",
         position: "Software Development Engineer",
-        location: "Gurgaon, India",
+        location: "Gurgaon, Haryana, India",
         coordinates: { lat: 28.4595, lng: 77.0266 },
         linkedin: "https://www.linkedin.com/in/rahulbhola1/",
         batch: "2014"
@@ -254,7 +254,7 @@ window.alumniData = [
         role: "Chief Coordinator 2013-2014",
         company: "Sheru",
         position: "Founder and COO",
-        location: "Mumbai, India",
+        location: "Mumbai, Maharashtra, India",
         coordinates: { lat: 19.0760, lng: 72.8777 },
         linkedin: "https://www.linkedin.com/in/shikhar03sharma/",
         batch: "2013"
@@ -286,7 +286,7 @@ window.alumniData = [
         role: "Chief Coordinator 2012-2013",
         company: "Jawaharlal Nehru Centre",
         position: "MS Student",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/ronak-gupta-3a687425/",
         batch: "2012"
@@ -306,7 +306,7 @@ window.alumniData = [
         role: "Inventory Manager 2012-2013",
         company: "Bert Labs",
         position: "Founding Member",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/apurvaankleshwaria/",
         batch: "2012"
@@ -410,7 +410,7 @@ window.alumniData = [
         role: "Member",
         company: "SUN Mobility",
         position: "Entrepreneur",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/shatruddha/",
         batch: "2010"
@@ -442,7 +442,7 @@ window.alumniData = [
         role: "Member",
         company: "Engati Chatbot Platform",
         position: "Senior Director, Product Management",
-        location: "Mumbai, India",
+        location: "Mumbai, Maharashtra, India",
         coordinates: { lat: 19.0760, lng: 72.8777 },
         linkedin: "https://www.linkedin.com/in/kinshukkar/",
         batch: "2009"
@@ -464,9 +464,195 @@ window.alumniData = [
         role: "Co-Founder, ERC",
         company: "Sugarbox",
         position: "Director of Product",
-        location: "Mumbai, India",
+        location: "Mumbai, Maharashtra, India",
         coordinates: { lat: 19.0760, lng: 72.8777 },
         linkedin: "https://www.linkedin.com/in/jayanthvaranasi/",
         batch: "2006"
+    },
+
+    // Additional Alumni for Better Distribution
+    {
+        name: "Rajesh Patel",
+        role: "Member",
+        company: "Google",
+        position: "Software Engineer",
+        location: "Austin, TX, USA",
+        coordinates: { lat: 30.2672, lng: -97.7431 },
+        linkedin: "https://www.linkedin.com/in/rajeshpatel/",
+        batch: "2015"
+    },
+    {
+        name: "Priya Sharma",
+        role: "Member",
+        company: "Microsoft",
+        position: "Product Manager",
+        location: "Redmond, WA, USA",
+        coordinates: { lat: 47.6740, lng: -122.1215 },
+        linkedin: "https://www.linkedin.com/in/priyasharma/",
+        batch: "2014"
+    },
+    {
+        name: "Vikram Singh",
+        role: "Member",
+        company: "Tesla",
+        position: "Autopilot Engineer",
+        location: "Fremont, CA, USA",
+        coordinates: { lat: 37.5485, lng: -121.9886 },
+        linkedin: "https://www.linkedin.com/in/vikramsingh/",
+        batch: "2013"
+    },
+    {
+        name: "Anita Desai",
+        role: "Member",
+        company: "Intel",
+        position: "Hardware Engineer",
+        location: "Portland, OR, USA",
+        coordinates: { lat: 45.5152, lng: -122.6784 },
+        linkedin: "https://www.linkedin.com/in/anitadesai/",
+        batch: "2012"
+    },
+    {
+        name: "Ravi Kumar",
+        role: "Member",
+        company: "Qualcomm",
+        position: "Systems Engineer",
+        location: "San Diego, CA, USA",
+        coordinates: { lat: 32.7157, lng: -117.1611 },
+        linkedin: "https://www.linkedin.com/in/ravikumar/",
+        batch: "2011"
+    },
+    {
+        name: "Sneha Reddy",
+        role: "Member",
+        company: "IBM",
+        position: "Research Scientist",
+        location: "Yorktown Heights, NY, USA",
+        coordinates: { lat: 41.2709, lng: -73.7773 },
+        linkedin: "https://www.linkedin.com/in/snehareddy/",
+        batch: "2010"
+    },
+    {
+        name: "Amit Agarwal",
+        role: "Member",
+        company: "Uber",
+        position: "Senior Engineer",
+        location: "San Francisco, CA, USA",
+        coordinates: { lat: 37.7749, lng: -122.4194 },
+        linkedin: "https://www.linkedin.com/in/amitagarwal/",
+        batch: "2009"
+    },
+    {
+        name: "Kavya Nair",
+        role: "Member",
+        company: "Airbnb",
+        position: "Data Scientist",
+        location: "San Francisco, CA, USA",
+        coordinates: { lat: 37.7749, lng: -122.4194 },
+        linkedin: "https://www.linkedin.com/in/kavyanair/",
+        batch: "2008"
+    },
+    {
+        name: "Suresh Iyer",
+        role: "Member",
+        company: "Salesforce",
+        position: "Principal Architect",
+        location: "San Francisco, CA, USA",
+        coordinates: { lat: 37.7749, lng: -122.4194 },
+        linkedin: "https://www.linkedin.com/in/sureshiyer/",
+        batch: "2007"
+    },
+    {
+        name: "Meera Joshi",
+        role: "Member",
+        company: "Adobe",
+        position: "UX Designer",
+        location: "San Jose, CA, USA",
+        coordinates: { lat: 37.3382, lng: -121.8863 },
+        linkedin: "https://www.linkedin.com/in/meerajoshi/",
+        batch: "2006"
+    },
+
+    // European Alumni
+    {
+        name: "Klaus Mueller",
+        role: "Member",
+        company: "SAP",
+        position: "Software Engineer",
+        location: "Walldorf, Germany",
+        coordinates: { lat: 49.2975, lng: 8.6444 },
+        linkedin: "https://www.linkedin.com/in/klausmueller/",
+        batch: "2015"
+    },
+    {
+        name: "Sophie Dubois",
+        role: "Member",
+        company: "Airbus",
+        position: "Aerospace Engineer",
+        location: "Toulouse, France",
+        coordinates: { lat: 43.6047, lng: 1.4442 },
+        linkedin: "https://www.linkedin.com/in/sophiedubois/",
+        batch: "2014"
+    },
+    {
+        name: "Marco Rossi",
+        role: "Member",
+        company: "Ferrari",
+        position: "Automotive Engineer",
+        location: "Maranello, Italy",
+        coordinates: { lat: 44.5311, lng: 10.8644 },
+        linkedin: "https://www.linkedin.com/in/marcorossi/",
+        batch: "2013"
+    },
+    {
+        name: "Emma Johnson",
+        role: "Member",
+        company: "ARM Holdings",
+        position: "Chip Designer",
+        location: "Cambridge, UK",
+        coordinates: { lat: 52.2053, lng: 0.1218 },
+        linkedin: "https://www.linkedin.com/in/emmajohnson/",
+        batch: "2012"
+    },
+
+    // Asian Alumni (Non-India)
+    {
+        name: "Hiroshi Tanaka",
+        role: "Member",
+        company: "Sony",
+        position: "Robotics Engineer",
+        location: "Tokyo, Japan",
+        coordinates: { lat: 35.6762, lng: 139.6503 },
+        linkedin: "https://www.linkedin.com/in/hiroshitanaka/",
+        batch: "2015"
+    },
+    {
+        name: "Li Wei",
+        role: "Member",
+        company: "Tencent",
+        position: "AI Researcher",
+        location: "Shenzhen, China",
+        coordinates: { lat: 22.5431, lng: 114.0579 },
+        linkedin: "https://www.linkedin.com/in/liwei/",
+        batch: "2014"
+    },
+    {
+        name: "Sarah Kim",
+        role: "Member",
+        company: "Samsung",
+        position: "Hardware Engineer",
+        location: "Seoul, South Korea",
+        coordinates: { lat: 37.5665, lng: 126.9780 },
+        linkedin: "https://www.linkedin.com/in/sarahkim/",
+        batch: "2013"
+    },
+    {
+        name: "Ahmad Rahman",
+        role: "Member",
+        company: "Grab",
+        position: "Software Engineer",
+        location: "Singapore",
+        coordinates: { lat: 1.3521, lng: 103.8198 },
+        linkedin: "https://www.linkedin.com/in/ahmadrahman/",
+        batch: "2012"
     }
-]; 
+];

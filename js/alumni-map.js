@@ -1,4 +1,4 @@
-// Enhanced Alumni Map Module with Fixed Interactions and Better Positioning
+// Enhanced Alumni Map Module with Precise Coordinate System
 class AlumniMap {
     constructor() {
         this.mapContainer = document.getElementById('alumni-map');
@@ -37,128 +37,20 @@ class AlumniMap {
             else if (region === 'europe') mapImage = 'public/europe_night.jpg';
             else if (region === 'asia') mapImage = 'public/asia_night.jpg';
 
-            // Use ALL alumni data with corrected coordinates
-            let alumniToShow = this.alumniData.map(alumni => {
-                // Fix coordinates that are in the sea or incorrect
-                let correctedCoordinates = { ...alumni.coordinates };
-                
-                // Fix specific problematic locations with accurate coordinates
-                if (alumni.location.includes('Pittsburgh')) {
-                    correctedCoordinates = { lat: 40.4406, lng: -79.9959 };
-                } else if (alumni.location.includes('Miami')) {
-                    correctedCoordinates = { lat: 25.7617, lng: -80.1918 };
-                } else if (alumni.location.includes('Bangalore')) {
-                    correctedCoordinates = { lat: 12.9716, lng: 77.5946 };
-                } else if (alumni.location.includes('Lisbon')) {
-                    correctedCoordinates = { lat: 38.7223, lng: -9.1393 };
-                } else if (alumni.location.includes('San Francisco')) {
-                    correctedCoordinates = { lat: 37.7749, lng: -122.4194 };
-                } else if (alumni.location.includes('Cupertino')) {
-                    correctedCoordinates = { lat: 37.3230, lng: -122.0322 };
-                } else if (alumni.location.includes('San Diego')) {
-                    correctedCoordinates = { lat: 32.7157, lng: -117.1611 };
-                } else if (alumni.location.includes('Seattle')) {
-                    correctedCoordinates = { lat: 47.6062, lng: -122.3321 };
-                } else if (alumni.location.includes('Austin')) {
-                    correctedCoordinates = { lat: 30.2672, lng: -97.7431 };
-                } else if (alumni.location.includes('New York')) {
-                    correctedCoordinates = { lat: 40.7128, lng: -74.0060 };
-                } else if (alumni.location.includes('Mumbai')) {
-                    correctedCoordinates = { lat: 19.0760, lng: 72.8777 };
-                } else if (alumni.location.includes('Delhi') || alumni.location.includes('Gurgaon')) {
-                    correctedCoordinates = { lat: 28.4595, lng: 77.0266 };
-                } else if (alumni.location.includes('Prague')) {
-                    correctedCoordinates = { lat: 50.0755, lng: 14.4378 };
-                } else if (alumni.location.includes('Berlin')) {
-                    correctedCoordinates = { lat: 52.5200, lng: 13.4050 };
-                } else if (alumni.location.includes('Vancouver')) {
-                    correctedCoordinates = { lat: 49.2827, lng: -123.1207 };
-                } else if (alumni.location.includes('Sydney')) {
-                    correctedCoordinates = { lat: -33.8688, lng: 151.2093 };
-                } else if (alumni.location.includes('Houston')) {
-                    correctedCoordinates = { lat: 29.7604, lng: -95.3698 };
-                } else if (alumni.location.includes('Dallas')) {
-                    correctedCoordinates = { lat: 32.7767, lng: -96.7970 };
-                } else if (alumni.location.includes('College Station')) {
-                    correctedCoordinates = { lat: 30.6280, lng: -96.3344 };
-                } else if (alumni.location.includes('Princeton')) {
-                    correctedCoordinates = { lat: 40.3573, lng: -74.6672 };
-                } else if (alumni.location.includes('Stanford')) {
-                    correctedCoordinates = { lat: 37.4275, lng: -122.1697 };
-                } else if (alumni.location.includes('Mountain View')) {
-                    correctedCoordinates = { lat: 37.3861, lng: -122.0839 };
-                } else if (alumni.location.includes('Palo Alto')) {
-                    correctedCoordinates = { lat: 37.4419, lng: -122.1430 };
-                } else if (alumni.location.includes('Santa Clara')) {
-                    correctedCoordinates = { lat: 37.3541, lng: -121.9552 };
-                } else if (alumni.location.includes('Ann Arbor')) {
-                    correctedCoordinates = { lat: 42.2808, lng: -83.7430 };
-                } else if (alumni.location.includes('Menlo Park')) {
-                    correctedCoordinates = { lat: 37.4529, lng: -122.1817 };
-                } else if (alumni.location.includes('Darmstadt')) {
-                    correctedCoordinates = { lat: 49.8728, lng: 8.6512 };
-                } else if (alumni.location.includes('Colorado')) {
-                    correctedCoordinates = { lat: 39.5501, lng: -105.7821 };
-                } else if (alumni.location.includes('Reno')) {
-                    correctedCoordinates = { lat: 39.5296, lng: -119.8138 };
-                } else if (alumni.location.includes('San Jose')) {
-                    correctedCoordinates = { lat: 37.3382, lng: -121.8863 };
-                }
-                
-                return { ...alumni, coordinates: correctedCoordinates };
-            });
-
-            console.log(`📊 Found ${alumniToShow.length} total alumni`);
-
-            // Further filter by region if not world view
+            // Filter alumni by region
+            let alumniToShow = this.alumniData;
             if (region !== 'world') {
-                alumniToShow = alumniToShow.filter(alumni => {
-                    if (region === 'usa') return alumni.location && (
-                        alumni.location.toLowerCase().includes('usa') || 
-                        alumni.location.toLowerCase().includes('united states') ||
-                        alumni.location.toLowerCase().includes('ca, usa') ||
-                        alumni.location.toLowerCase().includes('tx, usa') ||
-                        alumni.location.toLowerCase().includes('ny, usa') ||
-                        alumni.location.toLowerCase().includes('florida') ||
-                        alumni.location.toLowerCase().includes('california') ||
-                        alumni.location.toLowerCase().includes('pennsylvania') ||
-                        alumni.location.toLowerCase().includes('seattle') ||
-                        alumni.location.toLowerCase().includes('austin') ||
-                        alumni.location.toLowerCase().includes('dallas') ||
-                        alumni.location.toLowerCase().includes('houston') ||
-                        alumni.location.toLowerCase().includes('colorado') ||
-                        alumni.location.toLowerCase().includes('nevada') ||
-                        alumni.location.toLowerCase().includes('michigan')
-                    );
-                    if (region === 'europe') return alumni.location && (
-                        alumni.location.toLowerCase().includes('europe') ||
-                        alumni.location.toLowerCase().includes('germany') ||
-                        alumni.location.toLowerCase().includes('france') ||
-                        alumni.location.toLowerCase().includes('uk') ||
-                        alumni.location.toLowerCase().includes('portugal') ||
-                        alumni.location.toLowerCase().includes('czech') ||
-                        alumni.location.toLowerCase().includes('prague') ||
-                        alumni.location.toLowerCase().includes('lisbon') ||
-                        alumni.location.toLowerCase().includes('berlin') ||
-                        alumni.location.toLowerCase().includes('darmstadt')
-                    );
-                    if (region === 'asia') return alumni.location && (
-                        alumni.location.toLowerCase().includes('asia') ||
-                        alumni.location.toLowerCase().includes('singapore') ||
-                        alumni.location.toLowerCase().includes('japan') ||
-                        alumni.location.toLowerCase().includes('china') ||
-                        alumni.location.toLowerCase().includes('india') ||
-                        alumni.location.toLowerCase().includes('bangalore') ||
-                        alumni.location.toLowerCase().includes('mumbai') ||
-                        alumni.location.toLowerCase().includes('delhi') ||
-                        alumni.location.toLowerCase().includes('gurgaon')
-                    );
+                alumniToShow = this.alumniData.filter(alumni => {
+                    if (region === 'usa') return this.isInUSA(alumni.location);
+                    if (region === 'europe') return this.isInEurope(alumni.location);
+                    if (region === 'asia') return this.isInAsia(alumni.location);
                     return false;
                 });
-                console.log(`🎯 Filtered to ${alumniToShow.length} alumni for ${region}`);
             }
 
-            // Group nearby alumni to reduce density (especially for USA)
+            console.log(`📊 Found ${alumniToShow.length} alumni for ${region}`);
+
+            // Group nearby alumni to reduce density
             const groupedAlumni = this.groupNearbyAlumni(alumniToShow, region);
             console.log(`📍 Grouped into ${groupedAlumni.length} markers`);
 
@@ -173,8 +65,7 @@ class AlumniMap {
                             <button class="alumni-marker${interactive ? ' interactive' : ' breathing'}" 
                                  style="left: ${this.getXFromLng(group.coordinates.lng, region)}%; top: ${this.getYFromLat(group.coordinates.lat, region)}%;"
                                  data-group='${JSON.stringify(group).replace(/'/g, '&apos;')}'
-                                 data-index="${index}"
-                                 ${interactive ? `onclick="this.showGroupTooltip(event)"` : ''}>
+                                 data-index="${index}">
                                 <div class="marker-dot ${group.alumni.length > 1 ? 'grouped' : ''}">
                                     ${group.alumni.length > 1 ? group.alumni.length : ''}
                                 </div>
@@ -189,17 +80,10 @@ class AlumniMap {
             this.addMapStyles();
             this.setupGroupInteractions();
             
-            // Make breathing markers visible immediately
+            // Make markers visible with staggered animation
             setTimeout(() => {
-                const breathingMarkers = this.mapContainer.querySelectorAll('.alumni-marker.breathing');
-                breathingMarkers.forEach((marker, index) => {
-                    setTimeout(() => {
-                        marker.classList.add('visible');
-                    }, index * 100);
-                });
-                
-                const interactiveMarkers = this.mapContainer.querySelectorAll('.alumni-marker.interactive');
-                interactiveMarkers.forEach((marker, index) => {
+                const markers = this.mapContainer.querySelectorAll('.alumni-marker');
+                markers.forEach((marker, index) => {
                     setTimeout(() => {
                         marker.classList.add('visible');
                     }, index * 100);
@@ -209,11 +93,33 @@ class AlumniMap {
         }, 300);
     }
 
+    // Precise region detection
+    isInUSA(location) {
+        const usaKeywords = ['usa', 'united states', 'california', 'texas', 'new york', 'florida', 'washington', 'oregon', 'colorado', 'nevada', 'michigan', 'pennsylvania', 'massachusetts', 'illinois', 'georgia', 'north carolina', 'virginia'];
+        return usaKeywords.some(keyword => location.toLowerCase().includes(keyword));
+    }
+
+    isInEurope(location) {
+        const europeKeywords = ['germany', 'france', 'uk', 'united kingdom', 'portugal', 'spain', 'italy', 'netherlands', 'belgium', 'switzerland', 'austria', 'czech', 'poland', 'sweden', 'norway', 'denmark', 'finland', 'ireland', 'greece', 'hungary', 'romania', 'bulgaria', 'croatia', 'slovakia', 'slovenia', 'estonia', 'latvia', 'lithuania', 'luxembourg', 'malta', 'cyprus', 'prague', 'lisbon', 'berlin', 'paris', 'london', 'madrid', 'rome', 'amsterdam', 'brussels', 'zurich', 'vienna', 'warsaw', 'stockholm', 'oslo', 'copenhagen', 'helsinki', 'dublin', 'athens', 'budapest', 'bucharest', 'sofia', 'zagreb', 'bratislava', 'ljubljana', 'tallinn', 'riga', 'vilnius', 'cambridge', 'toulouse', 'maranello', 'walldorf', 'darmstadt'];
+        return europeKeywords.some(keyword => location.toLowerCase().includes(keyword));
+    }
+
+    isInAsia(location) {
+        const asiaKeywords = ['india', 'china', 'japan', 'singapore', 'south korea', 'thailand', 'malaysia', 'indonesia', 'philippines', 'vietnam', 'bangladesh', 'pakistan', 'sri lanka', 'nepal', 'myanmar', 'cambodia', 'laos', 'brunei', 'mongolia', 'taiwan', 'hong kong', 'macau', 'bangalore', 'mumbai', 'delhi', 'chennai', 'hyderabad', 'pune', 'kolkata', 'ahmedabad', 'surat', 'jaipur', 'lucknow', 'kanpur', 'nagpur', 'indore', 'thane', 'bhopal', 'visakhapatnam', 'pimpri', 'patna', 'vadodara', 'ghaziabad', 'ludhiana', 'agra', 'nashik', 'faridabad', 'meerut', 'rajkot', 'kalyan', 'vasai', 'varanasi', 'srinagar', 'aurangabad', 'dhanbad', 'amritsar', 'navi mumbai', 'allahabad', 'ranchi', 'howrah', 'coimbatore', 'jabalpur', 'gwalior', 'vijayawada', 'jodhpur', 'madurai', 'raipur', 'kota', 'guwahati', 'chandigarh', 'solapur', 'hubballi', 'tiruchirappalli', 'bareilly', 'mysore', 'tiruppur', 'gurgaon', 'aligarh', 'jalandhar', 'bhubaneswar', 'salem', 'warangal', 'guntur', 'bhiwandi', 'saharanpur', 'gorakhpur', 'bikaner', 'amravati', 'noida', 'jamshedpur', 'bhilai', 'cuttack', 'firozabad', 'kochi', 'nellore', 'bhavnagar', 'dehradun', 'durgapur', 'asansol', 'rourkela', 'nanded', 'kolhapur', 'ajmer', 'akola', 'gulbarga', 'jamnagar', 'ujjain', 'loni', 'siliguri', 'jhansi', 'ulhasnagar', 'jammu', 'sangli', 'mangalore', 'erode', 'belgaum', 'ambattur', 'tirunelveli', 'malegaon', 'gaya', 'jalgaon', 'udaipur', 'maheshtala', 'beijing', 'shanghai', 'guangzhou', 'shenzhen', 'chengdu', 'hangzhou', 'wuhan', 'xian', 'suzhou', 'tianjin', 'nanjing', 'shenyang', 'harbin', 'jinan', 'changchun', 'dalian', 'kunming', 'taiyuan', 'shijiazhuang', 'urumqi', 'guiyang', 'hefei', 'lanzhou', 'zhengzhou', 'changsha', 'nanning', 'haikou', 'yinchuan', 'xining', 'hohhot', 'lhasa', 'tokyo', 'osaka', 'yokohama', 'nagoya', 'sapporo', 'fukuoka', 'kobe', 'kawasaki', 'kyoto', 'saitama', 'hiroshima', 'sendai', 'kitakyushu', 'chiba', 'sakai', 'niigata', 'hamamatsu', 'okayama', 'sagamihara', 'seoul', 'busan', 'incheon', 'daegu', 'daejeon', 'gwangju', 'suwon', 'ulsan', 'changwon', 'goyang', 'yongin', 'seongnam', 'bucheon', 'ansan', 'cheongju', 'jeonju', 'anyang', 'pohang', 'uijeongbu', 'siheung', 'cheonan', 'hwaseong', 'gimhae', 'gumi', 'pyeongtaek', 'iksan', 'gunpo', 'osan', 'yangsan', 'jeju', 'chuncheon', 'gangneung', 'andong', 'mokpo', 'yeosu', 'suncheon', 'gimcheon', 'naju', 'sangju', 'jeongeup', 'gongju', 'yeongju', 'seosan', 'nonsan', 'boryeong', 'asan', 'gyeongju', 'miryang', 'tongyeong', 'sacheon', 'kimhae', 'yangju', 'icheon', 'anju', 'namyangju', 'paju', 'gimpo', 'hanam', 'guri', 'gwangmyeong', 'gwacheon', 'uiwang', 'gunsan', 'jecheon', 'chungju', 'wonju', 'gangneung', 'samcheok', 'sokcho', 'donghae', 'taebaek', '속초', 'bangkok', 'kuala lumpur', 'jakarta', 'manila', 'ho chi minh city', 'hanoi', 'phnom penh', 'vientiane', 'bandar seri begawan', 'ulaanbaatar', 'taipei', 'dhaka', 'karachi', 'lahore', 'islamabad', 'rawalpindi', 'faisalabad', 'multan', 'gujranwala', 'peshawar', 'quetta', 'sialkot', 'sargodha', 'bahawalpur', 'sukkur', 'larkana', 'sheikhupura', 'jhang', 'rahim yar khan', 'gujrat', 'kasur', 'mardan', 'mingora', 'dera ghazi khan', 'sahiwal', 'nawabshah', 'okara', 'mirpur khas', 'chiniot', 'kamoke', 'mandi bahauddin', 'jhelum', 'sadiqabad', 'jacobabad', 'shikarpur', 'khanewal', 'hafizabad', 'kohat', 'muzaffargarh', 'khanpur', 'gojra', 'mianwali', 'bahawalnagar', 'muridke', 'pak pattan', 'abottabad', 'tando allahyar', 'jaranwala', 'chishtian', 'daska', 'mandi burewala', 'ahmadpur east', 'kamalia', 'vihari', 'wah cantonment', 'dera ismail khan', 'chaman', 'zhob', 'gwadar', 'turbat', 'khuzdar', 'colombo', 'kandy', 'galle', 'jaffna', 'negombo', 'batticaloa', 'matara', 'ratnapura', 'badulla', 'gampaha', 'kalutara', 'kurunegala', 'anuradhapura', 'polonnaruwa', 'trincomalee', 'vavuniya', 'mannar', 'puttalam', 'hambantota', 'monaragala', 'ampara', 'kegalle', 'nuwara eliya', 'kathmandu', 'pokhara', 'lalitpur', 'bharatpur', 'biratnagar', 'birgunj', 'dharan', 'butwal', 'hetauda', 'janakpur', 'dhangadhi', 'tulsipur', 'siddharthanagar', 'bhairahawa', 'kalaiya', 'itahari', 'gorkha', 'baglung', 'nepalgunj', 'tansen', 'dhankuta', 'ilam', 'rajbiraj', 'lahan', 'gaur', 'malangwa', 'siraha', 'rangoon', 'mandalay', 'naypyidaw', 'mawlamyine', 'bago', 'pathein', 'monywa', 'meiktila', 'myitkyina', 'dawei', 'pyay', 'hpa-an', 'taunggyi', 'sittwe', 'lashio', 'pakokku', 'magway', 'thaton', 'chauk', 'shwebo', 'sagaing', 'myeik', 'kawthaung', 'kyaukpyu', 'loikaw', 'hakha', 'falam', 'tamu', 'kalay', 'mindat', 'tedim', 'tonzang', 'rihkhawdar', 'thantlang'];
+        return asiaKeywords.some(keyword => location.toLowerCase().includes(keyword));
+    }
+
     // Group nearby alumni to reduce density
     groupNearbyAlumni(alumni, region) {
         const groups = [];
         const processed = new Set();
-        const threshold = region === 'usa' ? 2 : region === 'europe' ? 3 : 5; // Distance threshold in degrees
+        
+        // Adjust threshold based on region and density
+        let threshold;
+        if (region === 'usa') threshold = 1.5; // Smaller threshold for dense USA
+        else if (region === 'europe') threshold = 2.0;
+        else if (region === 'asia') threshold = 2.5;
+        else threshold = 3.0; // World view
 
         alumni.forEach((alumnus, index) => {
             if (processed.has(index)) return;
@@ -318,35 +224,39 @@ class AlumniMap {
         });
     }
 
-    // Enhanced projection for different regions
+    // Enhanced projection system for accurate positioning
     getXFromLng(lng, region) {
-        if (region === 'usa') {
-            // USA specific projection (-125 to -65 longitude)
-            return Math.max(0, Math.min(100, ((lng + 125) / 60) * 100));
-        } else if (region === 'europe') {
-            // Europe specific projection (-10 to 40 longitude)
-            return Math.max(0, Math.min(100, ((lng + 10) / 50) * 100));
-        } else if (region === 'asia') {
-            // Asia specific projection (60 to 150 longitude)
-            return Math.max(0, Math.min(100, ((lng - 60) / 90) * 100));
+        switch (region) {
+            case 'usa':
+                // USA: -125° to -65° longitude (60° range)
+                return Math.max(0, Math.min(100, ((lng + 125) / 60) * 100));
+            case 'europe':
+                // Europe: -10° to 40° longitude (50° range)
+                return Math.max(0, Math.min(100, ((lng + 10) / 50) * 100));
+            case 'asia':
+                // Asia: 60° to 150° longitude (90° range)
+                return Math.max(0, Math.min(100, ((lng - 60) / 90) * 100));
+            default:
+                // World: -180° to 180° longitude (360° range)
+                return Math.max(0, Math.min(100, ((lng + 180) / 360) * 100));
         }
-        // World projection
-        return Math.max(0, Math.min(100, ((lng + 180) / 360) * 100));
     }
 
     getYFromLat(lat, region) {
-        if (region === 'usa') {
-            // USA specific projection (25 to 50 latitude)
-            return Math.max(0, Math.min(100, ((50 - lat) / 25) * 100));
-        } else if (region === 'europe') {
-            // Europe specific projection (35 to 70 latitude)
-            return Math.max(0, Math.min(100, ((70 - lat) / 35) * 100));
-        } else if (region === 'asia') {
-            // Asia specific projection (10 to 55 latitude)
-            return Math.max(0, Math.min(100, ((55 - lat) / 45) * 100));
+        switch (region) {
+            case 'usa':
+                // USA: 25° to 50° latitude (25° range)
+                return Math.max(0, Math.min(100, ((50 - lat) / 25) * 100));
+            case 'europe':
+                // Europe: 35° to 70° latitude (35° range)
+                return Math.max(0, Math.min(100, ((70 - lat) / 35) * 100));
+            case 'asia':
+                // Asia: 10° to 55° latitude (45° range)
+                return Math.max(0, Math.min(100, ((55 - lat) / 45) * 100));
+            default:
+                // World: -90° to 90° latitude (180° range)
+                return Math.max(0, Math.min(100, ((90 - lat) / 180) * 100));
         }
-        // World projection
-        return Math.max(0, Math.min(100, ((90 - lat) / 180) * 100));
     }
 
     addMapStyles() {
@@ -389,8 +299,8 @@ class AlumniMap {
 
             .alumni-marker {
                 position: absolute;
-                width: 28px;
-                height: 28px;
+                width: 32px;
+                height: 32px;
                 transform: translate(-50%, -50%);
                 opacity: 0;
                 transition: opacity 0.5s ease;
@@ -413,11 +323,11 @@ class AlumniMap {
             }
 
             .marker-dot {
-                width: 16px;
-                height: 16px;
+                width: 18px;
+                height: 18px;
                 background: var(--primary-color);
                 border-radius: 50%;
-                border: 2px solid var(--bg-primary);
+                border: 3px solid var(--bg-primary);
                 box-shadow: 0 0 15px rgba(34, 211, 238, 0.8);
                 position: absolute;
                 top: 50%;
@@ -430,18 +340,20 @@ class AlumniMap {
                 font-size: 10px;
                 font-weight: bold;
                 color: var(--bg-primary);
+                transition: all 0.3s ease;
             }
 
             .marker-dot.grouped {
-                width: 20px;
-                height: 20px;
+                width: 24px;
+                height: 24px;
                 background: var(--secondary-color);
-                font-size: 11px;
+                font-size: 12px;
+                border-width: 2px;
             }
 
             .marker-pulse {
-                width: 28px;
-                height: 28px;
+                width: 32px;
+                height: 32px;
                 border: 2px solid var(--primary-color);
                 border-radius: 50%;
                 position: absolute;
@@ -483,13 +395,13 @@ class AlumniMap {
 
             .alumni-marker.interactive:hover .marker-dot {
                 background: #ffffff;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
                 transform: translate(-50%, -50%) scale(1.4);
             }
 
             .marker-tooltip {
                 position: absolute;
-                bottom: 35px;
+                bottom: 40px;
                 left: 50%;
                 transform: translateX(-50%);
                 background: var(--bg-secondary);
@@ -505,6 +417,7 @@ class AlumniMap {
                 z-index: 1000;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
                 text-align: center;
+                min-width: 120px;
             }
 
             .alumni-marker.interactive:hover .marker-tooltip {
@@ -565,6 +478,8 @@ class AlumniMap {
                 font-size: 0.9rem;
                 transition: all 0.3s ease;
                 white-space: nowrap;
+                min-width: 100px;
+                justify-content: center;
             }
 
             .linkedin-btn:hover {
@@ -585,25 +500,26 @@ class AlumniMap {
                 }
                 
                 .alumni-marker {
-                    width: 24px;
-                    height: 24px;
+                    width: 28px;
+                    height: 28px;
                 }
                 
                 .marker-dot {
-                    width: 14px;
-                    height: 14px;
+                    width: 16px;
+                    height: 16px;
                     font-size: 9px;
+                    border-width: 2px;
                 }
                 
                 .marker-dot.grouped {
-                    width: 18px;
-                    height: 18px;
+                    width: 20px;
+                    height: 20px;
                     font-size: 10px;
                 }
                 
                 .marker-pulse {
-                    width: 24px;
-                    height: 24px;
+                    width: 28px;
+                    height: 28px;
                 }
 
                 .alumni-item {
@@ -614,6 +530,12 @@ class AlumniMap {
 
                 .linkedin-btn {
                     align-self: flex-end;
+                    min-width: 80px;
+                }
+
+                .marker-tooltip {
+                    min-width: 100px;
+                    font-size: 11px;
                 }
             }
         `;
