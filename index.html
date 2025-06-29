@@ -634,12 +634,11 @@ function showAlumniStories() {
                 <div class="coming-soon">
                     <div class="coming-soon-icon">🚀</div>
                     <h4>Coming Soon!</h4>
-                    <p>We're working on bringing you inspiring stories from our alumni network. Stay tuned for updates on their incredible journeys and achievements in the tech industry.</p>
+                    <p>We're working on bringing you inspiring stories from our alumni network.</p>
                     <div class="coming-soon-features">
                         <div class="feature">📖 Personal Success Stories</div>
                         <div class="feature">🎯 Career Journey Insights</div>
                         <div class="feature">💡 Advice for Current Students</div>
-                        <div class="feature">🌟 Industry Impact Highlights</div>
                     </div>
                 </div>
             </div>
@@ -677,9 +676,9 @@ modalStyles.textContent = `
         background: var(--bg-secondary);
         border: 1px solid var(--border-color);
         border-radius: 12px;
-        max-width: 500px;
+        max-width: 450px;
         width: 90%;
-        max-height: 80vh;
+        max-height: 70vh;
         overflow-y: auto;
     }
 
@@ -723,12 +722,12 @@ modalStyles.textContent = `
     }
 
     .coming-soon-icon {
-        font-size: 4rem;
+        font-size: 3rem;
         margin-bottom: 1rem;
     }
 
     .coming-soon h4 {
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 700;
         color: var(--primary-color);
         margin-bottom: 1rem;
@@ -737,22 +736,23 @@ modalStyles.textContent = `
     .coming-soon p {
         color: var(--text-secondary);
         line-height: 1.6;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     .coming-soon-features {
         display: grid;
-        gap: 1rem;
+        gap: 0.75rem;
         text-align: left;
     }
 
     .feature {
         background: var(--bg-tertiary);
         border: 1px solid var(--border-color);
-        padding: 1rem;
+        padding: 0.75rem;
         border-radius: 8px;
         color: var(--text-secondary);
         font-weight: 500;
+        font-size: 0.9rem;
     }
 `;
 document.head.appendChild(modalStyles);

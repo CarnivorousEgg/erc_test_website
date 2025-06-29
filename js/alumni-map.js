@@ -9,14 +9,20 @@ class AlumniMap {
     }
 
     init() {
-        if (!this.mapContainer) return;
+        if (!this.mapContainer) {
+            console.error('❌ Alumni map container not found');
+            return;
+        }
         
+        console.log('🗺️ Initializing Alumni Map...');
         this.createStaticMap();
         this.attachRegionButtons();
         this.setupCompanyScroller();
+        console.log('✅ Alumni Map initialized');
     }
 
     createStaticMap(region = 'world') {
+        console.log(`🌍 Creating map for region: ${region}`);
         this.currentRegion = region;
         
         // Fade out current map
@@ -36,6 +42,8 @@ class AlumniMap {
                 const batch = parseInt(alumni.batch);
                 return batch >= 2017 && batch <= 2021;
             });
+
+            console.log(`📊 Found ${alumniToShow.length} alumni from 2017-2021`);
 
             // Further filter by region if not world view
             if (region !== 'world') {
@@ -66,6 +74,7 @@ class AlumniMap {
                     );
                     return false;
                 });
+                console.log(`🎯 Filtered to ${alumniToShow.length} alumni for ${region}`);
             }
 
             const interactive = region !== 'world';
@@ -74,7 +83,6 @@ class AlumniMap {
                 <div class="static-world-map fade-in">
                     <img src="${mapImage}" 
                          alt="${region.charAt(0).toUpperCase() + region.slice(1)} Map" class="world-map-image">
-                    <div class="map-overlay"></div>
                     <div class="alumni-markers">
                         ${alumniToShow.map((alumni, index) => `
                             <div class="alumni-marker${interactive ? ' interactive' : ' breathing'}" 
@@ -103,6 +111,17 @@ class AlumniMap {
                 this.setupMarkerInteractions();
             }
             this.addMapStyles();
+            
+            // Make breathing markers visible immediately
+            setTimeout(() => {
+                const breathingMarkers = this.mapContainer.querySelectorAll('.alumni-marker.breathing');
+                breathingMarkers.forEach((marker, index) => {
+                    setTimeout(() => {
+                        marker.classList.add('visible');
+                    }, index * 100);
+                });
+            }, 100);
+            
         }, 300);
     }
 
@@ -146,6 +165,8 @@ class AlumniMap {
     setupMarkerInteractions() {
         const markers = this.mapContainer.querySelectorAll('.alumni-marker.interactive');
         const tooltip = this.mapContainer.querySelector('#alumni-tooltip');
+
+        console.log(`🎯 Setting up interactions for ${markers.length} markers`);
 
         markers.forEach((marker, index) => {
             setTimeout(() => {
@@ -227,20 +248,7 @@ class AlumniMap {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                filter: brightness(0.4) contrast(1.2) saturate(0.8);
-            }
-
-            .map-overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(135deg, 
-                    rgba(10, 15, 28, 0.6), 
-                    rgba(34, 211, 238, 0.2)
-                );
-                pointer-events: none;
+                filter: brightness(0.8) contrast(1.1) saturate(1.2);
             }
 
             .alumni-markers {
@@ -426,15 +434,15 @@ class AlumniMap {
             const allCompanies = [...companies, ...companies];
             allCompanies.forEach(company => {
                 const span = document.createElement('span');
-                span.className = 'company-tag';
+                span.className = 'company-name';
                 span.textContent = company;
                 scrollerContent.appendChild(span);
             });
             
             // Add animation for horizontal scroll
             scrollerContent.style.display = 'flex';
-            scrollerContent.style.gap = '2rem';
-            scrollerContent.style.animation = 'scroll-companies 30s linear infinite';
+            scrollerContent.style.gap = '3rem';
+            scrollerContent.style.animation = 'scroll-companies 40s linear infinite';
             
             // Pause on hover
             scrollerContent.addEventListener('mouseenter', () => {
@@ -474,26 +482,24 @@ class AlumniMap {
                     background: var(--bg-secondary);
                     border: 1px solid var(--border-color);
                     border-radius: 8px;
+                    display: flex;
+                    align-items: center;
                 }
                 
-                .company-tag {
-                    background: var(--bg-tertiary);
-                    border: 1px solid var(--border-color);
-                    padding: 0.75rem 1.5rem;
-                    border-radius: 6px;
+                .company-name {
                     color: var(--text-secondary);
                     white-space: nowrap;
-                    transition: all 0.3s ease;
                     font-weight: 500;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
                     display: flex;
                     align-items: center;
                     height: 100%;
+                    padding: 0 1rem;
                 }
                 
-                .company-tag:hover {
-                    background: var(--primary-color);
-                    color: var(--bg-primary);
-                    border-color: var(--primary-color);
+                .company-name:hover {
+                    color: var(--primary-color);
                 }
             `;
             document.head.appendChild(style);
@@ -502,9 +508,12 @@ class AlumniMap {
 
     attachRegionButtons() {
         const mapButtons = document.querySelectorAll('.map-btn');
+        console.log(`🔘 Found ${mapButtons.length} region buttons`);
+        
         mapButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const region = btn.textContent.toLowerCase();
+                console.log(`🌍 Region button clicked: ${region}`);
                 this.createStaticMap(region);
                 
                 // Update active button

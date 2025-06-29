@@ -19,6 +19,7 @@
     display: grid;
     grid-template-columns: 280px 1fr;
     gap: 3rem;
+    position: relative;
 }
 
 .project-sidebar {
@@ -26,10 +27,34 @@
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    position: relative;
 }
 
 .project-sidebar::-webkit-scrollbar {
     display: none;
+}
+
+/* Scroll indicator for project sidebar */
+.project-sidebar::after {
+    content: "⬇ More projects below";
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.project-sidebar:hover::after {
+    opacity: 1;
 }
 
 .project-card {
@@ -41,6 +66,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
+    position: relative;
 }
 
 .project-card:hover,
@@ -198,4 +224,30 @@
     padding: 0 1.5rem 1.5rem;
     color: var(--text-muted);
     font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .current-projects-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .project-sidebar {
+        max-height: none;
+        overflow-y: visible;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .project-sidebar::after {
+        display: none;
+    }
+    
+    .project-card {
+        flex: 1;
+        min-width: 200px;
+        margin-bottom: 0;
+    }
 }

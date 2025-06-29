@@ -310,7 +310,7 @@ class AnimationManager {
                     const target = entry.target;
                     const finalValue = parseInt(target.dataset.count);
                     this.animateCounter(target, 0, finalValue, 2000);
-                    counterObserver.unobserve(target);
+                    // Don't unobserve so it can retrigger when section is revisited
                 }
             });
         }, {
@@ -362,9 +362,12 @@ const projectsData = {
 
 const membersData = {
     current: [
-        { name: "Ritwik Sharma", role: "President", description: "Leading innovation in robotics", avatar: "👨‍💻" },
-        { name: "Saransh Agarwal", role: "Vice President", description: "Driving technical excellence", avatar: "👨‍🔬" },
-        { name: "Sniggdha Semwal", role: "Secretary", description: "Coordinating club activities", avatar: "👩‍💼" }
+        { name: "Saransh Agrawal", role: "Chief Coordinator", description: "Leading innovation in robotics", avatar: "👨‍💻" },
+        { name: "Aryan Goyal", role: "Sub Coordinator", description: "Driving technical excellence", avatar: "👨‍🔬" },
+        { name: "Nilesh Bhatia", role: "Sub Coordinator", description: "Coordinating club activities", avatar: "👩‍💼" },
+        { name: "Parth Jaju", role: "Treasurer", description: "Managing finances and resources", avatar: "💰" },
+        { name: "Kevin Matthews", role: "Research Head", description: "Leading research initiatives", avatar: "🔬" },
+        { name: "Dev Thacker", role: "Electronics Head", description: "Electronics and hardware expert", avatar: "⚡" }
     ]
 };
 
@@ -453,14 +456,16 @@ class ERCWebsite {
     }
 
     updateMembersContent() {
-        const membersGrid = document.querySelector('.about-content.members .members-grid');
+        const membersGrid = document.querySelector('.team-grid');
         if (membersGrid) {
             membersGrid.innerHTML = membersData.current.map(member => `
-                <div class="member-card">
+                <div class="team-member">
                     <div class="member-avatar">${member.avatar}</div>
                     <h4>${member.name}</h4>
                     <p class="member-role">${member.role}</p>
-                    <p>${member.description}</p>
+                    <div class="member-links">
+                        <a href="#" class="linkedin-link" target="_blank">LinkedIn</a>
+                    </div>
                 </div>
             `).join('');
         }
