@@ -38,12 +38,9 @@ class AlumniMap {
             else if (region === 'europe') mapImage = 'public/europe_night.jpg';
             else if (region === 'asia') mapImage = 'public/asia_night.jpg';
 
-            // Filter alumni data - use last 3-4 years (2017-2021 batches) with corrected coordinates
-            let alumniToShow = this.alumniData.filter(alumni => {
-                const batch = parseInt(alumni.batch);
-                return batch >= 2017 && batch <= 2021;
-            }).map(alumni => {
-                // Fix coordinates that are in the sea
+            // Use ALL alumni data with corrected coordinates
+            let alumniToShow = this.alumniData.map(alumni => {
+                // Fix coordinates that are in the sea or incorrect
                 let correctedCoordinates = { ...alumni.coordinates };
                 
                 // Fix specific problematic locations
@@ -61,12 +58,58 @@ class AlumniMap {
                     correctedCoordinates = { lat: 37.3230, lng: -122.0322 };
                 } else if (alumni.location.includes('San Diego')) {
                     correctedCoordinates = { lat: 32.7157, lng: -117.1611 };
+                } else if (alumni.location.includes('Seattle')) {
+                    correctedCoordinates = { lat: 47.6062, lng: -122.3321 };
+                } else if (alumni.location.includes('Austin')) {
+                    correctedCoordinates = { lat: 30.2672, lng: -97.7431 };
+                } else if (alumni.location.includes('New York')) {
+                    correctedCoordinates = { lat: 40.7128, lng: -74.0060 };
+                } else if (alumni.location.includes('Mumbai')) {
+                    correctedCoordinates = { lat: 19.0760, lng: 72.8777 };
+                } else if (alumni.location.includes('Delhi') || alumni.location.includes('Gurgaon')) {
+                    correctedCoordinates = { lat: 28.4595, lng: 77.0266 };
+                } else if (alumni.location.includes('Prague')) {
+                    correctedCoordinates = { lat: 50.0755, lng: 14.4378 };
+                } else if (alumni.location.includes('Berlin')) {
+                    correctedCoordinates = { lat: 52.5200, lng: 13.4050 };
+                } else if (alumni.location.includes('Vancouver')) {
+                    correctedCoordinates = { lat: 49.2827, lng: -123.1207 };
+                } else if (alumni.location.includes('Sydney')) {
+                    correctedCoordinates = { lat: -33.8688, lng: 151.2093 };
+                } else if (alumni.location.includes('Houston')) {
+                    correctedCoordinates = { lat: 29.7604, lng: -95.3698 };
+                } else if (alumni.location.includes('Dallas')) {
+                    correctedCoordinates = { lat: 32.7767, lng: -96.7970 };
+                } else if (alumni.location.includes('College Station')) {
+                    correctedCoordinates = { lat: 30.6280, lng: -96.3344 };
+                } else if (alumni.location.includes('Princeton')) {
+                    correctedCoordinates = { lat: 40.3573, lng: -74.6672 };
+                } else if (alumni.location.includes('Stanford')) {
+                    correctedCoordinates = { lat: 37.4275, lng: -122.1697 };
+                } else if (alumni.location.includes('Mountain View')) {
+                    correctedCoordinates = { lat: 37.3861, lng: -122.0839 };
+                } else if (alumni.location.includes('Palo Alto')) {
+                    correctedCoordinates = { lat: 37.4419, lng: -122.1430 };
+                } else if (alumni.location.includes('Santa Clara')) {
+                    correctedCoordinates = { lat: 37.3541, lng: -121.9552 };
+                } else if (alumni.location.includes('Ann Arbor')) {
+                    correctedCoordinates = { lat: 42.2808, lng: -83.7430 };
+                } else if (alumni.location.includes('Menlo Park')) {
+                    correctedCoordinates = { lat: 37.4529, lng: -122.1817 };
+                } else if (alumni.location.includes('Darmstadt')) {
+                    correctedCoordinates = { lat: 49.8728, lng: 8.6512 };
+                } else if (alumni.location.includes('Colorado')) {
+                    correctedCoordinates = { lat: 39.5501, lng: -105.7821 };
+                } else if (alumni.location.includes('Reno')) {
+                    correctedCoordinates = { lat: 39.5296, lng: -119.8138 };
+                } else if (alumni.location.includes('San Jose')) {
+                    correctedCoordinates = { lat: 37.3382, lng: -121.8863 };
                 }
                 
                 return { ...alumni, coordinates: correctedCoordinates };
             });
 
-            console.log(`📊 Found ${alumniToShow.length} alumni from 2017-2021`);
+            console.log(`📊 Found ${alumniToShow.length} total alumni`);
 
             // Further filter by region if not world view
             if (region !== 'world') {
@@ -80,7 +123,14 @@ class AlumniMap {
                         alumni.location.toLowerCase().includes('ny, usa') ||
                         alumni.location.toLowerCase().includes('florida') ||
                         alumni.location.toLowerCase().includes('california') ||
-                        alumni.location.toLowerCase().includes('pennsylvania')
+                        alumni.location.toLowerCase().includes('pennsylvania') ||
+                        alumni.location.toLowerCase().includes('seattle') ||
+                        alumni.location.toLowerCase().includes('austin') ||
+                        alumni.location.toLowerCase().includes('dallas') ||
+                        alumni.location.toLowerCase().includes('houston') ||
+                        alumni.location.toLowerCase().includes('colorado') ||
+                        alumni.location.toLowerCase().includes('nevada') ||
+                        alumni.location.toLowerCase().includes('michigan')
                     );
                     if (region === 'europe') return alumni.location && (
                         alumni.location.toLowerCase().includes('europe') ||
@@ -90,14 +140,20 @@ class AlumniMap {
                         alumni.location.toLowerCase().includes('portugal') ||
                         alumni.location.toLowerCase().includes('czech') ||
                         alumni.location.toLowerCase().includes('prague') ||
-                        alumni.location.toLowerCase().includes('lisbon')
+                        alumni.location.toLowerCase().includes('lisbon') ||
+                        alumni.location.toLowerCase().includes('berlin') ||
+                        alumni.location.toLowerCase().includes('darmstadt')
                     );
                     if (region === 'asia') return alumni.location && (
                         alumni.location.toLowerCase().includes('asia') ||
                         alumni.location.toLowerCase().includes('singapore') ||
                         alumni.location.toLowerCase().includes('japan') ||
                         alumni.location.toLowerCase().includes('china') ||
-                        alumni.location.toLowerCase().includes('india')
+                        alumni.location.toLowerCase().includes('india') ||
+                        alumni.location.toLowerCase().includes('bangalore') ||
+                        alumni.location.toLowerCase().includes('mumbai') ||
+                        alumni.location.toLowerCase().includes('delhi') ||
+                        alumni.location.toLowerCase().includes('gurgaon')
                     );
                     return false;
                 });
@@ -114,7 +170,7 @@ class AlumniMap {
                         ${alumniToShow.map((alumni, index) => `
                             <div class="alumni-marker${interactive ? ' interactive' : ' breathing'}" 
                                  style="left: ${this.getXFromLng(alumni.coordinates.lng, region)}%; top: ${this.getYFromLat(alumni.coordinates.lat, region)}%;"
-                                 data-alumni='${JSON.stringify(alumni)}'
+                                 data-alumni='${JSON.stringify(alumni).replace(/'/g, '&apos;')}'
                                  data-index="${index}">
                                 <div class="marker-dot"></div>
                                 <div class="marker-pulse"></div>
@@ -202,7 +258,7 @@ class AlumniMap {
 
             marker.addEventListener('mouseenter', (e) => {
                 try {
-                    const alumniData = JSON.parse(marker.dataset.alumni);
+                    const alumniData = JSON.parse(marker.dataset.alumni.replace(/&apos;/g, "'"));
                     this.showTooltip(tooltip, alumniData, e);
                 } catch (error) {
                     console.error('Error parsing alumni data:', error);
