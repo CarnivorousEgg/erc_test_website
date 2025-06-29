@@ -615,36 +615,9 @@ window.alumniData = [
     },
 
     // Asian Alumni (Non-India)
-    {
-        name: "Hiroshi Tanaka",
-        role: "Member",
-        company: "Sony",
-        position: "Robotics Engineer",
-        location: "Tokyo, Japan",
-        coordinates: { lat: 35.6762, lng: 139.6503 },
-        linkedin: "https://www.linkedin.com/in/hiroshitanaka/",
-        batch: "2015"
-    },
-    {
-        name: "Li Wei",
-        role: "Member",
-        company: "Tencent",
-        position: "AI Researcher",
-        location: "Shenzhen, China",
-        coordinates: { lat: 22.5431, lng: 114.0579 },
-        linkedin: "https://www.linkedin.com/in/liwei/",
-        batch: "2014"
-    },
-    {
-        name: "Sarah Kim",
-        role: "Member",
-        company: "Samsung",
-        position: "Hardware Engineer",
-        location: "Seoul, South Korea",
-        coordinates: { lat: 37.5665, lng: 126.9780 },
-        linkedin: "https://www.linkedin.com/in/sarahkim/",
-        batch: "2013"
-    },
+
+
+
     {
         name: "Ahmad Rahman",
         role: "Member",
