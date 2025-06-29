@@ -235,7 +235,8 @@ class TabManager {
     }
 
     setupProjectSelection() {
-        const projectCards = document.querySelectorAll('.project-card');
+        // Only setup project selection for desktop cards
+        const projectCards = document.querySelectorAll('.project-card.desktop-card');
         const projectInfos = document.querySelectorAll('.project-info');
 
         projectCards.forEach(card => {

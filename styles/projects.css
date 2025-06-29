@@ -72,6 +72,15 @@
     color: var(--text-muted);
 }
 
+/* Desktop vs Mobile Project Cards */
+.desktop-card {
+    display: block;
+}
+
+.mobile-card {
+    display: none;
+}
+
 .project-display {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -231,6 +240,15 @@
         margin-bottom: 0;
         text-align: center;
         padding: 1rem;
+    }
+    
+    /* Hide desktop cards and show mobile cards on mobile */
+    .desktop-card {
+        display: none;
+    }
+    
+    .mobile-card {
+        display: block;
     }
     
     .project-display {
