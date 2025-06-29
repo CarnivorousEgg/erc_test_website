@@ -126,6 +126,8 @@ class NavigationManager {
                     const target = document.querySelector(href);
                     if (target) {
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Update URL hash
+                        window.history.pushState(null, null, href);
                     }
                 }
             });
@@ -138,33 +140,69 @@ class NavigationManager {
                 const href = link.getAttribute('href');
                 if (href && href.startsWith('#')) {
                     e.preventDefault();
-                    const target = document.querySelector(href.includes('about-') ? '#about' : href.includes('project') ? '#projects' : href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                    // Activate the correct tab if needed
+                    
+                    // Handle different dropdown navigation patterns
                     if (href.startsWith('#about-')) {
                         const tab = href.replace('#about-', '');
-                        document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
-                            btn.classList.toggle('active', btn.dataset.tab === tab);
-                        });
-                        document.querySelectorAll('.about-content').forEach(ac => {
-                            ac.classList.toggle('active', ac.classList.contains(tab));
-                        });
-                    } else if (href.startsWith('#current-projects') || href.startsWith('#completed-projects') || href.startsWith('#mini-projects')) {
+                        this.navigateToAboutTab(tab);
+                    } else if (href.includes('projects')) {
                         let tab = 'current';
-                        if (href.startsWith('#completed-projects')) tab = 'completed';
-                        if (href.startsWith('#mini-projects')) tab = 'mini';
-                        document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
-                            btn.classList.toggle('active', btn.dataset.tab === tab);
-                        });
-                        document.querySelectorAll('.project-content').forEach(pc => {
-                            pc.classList.toggle('active', pc.classList.contains(tab));
-                        });
+                        if (href.includes('completed')) tab = 'completed';
+                        if (href.includes('mini')) tab = 'mini';
+                        this.navigateToProjectTab(tab);
+                    } else {
+                        // Regular section navigation
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            window.history.pushState(null, null, href);
+                        }
                     }
                 }
             });
         });
+    }
+
+    navigateToAboutTab(tab) {
+        // Navigate to about section
+        const aboutSection = document.querySelector('#about');
+        if (aboutSection) {
+            aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Update URL hash
+            window.history.pushState(null, null, `#about-${tab}`);
+            
+            // Activate the correct tab after a short delay
+            setTimeout(() => {
+                document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab);
+                });
+                document.querySelectorAll('.about-content').forEach(content => {
+                    content.classList.toggle('active', content.classList.contains(tab));
+                });
+            }, 500);
+        }
+    }
+
+    navigateToProjectTab(tab) {
+        // Navigate to projects section
+        const projectsSection = document.querySelector('#projects');
+        if (projectsSection) {
+            projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Update URL hash
+            window.history.pushState(null, null, `#projects-${tab}`);
+            
+            // Activate the correct tab after a short delay
+            setTimeout(() => {
+                document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab);
+                });
+                document.querySelectorAll('.project-content').forEach(content => {
+                    content.classList.toggle('active', content.classList.contains(tab));
+                });
+            }, 500);
+        }
     }
 }
 
@@ -202,7 +240,7 @@ class TabManager {
                 }
                 
                 // Update URL hash
-                window.location.hash = `#projects-${targetTab}`;
+                window.history.pushState(null, null, `#projects-${targetTab}`);
             });
         });
     }
@@ -229,31 +267,44 @@ class TabManager {
                 }
                 
                 // Update URL hash
-                window.location.hash = `#about-${targetTab}`;
+                window.history.pushState(null, null, `#about-${targetTab}`);
             });
         });
     }
 
     setupProjectSelection() {
-        // Only setup project selection for desktop cards
-        const projectCards = document.querySelectorAll('.project-card.desktop-card');
+        const projectCards = document.querySelectorAll('.project-card');
         const projectInfos = document.querySelectorAll('.project-info');
 
         projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const targetProject = card.dataset.project;
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
                 
-                // Remove active class from all cards and infos
-                projectCards.forEach(c => c.classList.remove('active'));
-                projectInfos.forEach(info => info.classList.remove('active'));
+                // Check if we're on mobile (screen width <= 1024px)
+                const isMobile = window.innerWidth <= 1024;
                 
-                // Add active class to clicked card
-                card.classList.add('active');
-                
-                // Show corresponding project info
-                const targetInfo = document.getElementById(`project-${targetProject}`);
-                if (targetInfo) {
-                    targetInfo.classList.add('active');
+                if (isMobile) {
+                    // On mobile, navigate to GitHub repository
+                    const githubUrl = card.dataset.github;
+                    if (githubUrl) {
+                        window.open(githubUrl, '_blank');
+                    }
+                } else {
+                    // On desktop, show project details
+                    const targetProject = card.dataset.project;
+                    
+                    // Remove active class from all cards and infos
+                    projectCards.forEach(c => c.classList.remove('active'));
+                    projectInfos.forEach(info => info.classList.remove('active'));
+                    
+                    // Add active class to clicked card
+                    card.classList.add('active');
+                    
+                    // Show corresponding project info
+                    const targetInfo = document.getElementById(`project-${targetProject}`);
+                    if (targetInfo) {
+                        targetInfo.classList.add('active');
+                    }
                 }
             });
         });
@@ -528,21 +579,10 @@ class ERCWebsite {
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         };
+        
         window.addEventListener('hashchange', scrollToHash);
         // On page load
         scrollToHash();
-        // Project tabs: update hash on click
-        document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                window.location.hash = '#projects-' + btn.dataset.tab;
-            });
-        });
-        // About tabs: update hash on click
-        document.querySelectorAll('.about-tabs .tab-btn').forEach(tab => {
-            tab.addEventListener('click', () => {
-                window.location.hash = '#about-' + tab.dataset.tab;
-            });
-        });
     }
 }
 
