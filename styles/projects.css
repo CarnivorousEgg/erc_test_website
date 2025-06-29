@@ -19,8 +19,6 @@
     display: grid;
     grid-template-columns: 280px 1fr;
     gap: 3rem;
-    position: relative;
-    align-items: start;
 }
 
 .project-sidebar {
@@ -28,9 +26,6 @@
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    position: relative;
-    display: flex;
-    flex-direction: column;
 }
 
 .project-sidebar::-webkit-scrollbar {
@@ -46,8 +41,6 @@
     cursor: pointer;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
-    position: relative;
-    flex-shrink: 0;
 }
 
 .project-card:hover,
@@ -74,34 +67,11 @@
     color: var(--text-muted);
 }
 
-/* Half card showing next project */
-.project-card:last-child {
-    margin-bottom: 0;
-    height: 60px;
-    overflow: hidden;
-    opacity: 0.6;
-    pointer-events: none;
-    background: linear-gradient(to bottom, var(--bg-tertiary), var(--bg-secondary));
-    border-bottom: 2px dashed var(--border-color);
-}
-
-.project-card:last-child::after {
-    content: '⋯ Scroll for more';
-    position: absolute;
-    bottom: 8px;
-    left: 1.5rem;
-    right: 1.5rem;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    text-align: center;
-}
-
 .project-display {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 2.5rem;
-    min-height: 500px;
 }
 
 .project-info {
@@ -243,24 +213,11 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-        flex-direction: row;
     }
     
     .project-card {
         flex: 1;
         min-width: 200px;
         margin-bottom: 0;
-    }
-    
-    .project-card:last-child {
-        height: auto;
-        opacity: 1;
-        pointer-events: all;
-        background: var(--bg-tertiary);
-        border-bottom: 1px solid var(--border-color);
-    }
-    
-    .project-card:last-child::after {
-        display: none;
     }
 }
