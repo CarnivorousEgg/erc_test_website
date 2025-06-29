@@ -33,8 +33,7 @@ class AlumniMap {
         
         setTimeout(() => {
             let mapImage = `public/world_night.jpg`;
-            if (region === 'india') mapImage = 'public/india_night.jpg';
-            else if (region === 'usa') mapImage = 'public/usa_night.jpg';
+            if (region === 'usa') mapImage = 'public/usa_night.jpg';
             else if (region === 'europe') mapImage = 'public/europe_night.jpg';
             else if (region === 'asia') mapImage = 'public/asia_night.jpg';
 
@@ -114,7 +113,6 @@ class AlumniMap {
             // Further filter by region if not world view
             if (region !== 'world') {
                 alumniToShow = alumniToShow.filter(alumni => {
-                    if (region === 'india') return alumni.location && alumni.location.toLowerCase().includes('india');
                     if (region === 'usa') return alumni.location && (
                         alumni.location.toLowerCase().includes('usa') || 
                         alumni.location.toLowerCase().includes('united states') ||
@@ -168,37 +166,33 @@ class AlumniMap {
                          alt="${region.charAt(0).toUpperCase() + region.slice(1)} Map" class="world-map-image">
                     <div class="alumni-markers">
                         ${alumniToShow.map((alumni, index) => `
-                            <div class="alumni-marker${interactive ? ' interactive' : ' breathing'}" 
+                            <button class="alumni-marker${interactive ? ' interactive' : ' breathing'}" 
                                  style="left: ${this.getXFromLng(alumni.coordinates.lng, region)}%; top: ${this.getYFromLat(alumni.coordinates.lat, region)}%;"
                                  data-alumni='${JSON.stringify(alumni).replace(/'/g, '&apos;')}'
-                                 data-index="${index}">
+                                 data-index="${index}"
+                                 ${interactive ? `onclick="window.open('${alumni.linkedin}', '_blank')"` : ''}>
                                 <div class="marker-dot"></div>
                                 <div class="marker-pulse"></div>
-                            </div>
+                                ${interactive ? `<div class="marker-tooltip">${alumni.name}<br>${alumni.company}</div>` : ''}
+                            </button>
                         `).join('')}
                     </div>
-                    ${interactive ? `
-                        <div class="alumni-tooltip" id="alumni-tooltip">
-                            <div class="tooltip-content">
-                                <h4 class="tooltip-name"></h4>
-                                <p class="tooltip-company"></p>
-                                <p class="tooltip-location"></p>
-                                <a class="tooltip-linkedin" href="#" target="_blank">LinkedIn Profile</a>
-                            </div>
-                        </div>
-                    ` : ''}
                 </div>
             `;
 
-            if (interactive) {
-                this.setupMarkerInteractions();
-            }
             this.addMapStyles();
             
             // Make breathing markers visible immediately
             setTimeout(() => {
                 const breathingMarkers = this.mapContainer.querySelectorAll('.alumni-marker.breathing');
                 breathingMarkers.forEach((marker, index) => {
+                    setTimeout(() => {
+                        marker.classList.add('visible');
+                    }, index * 100);
+                });
+                
+                const interactiveMarkers = this.mapContainer.querySelectorAll('.alumni-marker.interactive');
+                interactiveMarkers.forEach((marker, index) => {
                     setTimeout(() => {
                         marker.classList.add('visible');
                     }, index * 100);
@@ -213,9 +207,6 @@ class AlumniMap {
         if (region === 'usa') {
             // USA specific projection (-125 to -65 longitude)
             return Math.max(0, Math.min(100, ((lng + 125) / 60) * 100));
-        } else if (region === 'india') {
-            // India specific projection (68 to 97 longitude)
-            return Math.max(0, Math.min(100, ((lng - 68) / 29) * 100));
         } else if (region === 'europe') {
             // Europe specific projection (-10 to 40 longitude)
             return Math.max(0, Math.min(100, ((lng + 10) / 50) * 100));
@@ -231,9 +222,6 @@ class AlumniMap {
         if (region === 'usa') {
             // USA specific projection (25 to 50 latitude)
             return Math.max(0, Math.min(100, ((50 - lat) / 25) * 100));
-        } else if (region === 'india') {
-            // India specific projection (8 to 37 latitude)
-            return Math.max(0, Math.min(100, ((37 - lat) / 29) * 100));
         } else if (region === 'europe') {
             // Europe specific projection (35 to 70 latitude)
             return Math.max(0, Math.min(100, ((70 - lat) / 35) * 100));
@@ -243,78 +231,6 @@ class AlumniMap {
         }
         // World projection
         return Math.max(0, Math.min(100, ((90 - lat) / 180) * 100));
-    }
-
-    setupMarkerInteractions() {
-        const markers = this.mapContainer.querySelectorAll('.alumni-marker.interactive');
-        const tooltip = this.mapContainer.querySelector('#alumni-tooltip');
-
-        console.log(`🎯 Setting up interactions for ${markers.length} markers`);
-
-        markers.forEach((marker, index) => {
-            setTimeout(() => {
-                marker.classList.add('visible');
-            }, index * 100);
-
-            marker.addEventListener('mouseenter', (e) => {
-                try {
-                    const alumniData = JSON.parse(marker.dataset.alumni.replace(/&apos;/g, "'"));
-                    this.showTooltip(tooltip, alumniData, e);
-                } catch (error) {
-                    console.error('Error parsing alumni data:', error);
-                }
-            });
-
-            marker.addEventListener('mouseleave', () => {
-                this.hideTooltip(tooltip);
-            });
-
-            marker.addEventListener('mousemove', (e) => {
-                this.updateTooltipPosition(tooltip, e);
-            });
-        });
-    }
-
-    showTooltip(tooltip, alumni, event) {
-        if (!tooltip) return;
-        
-        const nameEl = tooltip.querySelector('.tooltip-name');
-        const companyEl = tooltip.querySelector('.tooltip-company');
-        const locationEl = tooltip.querySelector('.tooltip-location');
-        const linkedinEl = tooltip.querySelector('.tooltip-linkedin');
-
-        if (nameEl) nameEl.textContent = alumni.name;
-        if (companyEl) companyEl.textContent = `${alumni.position} @ ${alumni.company}`;
-        if (locationEl) locationEl.textContent = alumni.location;
-        
-        if (linkedinEl) {
-            if (alumni.linkedin) {
-                linkedinEl.href = alumni.linkedin;
-                linkedinEl.style.display = 'inline';
-            } else {
-                linkedinEl.style.display = 'none';
-            }
-        }
-
-        tooltip.classList.add('visible');
-        this.updateTooltipPosition(tooltip, event);
-    }
-
-    hideTooltip(tooltip) {
-        if (tooltip) {
-            tooltip.classList.remove('visible');
-        }
-    }
-
-    updateTooltipPosition(tooltip, event) {
-        if (!tooltip) return;
-        
-        const rect = this.mapContainer.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-
-        tooltip.style.left = `${x + 15}px`;
-        tooltip.style.top = `${y - 10}px`;
     }
 
     addMapStyles() {
@@ -357,15 +273,18 @@ class AlumniMap {
 
             .alumni-marker {
                 position: absolute;
-                width: 20px;
-                height: 20px;
+                width: 24px;
+                height: 24px;
                 transform: translate(-50%, -50%);
                 opacity: 0;
                 transition: opacity 0.5s ease;
+                background: none;
+                border: none;
+                cursor: pointer;
+                z-index: 10;
             }
 
             .alumni-marker.interactive {
-                cursor: pointer;
                 pointer-events: all;
             }
 
@@ -378,8 +297,8 @@ class AlumniMap {
             }
 
             .marker-dot {
-                width: 12px;
-                height: 12px;
+                width: 14px;
+                height: 14px;
                 background: var(--primary-color);
                 border-radius: 50%;
                 border: 2px solid var(--bg-primary);
@@ -392,8 +311,8 @@ class AlumniMap {
             }
 
             .marker-pulse {
-                width: 20px;
-                height: 20px;
+                width: 24px;
+                height: 24px;
                 border: 2px solid var(--primary-color);
                 border-radius: 50%;
                 position: absolute;
@@ -417,7 +336,7 @@ class AlumniMap {
                     opacity: 0.8;
                 }
                 50% {
-                    transform: translate(-50%, -50%) scale(1.8);
+                    transform: translate(-50%, -50%) scale(2.2);
                     opacity: 0.2;
                 }
             }
@@ -428,7 +347,7 @@ class AlumniMap {
                     opacity: 0.8;
                 }
                 100% {
-                    transform: translate(-50%, -50%) scale(2);
+                    transform: translate(-50%, -50%) scale(2.5);
                     opacity: 0;
                 }
             }
@@ -436,58 +355,30 @@ class AlumniMap {
             .alumni-marker.interactive:hover .marker-dot {
                 background: #ffffff;
                 box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
-                transform: translate(-50%, -50%) scale(1.3);
+                transform: translate(-50%, -50%) scale(1.4);
             }
 
-            .alumni-tooltip {
+            .marker-tooltip {
                 position: absolute;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
                 background: var(--bg-secondary);
                 border: 1px solid var(--border-color);
-                border-radius: 8px;
-                padding: 12px;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-                pointer-events: none;
-                opacity: 0;
-                transform: translateY(10px);
-                transition: all 0.3s ease;
-                z-index: 1000;
-                min-width: 200px;
-            }
-
-            .alumni-tooltip.visible {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            .tooltip-name {
-                margin: 0 0 4px 0;
-                color: var(--primary-color);
-                font-size: 14px;
-                font-weight: 600;
-            }
-
-            .tooltip-company {
-                margin: 0 0 4px 0;
+                border-radius: 6px;
+                padding: 8px 12px;
+                font-size: 12px;
                 color: var(--text-primary);
-                font-size: 13px;
-                font-weight: 500;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
 
-            .tooltip-location {
-                margin: 0 0 8px 0;
-                color: var(--text-secondary);
-                font-size: 12px;
-            }
-
-            .tooltip-linkedin {
-                color: #0a66c2;
-                text-decoration: none;
-                font-weight: 600;
-                font-size: 12px;
-            }
-
-            .tooltip-linkedin:hover {
-                text-decoration: underline;
+            .alumni-marker.interactive:hover .marker-tooltip {
+                opacity: 1;
             }
 
             /* Responsive adjustments */
@@ -497,23 +388,18 @@ class AlumniMap {
                 }
                 
                 .alumni-marker {
-                    width: 16px;
-                    height: 16px;
+                    width: 20px;
+                    height: 20px;
                 }
                 
                 .marker-dot {
-                    width: 10px;
-                    height: 10px;
+                    width: 12px;
+                    height: 12px;
                 }
                 
                 .marker-pulse {
-                    width: 16px;
-                    height: 16px;
-                }
-                
-                .alumni-tooltip {
-                    min-width: 180px;
-                    padding: 10px;
+                    width: 20px;
+                    height: 20px;
                 }
             }
         `;
