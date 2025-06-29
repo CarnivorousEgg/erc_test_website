@@ -12,6 +12,7 @@
 }
 
 .tab-btn {
+    font-family: 'Orbitron', sans-serif;
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
@@ -21,6 +22,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 0.9rem;
+    letter-spacing: 0.02em;
 }
 
 .tab-btn.active,
@@ -48,10 +50,12 @@
 }
 
 .story-text h3 {
+    font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
 }
 
 .story-text p {
@@ -69,6 +73,7 @@
 }
 
 .action-btn {
+    font-family: 'Orbitron', sans-serif;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -80,6 +85,7 @@
     transition: all 0.3s ease;
     text-decoration: none;
     font-size: 0.9rem;
+    letter-spacing: 0.02em;
 }
 
 .action-btn.primary {
@@ -136,18 +142,22 @@
 }
 
 .stat-number {
+    font-family: 'Orbitron', sans-serif;
     display: block;
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
 }
 
 .stat-label {
+    font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-weight: 600;
 }
 
 /* Team Grid */
@@ -178,16 +188,20 @@
 }
 
 .team-member h4 {
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
 }
 
 .member-role {
+    font-family: 'Orbitron', sans-serif;
     color: var(--primary-color);
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 1rem;
+    letter-spacing: 0.01em;
 }
 
 .member-links {
@@ -195,10 +209,12 @@
 }
 
 .linkedin-link {
+    font-family: 'Orbitron', sans-serif;
     color: #0077B5;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
+    letter-spacing: 0.01em;
 }
 
 .linkedin-link:hover {
@@ -232,6 +248,7 @@
 }
 
 .map-btn {
+    font-family: 'Orbitron', sans-serif;
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
@@ -241,6 +258,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 0.8rem;
+    letter-spacing: 0.02em;
 }
 
 .map-btn:hover,
@@ -267,11 +285,13 @@
 }
 
 .contact-info h4 {
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 1.5rem;
     text-align: center;
+    letter-spacing: 0.02em;
 }
 
 .social-links {
@@ -412,11 +432,13 @@
 }
 
 .social-link span {
+    font-family: 'Orbitron', sans-serif;
     font-weight: 600;
     font-size: 0.9rem;
     z-index: 2;
     position: relative;
     transition: all 0.3s ease;
+    letter-spacing: 0.02em;
 }
 
 /* Outreach Section within About */
@@ -452,15 +474,27 @@
 }
 
 .about-content.outreach .outreach-card h3 {
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 1rem;
+    letter-spacing: 0.02em;
 }
 
 .about-content.outreach .outreach-card p {
     color: var(--text-secondary);
     line-height: 1.6;
+}
+
+/* Company Scroller */
+.company-scroller h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
 }
 
 /* Responsive Design */
