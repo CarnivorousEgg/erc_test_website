@@ -41,6 +41,9 @@
     cursor: pointer;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 .project-card:hover,
@@ -56,10 +59,12 @@
 }
 
 .project-card h3 {
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
 }
 
 .project-card p {
@@ -83,10 +88,12 @@
 }
 
 .project-info h3 {
+    font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 1rem;
+    letter-spacing: 0.02em;
 }
 
 .project-description {
@@ -109,8 +116,10 @@
 }
 
 .spec strong {
+    font-family: 'Orbitron', sans-serif;
     color: var(--text-primary);
     font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 .spec span {
@@ -118,12 +127,13 @@
 }
 
 .github-btn {
+    font-family: 'Orbitron', sans-serif;
     background: var(--bg-tertiary);
     color: var(--text-primary);
     border: 2px solid var(--border-color);
     padding: 1rem 2rem;
     border-radius: 6px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
@@ -188,14 +198,67 @@
 }
 
 .archive-card h4 {
+    font-family: 'Orbitron', sans-serif;
     padding: 1.5rem 1.5rem 0.5rem;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
+    letter-spacing: 0.02em;
 }
 
 .archive-card p {
     padding: 0 1.5rem 1.5rem;
     color: var(--text-muted);
     font-size: 0.9rem;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 1024px) {
+    .current-projects-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .project-sidebar {
+        max-height: none;
+        overflow-y: visible;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+    
+    .project-card {
+        margin-bottom: 0;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .project-display {
+        display: none; /* Hide project descriptions on mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    .project-sidebar {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .project-card {
+        padding: 1.25rem;
+        border-left: none;
+        border-bottom: 4px solid transparent;
+    }
+    
+    .project-card:hover,
+    .project-card.active {
+        transform: translateY(-3px);
+        border-left: none;
+        border-bottom-color: var(--primary-color);
+    }
+    
+    .archive-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
 }

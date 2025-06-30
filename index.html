@@ -61,10 +61,10 @@
                             <a href="#about-our-story">Our Story</a>
                             <a href="#about-current-team">Current Team</a>
                             <a href="#about-alumni">Alumni</a>
+                            <a href="#about-outreach">Outreach & Impact</a>
                             <a href="#about-contact">Contact</a>
                         </div>
                     </li>
-                    <li><a href="#outreach" class="nav-link">Outreach</a></li>
                     <li><a href="https://erc-bpgc.github.io/handbook/" target="_blank" class="nav-link">Handbook</a></li>
                 </ul>
             </div>
@@ -97,7 +97,6 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#about">About Us</a></li>
-            <li><a href="#outreach">Outreach</a></li>
             <li><a href="https://erc-bpgc.github.io/handbook/" target="_blank">Handbook</a></li>
         </ul>
         <div class="mobile-menu-footer">
@@ -112,9 +111,8 @@
 <!-- Hero Section -->
 <section id="home" class="hero">
     <div class="video-container">
-        <video autoplay muted loop playsinline>
-            <source src="hero-video.mp4" type="video/mp4">
-        </video>
+        <!-- Video removed to fix 404 error -->
+        <div class="hero-bg"></div>
         <div class="video-mask"></div>
     </div>
     <div class="hero-content">
@@ -180,31 +178,38 @@
         <div class="project-content current active">
             <div class="current-projects-layout">
                 <div class="project-sidebar">
-                    <div class="project-card active" data-project="kutta">
+                    <!-- Single set of project cards that adapt based on screen size -->
+                    <div class="project-card active" data-project="kutta" data-github="https://github.com/erc-bpgc/autonomous-rover">
                         <h3>Quadruped Robot</h3>
                         <p>Advanced four-legged robot</p>
                     </div>
-                    <div class="project-card" data-project="swarm">
+                    
+                    <div class="project-card" data-project="swarm" data-github="https://github.com/erc-bpgc/swarm-drones">
                         <h3>Swarm Drones</h3>
                         <p>Coordinated UAV systems</p>
                     </div>
-                    <div class="project-card" data-project="saap">
+                    
+                    <div class="project-card" data-project="saap" data-github="https://github.com/ERC-BPGC/SnakeBot">
                         <h3>Snakebot</h3>
                         <p>Modular Snake Robot</p>
                     </div>
-                    <div class="project-card" data-project="arm">
+                    
+                    <div class="project-card" data-project="arm" data-github="https://github.com/ERC-BPGC/RoboticArm">
                         <h3>Robotic Arm</h3>
                         <p>6DOF Robotic Arm</p>
                     </div>
-                    <div class="project-card" data-project="vulcan">
+                    
+                    <div class="project-card" data-project="vulcan" data-github="https://github.com/ERC-BPGC/project-vulcan">
                         <h3>Project Vulcan</h3>
                         <p>Humanoid Robot</p>
                     </div>
-                    <div class="project-card" data-project="drone">
+                    
+                    <div class="project-card" data-project="drone" data-github="https://github.com/erc-bpgc/drone-automation">
                         <h3>Drone Automation</h3>
                         <p>GPS-less Navigation</p>
                     </div>
-                    <div class="project-card" data-project="embedded">
+                    
+                    <div class="project-card" data-project="embedded" data-github="https://github.com/erc-bpgc/risc-v-processor">
                         <h3>RISC-V Processor</h3>
                         <p>Custom processor design</p>
                     </div>
@@ -428,6 +433,7 @@
                 <button class="tab-btn active" data-tab="our-story">Our Story</button>
                 <button class="tab-btn" data-tab="current-team">Current Team</button>
                 <button class="tab-btn" data-tab="alumni">Alumni</button>
+                <button class="tab-btn" data-tab="outreach">Outreach & Impact</button>
                 <button class="tab-btn" data-tab="contact">Contact</button>
             </div>
         </div>
@@ -526,7 +532,7 @@
                 <div class="world-map-container">
                     <div id="alumni-map"></div>
                     <div class="map-controls">
-                        <button class="map-btn">India</button>
+                        <button class="map-btn active">World</button>
                         <button class="map-btn">USA</button>
                         <button class="map-btn">Europe</button>
                         <button class="map-btn">Asia</button>
@@ -544,7 +550,7 @@
                 </div>
                 
                 <div class="alumni-actions">
-                    <button class="action-btn secondary">
+                    <button class="action-btn secondary" onclick="showAlumniStories()">
                         <span>Alumni Stories</span>
                         <div class="btn-icon">📖</div>
                     </button>
@@ -552,78 +558,50 @@
             </div>
         </div>
         
+        <!-- Outreach & Impact -->
+        <div class="about-content outreach">
+            <h3>Outreach & Impact</h3>
+            <div class="outreach-grid">
+                <div class="outreach-card">
+                    <div class="outreach-icon">🏫</div>
+                    <h3>School Workshops</h3>
+                    <p>Inspiring the next generation through hands-on robotics workshops in local schools</p>
+                </div>
+                <div class="outreach-card">
+                    <div class="outreach-icon">🏆</div>
+                    <h3>Competition Mentoring</h3>
+                    <p>Guiding teams to victory in national robotics competitions and hackathons</p>
+                </div>
+                <div class="outreach-card">
+                    <div class="outreach-icon">🌐</div>
+                    <h3>Open Source</h3>
+                    <p>Contributing to the global tech community through open source projects</p>
+                </div>
+            </div>
+        </div>
+        
         <!-- Contact -->
         <div class="about-content contact">
-            <h3>Get In Touch</h3>
+            <h3>Contact</h3>
             <div class="contact-layout">
-                <div class="contact-info">
-                    <h4>Connect With Us</h4>
-                    <div class="social-links">
-                        <a href="mailto:bitsg.erc@gmail.com" class="social-link">
-                            <span class="social-icon">📧</span>
-                            <span>bitsg.erc@gmail.com</span>
-                        </a>
-                        <a href="https://www.instagram.com/erc_bitsgoa/" target="_blank" class="social-link">
-                            <span class="social-icon">📱</span>
-                            <span>Instagram</span>
-                        </a>
-                        <a href="https://www.linkedin.com/company/electronics-robotics-club-bits-goa/" target="_blank" class="social-link">
-                            <span class="social-icon">💼</span>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/ERC-BPGC" target="_blank" class="social-link">
-                            <span class="social-icon">🐙</span>
-                            <span>GitHub</span>
-                        </a>
-                    </div>
-                    
-                    <div class="contact-form">
-                        <h5>Send us a message</h5>
-                        <form class="message-form">
-                            <input type="text" placeholder="Your Name" required>
-                            <input type="email" placeholder="Your Email" required>
-                            <textarea placeholder="Your Message" rows="4" required></textarea>
-                            <button type="submit" class="submit-btn">
-                                <span>Send Message</span>
-                                <div class="btn-icon">📤</div>
-                            </button>
-                        </form>
-                    </div>
+                <div class="social-links">
+                    <a href="mailto:bitsg.erc@gmail.com" class="social-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail" class="social-icon">
+                        <span>bitsg.erc@gmail.com</span>
+                    </a>
+                    <a href="https://www.instagram.com/erc_bitsgoa/" target="_blank" class="social-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="social-icon">
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://www.linkedin.com/company/electronics-robotics-club-bits-goa/" target="_blank" class="social-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="social-icon">
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/ERC-BPGC" target="_blank" class="social-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="social-icon">
+                        <span>GitHub</span>
+                    </a>
                 </div>
-                
-                <!-- Social Media Feed -->
-                <div class="social-feed">
-                    <h4>Latest Updates</h4>
-                    <div class="feed-container">
-                        <!-- Content will be populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Outreach Section -->
-<section id="outreach" class="outreach-section">
-    <div class="container">
-        <div class="section-header-left">
-            <h2 class="section-title">Outreach & Impact</h2>
-        </div>
-        <div class="outreach-grid">
-            <div class="outreach-card">
-                <div class="outreach-icon">🏫</div>
-                <h3>School Workshops</h3>
-                <p>Inspiring the next generation through hands-on robotics workshops in local schools</p>
-            </div>
-            <div class="outreach-card">
-                <div class="outreach-icon">🏆</div>
-                <h3>Competition Mentoring</h3>
-                <p>Guiding teams to victory in national robotics competitions and hackathons</p>
-            </div>
-            <div class="outreach-card">
-                <div class="outreach-icon">🌐</div>
-                <h3>Open Source</h3>
-                <p>Contributing to the global tech community through open source projects</p>
             </div>
         </div>
     </div>
@@ -640,6 +618,146 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="js/alumni-data.js"></script>
 <script src="js/alumni-map.js"></script>
+
+<script>
+// Alumni Stories Coming Soon Modal
+function showAlumniStories() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Alumni Stories</h3>
+                <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">🚀</div>
+                    <h4>Coming Soon!</h4>
+                    <p>We're working on bringing you inspiring stories from our alumni network.</p>
+                    <div class="coming-soon-features">
+                        <div class="feature">📖 Personal Success Stories</div>
+                        <div class="feature">🎯 Career Journey Insights</div>
+                        <div class="feature">💡 Advice for Current Students</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    
+    // Close modal on outside click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+}
+
+// Add modal styles
+const modalStyles = document.createElement('style');
+modalStyles.textContent = `
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        max-width: 450px;
+        width: 90%;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-header h3 {
+        margin: 0;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-secondary);
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+    }
+
+    .modal-body {
+        padding: 2rem;
+    }
+
+    .coming-soon {
+        text-align: center;
+    }
+
+    .coming-soon-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .coming-soon h4 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .coming-soon p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .coming-soon-features {
+        display: grid;
+        gap: 0.75rem;
+        text-align: left;
+    }
+
+    .feature {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-color);
+        padding: 0.75rem;
+        border-radius: 8px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+`;
+document.head.appendChild(modalStyles);
+</script>
 </body>
 </html>
