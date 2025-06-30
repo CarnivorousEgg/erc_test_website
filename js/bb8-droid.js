@@ -1,14 +1,21 @@
 // BB8 Droid Component for Spline Integration
 class BB8Droid {
     constructor(containerId) {
+        console.log('[BB8Droid] Constructor called with containerId:', containerId);
         this.containerId = containerId;
         this.container = document.getElementById(containerId);
+        if (!this.container) {
+            console.error(`[BB8Droid] Container with id "${containerId}" not found at constructor.`);
+        } else {
+            console.log(`[BB8Droid] Container found for id "${containerId}".`);
+        }
         this.init();
     }
 
     init() {
+        console.log('[BB8Droid] init() called.');
         if (!this.container) {
-            console.error(`Container with id "${this.containerId}" not found`);
+            console.error(`[BB8Droid] Container with id "${this.containerId}" not found in init.`);
             return;
         }
 
@@ -17,6 +24,7 @@ class BB8Droid {
     }
 
     createSplineContainer() {
+        console.log('[BB8Droid] createSplineContainer() called.');
         // Clear existing content
         this.container.innerHTML = '';
         
@@ -32,6 +40,7 @@ class BB8Droid {
         splineIframe.setAttribute('width', '100%');
         splineIframe.setAttribute('height', '100%');
         splineIframe.setAttribute('allow', 'autoplay; fullscreen; camera; microphone; geolocation; gyroscope; accelerometer; magnetometer');
+        console.log('[BB8Droid] Spline iframe created with src:', splineIframe.src);
         
         // Add loading indicator
         const loadingDiv = document.createElement('div');
@@ -46,11 +55,13 @@ class BB8Droid {
         
         // Hide loading when iframe loads
         splineIframe.onload = () => {
+            console.log('[BB8Droid] Spline iframe loaded successfully.');
             loadingDiv.style.display = 'none';
         };
         
         // Handle iframe load errors
-        splineIframe.onerror = () => {
+        splineIframe.onerror = (e) => {
+            console.error('[BB8Droid] Failed to load Spline iframe.', e);
             loadingDiv.innerHTML = `
                 <div class="error-icon">⚠️</div>
                 <p>Failed to load BB8 Droid</p>
@@ -59,6 +70,7 @@ class BB8Droid {
         };
         
         this.container.appendChild(splineContainer);
+        console.log('[BB8Droid] Spline container appended to main container.');
     }
 }
 
