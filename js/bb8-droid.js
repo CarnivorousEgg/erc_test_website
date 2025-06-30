@@ -18,30 +18,24 @@ class BB8Droid {
             console.error(`[BB8Droid] Container with id "${this.containerId}" not found in init.`);
             return;
         }
-
-        // Create the Spline iframe container
-        this.createSplineContainer();
+        this.createSplineViewer();
     }
 
-    createSplineContainer() {
-        console.log('[BB8Droid] createSplineContainer() called.');
-        // Clear existing content
+    createSplineViewer() {
+        console.log('[BB8Droid] createSplineViewer() called.');
         this.container.innerHTML = '';
-        
-        // Create the main container
-        const splineContainer = document.createElement('div');
-        splineContainer.className = 'bb8-spline-container';
-        
-        // Create the iframe for Spline with the provided scene URL
-        const splineIframe = document.createElement('iframe');
-        splineIframe.src = 'https://prod.spline.design/cYi9bYRzn0AQIeyt/scene.splinecode';
-        splineIframe.className = 'bb8-spline-iframe';
-        splineIframe.setAttribute('frameborder', '0');
-        splineIframe.setAttribute('width', '100%');
-        splineIframe.setAttribute('height', '100%');
-        splineIframe.setAttribute('allow', 'autoplay; fullscreen; camera; microphone; geolocation; gyroscope; accelerometer; magnetometer');
-        console.log('[BB8Droid] Spline iframe created with src:', splineIframe.src);
-        
+
+        // Inject the Spline Viewer script if not already present
+        if (!document.querySelector('script[src*="@splinetool/viewer@1.10.16/build/spline-viewer.js"]')) {
+            const splineScript = document.createElement('script');
+            splineScript.type = 'module';
+            splineScript.src = 'https://unpkg.com/@splinetool/viewer@1.10.16/build/spline-viewer.js';
+            document.head.appendChild(splineScript);
+            console.log('[BB8Droid] Spline Viewer script injected.');
+        } else {
+            console.log('[BB8Droid] Spline Viewer script already present.');
+        }
+
         // Add loading indicator
         const loadingDiv = document.createElement('div');
         loadingDiv.className = 'bb8-loading';
@@ -49,28 +43,31 @@ class BB8Droid {
             <div class="loading-spinner"></div>
             <p>Loading BB8 Droid...</p>
         `;
-        
-        splineContainer.appendChild(loadingDiv);
-        splineContainer.appendChild(splineIframe);
-        
-        // Hide loading when iframe loads
-        splineIframe.onload = () => {
-            console.log('[BB8Droid] Spline iframe loaded successfully.');
+        this.container.appendChild(loadingDiv);
+
+        // Create the Spline Viewer element
+        const splineViewer = document.createElement('spline-viewer');
+        splineViewer.setAttribute('url', 'https://prod.spline.design/cYi9bYRzn0AQIeyt/scene.splinecode');
+        splineViewer.style.width = '100%';
+        splineViewer.style.height = '100%';
+        splineViewer.className = 'bb8-spline-viewer';
+
+        // Handle loading and error events
+        splineViewer.addEventListener('load', () => {
+            console.log('[BB8Droid] Spline Viewer loaded successfully.');
             loadingDiv.style.display = 'none';
-        };
-        
-        // Handle iframe load errors
-        splineIframe.onerror = (e) => {
-            console.error('[BB8Droid] Failed to load Spline iframe.', e);
+        });
+        splineViewer.addEventListener('error', (e) => {
+            console.error('[BB8Droid] Failed to load Spline Viewer.', e);
             loadingDiv.innerHTML = `
                 <div class="error-icon">⚠️</div>
                 <p>Failed to load BB8 Droid</p>
-                <button onclick="location.reload()" class="retry-btn">Retry</button>
+                <button onclick=\"location.reload()\" class=\"retry-btn\">Retry</button>
             `;
-        };
-        
-        this.container.appendChild(splineContainer);
-        console.log('[BB8Droid] Spline container appended to main container.');
+        });
+
+        this.container.appendChild(splineViewer);
+        console.log('[BB8Droid] Spline Viewer appended to main container.');
     }
 }
 
