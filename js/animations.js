@@ -165,3 +165,5 @@ export function animateDecryptedText(element, text, {
     clearInterval(interval);
     startAnimation();
 }
+
+window.animateDecryptedText = animateDecryptedText;

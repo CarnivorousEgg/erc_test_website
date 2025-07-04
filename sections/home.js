@@ -1,5 +1,4 @@
 // Home Section Logic
-import { animateDecryptedText } from '../js/animations.js';
 
 export async function loadHomeSection() {
     const res = await fetch('partials/home.html');
@@ -8,14 +7,14 @@ export async function loadHomeSection() {
     // Animate the main title and subtitle after loading
     const title = document.querySelector('.hero-title');
     const subtitle = document.querySelector('.hero-subtitle');
-    if (title) {
-        animateDecryptedText(title, 'Electronics & Robotics Club', {
+    if (title && window.animateDecryptedText) {
+        window.animateDecryptedText(title, 'Electronics & Robotics Club', {
             speed: 40,
             maxIterations: 15
         });
     }
-    if (subtitle) {
-        animateDecryptedText(subtitle, 'BITS Pilani K K Birla Goa Campus', {
+    if (subtitle && window.animateDecryptedText) {
+        window.animateDecryptedText(subtitle, 'BITS Pilani K K Birla Goa Campus', {
             speed: 40,
             maxIterations: 15
         });
@@ -27,14 +26,14 @@ export async function loadHomeSection() {
             setTimeout(() => {
                 const title = document.querySelector('.hero-title');
                 const subtitle = document.querySelector('.hero-subtitle');
-                if (title) {
-                    animateDecryptedText(title, 'Electronics & Robotics Club', {
+                if (title && window.animateDecryptedText) {
+                    window.animateDecryptedText(title, 'Electronics & Robotics Club', {
                         speed: 40,
                         maxIterations: 15
                     });
                 }
-                if (subtitle) {
-                    animateDecryptedText(subtitle, 'BITS Pilani K K Birla Goa Campus', {
+                if (subtitle && window.animateDecryptedText) {
+                    window.animateDecryptedText(subtitle, 'BITS Pilani K K Birla Goa Campus', {
                         speed: 40,
                         maxIterations: 15
                     });

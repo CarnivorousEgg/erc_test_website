@@ -21,11 +21,28 @@ export function renderGooeyNav(options) {
   console.log('[GooeyNav] Items:', items);
   let activeIndex = initialActiveIndex;
   const containerDiv = document.createElement('div');
-  containerDiv.className = 'gooey-nav-container';
+  containerDiv.className = 'gooey-nav-container custom-nav-theme';
   container.appendChild(containerDiv);
 
   const nav = document.createElement('nav');
+  nav.style.display = 'flex';
+  nav.style.justifyContent = 'center';
+  nav.style.alignItems = 'center';
+  nav.style.fontFamily = 'Orbitron, sans-serif';
+  nav.style.fontWeight = '700';
+  nav.style.fontSize = '1.1rem';
+  nav.style.background = 'none';
+  nav.style.boxShadow = 'none';
+  nav.style.margin = '0 auto';
+  nav.style.width = '100%';
   const ul = document.createElement('ul');
+  ul.style.display = 'flex';
+  ul.style.gap = '2.5rem';
+  ul.style.listStyle = 'none';
+  ul.style.padding = '0';
+  ul.style.margin = '0';
+  ul.style.justifyContent = 'center';
+  ul.style.alignItems = 'center';
   nav.appendChild(ul);
   containerDiv.appendChild(nav);
 
@@ -98,6 +115,31 @@ export function renderGooeyNav(options) {
     Object.assign(text.style, styles);
     text.innerText = element.innerText;
   }
+  function playDecryptAnimationIfHome(label, cb) {
+    if (label === 'Home') {
+      const title = document.querySelector('.hero-title');
+      const subtitle = document.querySelector('.hero-subtitle');
+      if (title && window.animateDecryptedText) {
+        window.animateDecryptedText(title, 'Electronics & Robotics Club', {
+          speed: 40,
+          maxIterations: 15,
+          onComplete: () => {
+            if (subtitle && window.animateDecryptedText) {
+              window.animateDecryptedText(subtitle, 'BITS Pilani K K Birla Goa Campus', {
+                speed: 40,
+                maxIterations: 15,
+                onComplete: cb
+              });
+            } else {
+              cb && cb();
+            }
+          }
+        });
+        return;
+      }
+    }
+    cb && cb();
+  }
   function handleClick(e, index) {
     const liEl = e.currentTarget;
     if (activeIndex === index) return;
@@ -116,6 +158,16 @@ export function renderGooeyNav(options) {
       makeParticles(filter);
     }
     if (onNav) onNav(index, items[index]);
+    // Animation then navigation
+    playDecryptAnimationIfHome(items[index].label, () => {
+      if (items[index].href && items[index].href.startsWith('#')) {
+        setTimeout(() => {
+          window.location.hash = items[index].href;
+        }, 10);
+      } else if (items[index].href) {
+        window.open(items[index].href, items[index].target || '_self');
+      }
+    });
     console.log(`[GooeyNav] Nav item clicked: index=${index}, label=${items[index]?.label}`);
   }
   function handleKeyDown(e, index) {
@@ -134,6 +186,11 @@ export function renderGooeyNav(options) {
     const a = document.createElement('a');
     a.href = item.href;
     a.innerText = item.label;
+    a.style.textDecoration = 'none';
+    a.style.color = 'var(--text-primary, #fff)';
+    a.style.fontFamily = 'Orbitron, sans-serif';
+    a.style.fontWeight = '700';
+    a.style.fontSize = '1.1rem';
     a.addEventListener('keydown', (e) => handleKeyDown(e, index));
     li.appendChild(a);
     ul.appendChild(li);

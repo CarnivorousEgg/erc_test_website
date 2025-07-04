@@ -3,8 +3,12 @@
 }
 
 .gooey-nav-container {
-  position: relative;
   margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  box-shadow: none;
 }
 
 .gooey-nav-container nav {
@@ -15,14 +19,12 @@
 
 .gooey-nav-container nav ul {
   display: flex;
-  gap: 2em;
+  gap: 2.5rem;
   list-style: none;
-  padding: 0 1em;
+  padding: 0;
   margin: 0;
-  position: relative;
-  z-index: 3;
-  color: white;
-  text-shadow: 0 1px 1px hsl(205deg 30% 10% / 0.2);
+  justify-content: center;
+  align-items: center;
 }
 
 .gooey-nav-container nav ul li {
@@ -196,4 +198,25 @@
     transform: scale(0);
     opacity: 0;
   }
+}
+
+.gooey-nav-container nav ul li a {
+  text-decoration: none !important;
+  color: var(--text-primary, #fff) !important;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: none;
+  box-shadow: none;
+  transition: color 0.2s;
+}
+
+.gooey-nav-container nav ul li a:hover,
+.gooey-nav-container nav ul li a:focus {
+  color: var(--primary-color, #3B82F6) !important;
+  outline: none;
+}
+
+.gooey-nav-container nav ul li.active a {
+  color: var(--primary-color, #3B82F6) !important;
 } 
