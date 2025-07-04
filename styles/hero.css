@@ -343,3 +343,14 @@
         transform: translateX(-50%) translateY(0);
     }
 }
+
+.glitch-red {
+  color: #ff3b3b;
+  text-shadow: 0 0 2px #ff3b3b, 0 0 6px #ff3b3b;
+  font-family: inherit;
+}
+.glitch-green {
+  color: #00ff99;
+  text-shadow: 0 0 2px #00ff99, 0 0 6px #00ff99;
+  font-family: inherit;
+}

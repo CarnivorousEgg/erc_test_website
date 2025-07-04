@@ -130,7 +130,7 @@ window.scrollToReveal = function() {
 function decryptTextAnimation({
   selector = '.hero-title',
   text = '',
-  speed = 50,
+  speed = 120,
   maxIterations = 10,
   characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+',
   revealDirection = 'center',
@@ -138,7 +138,6 @@ function decryptTextAnimation({
   const el = document.querySelector(selector);
   if (!el) return;
   const originalText = text || el.textContent;
-  let currentIteration = 0;
   let revealedIndices = new Set();
   let interval;
 
@@ -173,8 +172,10 @@ function decryptTextAnimation({
     return originalText
       .split('')
       .map((char, i) => {
-        if (char === ' ' || revealedIndices.has(i)) return originalText[i];
-        return characters[Math.floor(Math.random() * characters.length)];
+        if (char === ' ' || revealedIndices.has(i)) return `<span>${originalText[i]}</span>`;
+        // Randomly assign glitch color
+        const glitchClass = Math.random() > 0.5 ? 'glitch-red' : 'glitch-green';
+        return `<span class="${glitchClass}">${characters[Math.floor(Math.random() * characters.length)]}</span>`;
       })
       .join('');
   }
@@ -183,7 +184,7 @@ function decryptTextAnimation({
     if (revealedIndices.size < originalText.length) {
       const nextIndex = getNextIndex();
       revealedIndices.add(nextIndex);
-      el.textContent = shuffleText();
+      el.innerHTML = shuffleText();
     } else {
       clearInterval(interval);
       el.textContent = originalText;
@@ -191,7 +192,7 @@ function decryptTextAnimation({
   }
 
   // Start animation
-  el.textContent = shuffleText();
+  el.innerHTML = shuffleText();
   interval = setInterval(animate, speed);
 }
 
