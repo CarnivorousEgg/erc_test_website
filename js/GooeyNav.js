@@ -120,17 +120,25 @@ export function renderGooeyNav(options) {
       const title = document.querySelector('.hero-title');
       const subtitle = document.querySelector('.hero-subtitle');
       if (title && window.animateDecryptedText) {
+        title.style.transform = 'scale(0.75)';
+        subtitle.style.transform = 'scale(0.75)';
         window.animateDecryptedText(title, 'Electronics & Robotics Club', {
-          speed: 40,
-          maxIterations: 15,
+          speed: 20,
+          maxIterations: 10,
           onComplete: () => {
             if (subtitle && window.animateDecryptedText) {
               window.animateDecryptedText(subtitle, 'BITS Pilani K K Birla Goa Campus', {
-                speed: 40,
-                maxIterations: 15,
-                onComplete: cb
+                speed: 20,
+                maxIterations: 10,
+                onComplete: () => {
+                  title.style.transform = '';
+                  subtitle.style.transform = '';
+                  cb && cb();
+                }
               });
             } else {
+              title.style.transform = '';
+              subtitle.style.transform = '';
               cb && cb();
             }
           }
@@ -141,6 +149,7 @@ export function renderGooeyNav(options) {
     cb && cb();
   }
   function handleClick(e, index) {
+    e.preventDefault();
     const liEl = e.currentTarget;
     if (activeIndex === index) return;
     activeIndex = index;
@@ -159,10 +168,14 @@ export function renderGooeyNav(options) {
     }
     if (onNav) onNav(index, items[index]);
     // Animation then navigation
-    playDecryptAnimationIfHome(items[index].label, () => {
-      if (items[index].href && items[index].href.startsWith('#')) {
+    let label = items[index].label;
+    let hash = items[index].href;
+    if (label === 'Projects') hash = '#current-projects';
+    if (label === 'About') hash = '#about-our-story';
+    playDecryptAnimationIfHome(label, () => {
+      if (hash && hash.startsWith('#')) {
         setTimeout(() => {
-          window.location.hash = items[index].href;
+          window.location.hash = hash;
         }, 10);
       } else if (items[index].href) {
         window.open(items[index].href, items[index].target || '_self');
@@ -177,12 +190,43 @@ export function renderGooeyNav(options) {
       if (liEl) handleClick({ currentTarget: liEl }, index);
     }
   }
+  function handleHover(index) {
+    const label = items[index].label;
+    if (label === 'Home') {
+      const title = document.querySelector('.hero-title');
+      const subtitle = document.querySelector('.hero-subtitle');
+      if (title && window.animateDecryptedText) {
+        title.style.transform = 'scale(0.75)';
+        subtitle.style.transform = 'scale(0.75)';
+        window.animateDecryptedText(title, 'Electronics & Robotics Club', {
+          speed: 20,
+          maxIterations: 10,
+          onComplete: () => {
+            if (subtitle && window.animateDecryptedText) {
+              window.animateDecryptedText(subtitle, 'BITS Pilani K K Birla Goa Campus', {
+                speed: 20,
+                maxIterations: 10,
+                onComplete: () => {
+                  title.style.transform = '';
+                  subtitle.style.transform = '';
+                }
+              });
+            } else {
+              title.style.transform = '';
+              subtitle.style.transform = '';
+            }
+          }
+        });
+      }
+    }
+  }
   console.log('[GooeyNav] Rendering nav items...');
   items.forEach((item, index) => {
     const li = document.createElement('li');
     if (activeIndex === index) li.classList.add('active');
     li.tabIndex = 0;
     li.addEventListener('click', (e) => handleClick(e, index));
+    li.addEventListener('mouseenter', () => handleHover(index));
     const a = document.createElement('a');
     a.href = item.href;
     a.innerText = item.label;
@@ -193,6 +237,35 @@ export function renderGooeyNav(options) {
     a.style.fontSize = '1.1rem';
     a.addEventListener('keydown', (e) => handleKeyDown(e, index));
     li.appendChild(a);
+    // Dropdowns
+    if (item.label === 'Projects') {
+      const dropdown = document.createElement('div');
+      dropdown.className = 'nav-dropdown';
+      dropdown.innerHTML = `
+        <a href="#current-projects">Current Projects</a>
+        <a href="#completed-projects">Completed Projects</a>
+        <a href="#mini-projects">Mini Projects</a>
+      `;
+      dropdown.style.display = 'none';
+      li.appendChild(dropdown);
+      li.addEventListener('mouseenter', () => { dropdown.style.display = 'block'; });
+      li.addEventListener('mouseleave', () => { dropdown.style.display = 'none'; });
+    }
+    if (item.label === 'About') {
+      const dropdown = document.createElement('div');
+      dropdown.className = 'nav-dropdown';
+      dropdown.innerHTML = `
+        <a href="#about-our-story">Our Story</a>
+        <a href="#about-current-team">Current Team</a>
+        <a href="#about-alumni">Alumni</a>
+        <a href="#about-outreach">Outreach & Impact</a>
+        <a href="#about-contact">Contact</a>
+      `;
+      dropdown.style.display = 'none';
+      li.appendChild(dropdown);
+      li.addEventListener('mouseenter', () => { dropdown.style.display = 'block'; });
+      li.addEventListener('mouseleave', () => { dropdown.style.display = 'none'; });
+    }
     ul.appendChild(li);
     console.log(`[GooeyNav] Added nav item: ${item.label} (${item.href})`);
   });
