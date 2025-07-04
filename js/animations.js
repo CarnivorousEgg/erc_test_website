@@ -130,7 +130,7 @@ window.scrollToReveal = function() {
 function decryptTextAnimation({
   selector = '.hero-title',
   text = '',
-  speed = 120,
+  speed = 250,
   maxIterations = 10,
   characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+',
   revealDirection = 'center',
@@ -173,10 +173,16 @@ function decryptTextAnimation({
       .split('')
       .map((char, i) => {
         if (char === ' ' || revealedIndices.has(i)) return `<span>${originalText[i]}</span>`;
-        // Randomly assign glitch color
         const glitchClass = Math.random() > 0.5 ? 'glitch-red' : 'glitch-green';
         return `<span class="${glitchClass}">${characters[Math.floor(Math.random() * characters.length)]}</span>`;
       })
+      .join('');
+  }
+
+  function finalReveal() {
+    return originalText
+      .split('')
+      .map(char => `<span>${char}</span>`)
       .join('');
   }
 
@@ -187,7 +193,7 @@ function decryptTextAnimation({
       el.innerHTML = shuffleText();
     } else {
       clearInterval(interval);
-      el.textContent = originalText;
+      el.innerHTML = finalReveal();
     }
   }
 
@@ -202,23 +208,19 @@ function restartDecryptAnimation() {
 }
 
 // Run the animation on DOMContentLoaded
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
-    restartDecryptAnimation();
-    // Add event listener to Home nav link
-    const homeLinks = document.querySelectorAll('a.nav-link[href="#home"], .mobile-menu-list a[href="#home"]');
-    homeLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        setTimeout(restartDecryptAnimation, 600); // Wait for scroll
-      });
-    });
-  });
-} else {
+function setupDecryptAnimationTriggers() {
   restartDecryptAnimation();
-  const homeLinks = document.querySelectorAll('a.nav-link[href="#home"], .mobile-menu-list a[href="#home"]');
+  // Add event listener to all links that scroll to #home (nav, logo, mobile menu)
+  const homeLinks = document.querySelectorAll('a[href="#home"]');
   homeLinks.forEach(link => {
     link.addEventListener('click', function() {
-      setTimeout(restartDecryptAnimation, 600);
+      setTimeout(restartDecryptAnimation, 700); // Wait for scroll
     });
   });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupDecryptAnimationTriggers);
+} else {
+  setupDecryptAnimationTriggers();
 }
