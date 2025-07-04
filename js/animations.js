@@ -196,11 +196,29 @@ function decryptTextAnimation({
   interval = setInterval(animate, speed);
 }
 
+// Helper to restart the decrypt animation
+function restartDecryptAnimation() {
+  decryptTextAnimation({ selector: '.hero-title', revealDirection: 'center' });
+}
+
 // Run the animation on DOMContentLoaded
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
-    decryptTextAnimation({ selector: '.hero-title', revealDirection: 'center' });
+    restartDecryptAnimation();
+    // Add event listener to Home nav link
+    const homeLinks = document.querySelectorAll('a.nav-link[href="#home"], .mobile-menu-list a[href="#home"]');
+    homeLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        setTimeout(restartDecryptAnimation, 600); // Wait for scroll
+      });
+    });
   });
 } else {
-  decryptTextAnimation({ selector: '.hero-title', revealDirection: 'center' });
+  restartDecryptAnimation();
+  const homeLinks = document.querySelectorAll('a.nav-link[href="#home"], .mobile-menu-list a[href="#home"]');
+  homeLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      setTimeout(restartDecryptAnimation, 600);
+    });
+  });
 }
