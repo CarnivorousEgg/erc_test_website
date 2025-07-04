@@ -130,7 +130,7 @@ window.scrollToReveal = function() {
 function decryptTextAnimation({
   selector = '.hero-title',
   text = '',
-  speed = 250,
+  speed = 180,
   maxIterations = 10,
   characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+',
   revealDirection = 'center',
