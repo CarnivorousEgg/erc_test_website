@@ -126,6 +126,8 @@ class NavigationManager {
                     const target = document.querySelector(href);
                     if (target) {
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Update URL hash
+                        window.history.pushState(null, null, href);
                     }
                 }
             });
@@ -138,33 +140,69 @@ class NavigationManager {
                 const href = link.getAttribute('href');
                 if (href && href.startsWith('#')) {
                     e.preventDefault();
-                    const target = document.querySelector(href.includes('about-') ? '#about' : href.includes('project') ? '#projects' : href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                    // Activate the correct tab if needed
+                    
+                    // Handle different dropdown navigation patterns
                     if (href.startsWith('#about-')) {
                         const tab = href.replace('#about-', '');
-                        document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
-                            btn.classList.toggle('active', btn.dataset.tab === tab);
-                        });
-                        document.querySelectorAll('.about-content').forEach(ac => {
-                            ac.classList.toggle('active', ac.classList.contains(tab));
-                        });
-                    } else if (href.startsWith('#current-projects') || href.startsWith('#completed-projects') || href.startsWith('#mini-projects')) {
+                        this.navigateToAboutTab(tab);
+                    } else if (href.includes('projects')) {
                         let tab = 'current';
-                        if (href.startsWith('#completed-projects')) tab = 'completed';
-                        if (href.startsWith('#mini-projects')) tab = 'mini';
-                        document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
-                            btn.classList.toggle('active', btn.dataset.tab === tab);
-                        });
-                        document.querySelectorAll('.project-content').forEach(pc => {
-                            pc.classList.toggle('active', pc.classList.contains(tab));
-                        });
+                        if (href.includes('completed')) tab = 'completed';
+                        if (href.includes('mini')) tab = 'mini';
+                        this.navigateToProjectTab(tab);
+                    } else {
+                        // Regular section navigation
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            window.history.pushState(null, null, href);
+                        }
                     }
                 }
             });
         });
+    }
+
+    navigateToAboutTab(tab) {
+        // Navigate to about section
+        const aboutSection = document.querySelector('#about');
+        if (aboutSection) {
+            aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Update URL hash
+            window.history.pushState(null, null, `#about-${tab}`);
+            
+            // Activate the correct tab after a short delay
+            setTimeout(() => {
+                document.querySelectorAll('.about-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab);
+                });
+                document.querySelectorAll('.about-content').forEach(content => {
+                    content.classList.toggle('active', content.classList.contains(tab));
+                });
+            }, 500);
+        }
+    }
+
+    navigateToProjectTab(tab) {
+        // Navigate to projects section
+        const projectsSection = document.querySelector('#projects');
+        if (projectsSection) {
+            projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Update URL hash
+            window.history.pushState(null, null, `#projects-${tab}`);
+            
+            // Activate the correct tab after a short delay
+            setTimeout(() => {
+                document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tab);
+                });
+                document.querySelectorAll('.project-content').forEach(content => {
+                    content.classList.toggle('active', content.classList.contains(tab));
+                });
+            }, 500);
+        }
     }
 }
 
@@ -202,7 +240,7 @@ class TabManager {
                 }
                 
                 // Update URL hash
-                window.location.hash = `#projects-${targetTab}`;
+                window.history.pushState(null, null, `#projects-${targetTab}`);
             });
         });
     }
@@ -229,7 +267,7 @@ class TabManager {
                 }
                 
                 // Update URL hash
-                window.location.hash = `#about-${targetTab}`;
+                window.history.pushState(null, null, `#about-${targetTab}`);
             });
         });
     }
@@ -239,20 +277,34 @@ class TabManager {
         const projectInfos = document.querySelectorAll('.project-info');
 
         projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const targetProject = card.dataset.project;
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
                 
-                // Remove active class from all cards and infos
-                projectCards.forEach(c => c.classList.remove('active'));
-                projectInfos.forEach(info => info.classList.remove('active'));
+                // Check if we're on mobile (screen width <= 1024px)
+                const isMobile = window.innerWidth <= 1024;
                 
-                // Add active class to clicked card
-                card.classList.add('active');
-                
-                // Show corresponding project info
-                const targetInfo = document.getElementById(`project-${targetProject}`);
-                if (targetInfo) {
-                    targetInfo.classList.add('active');
+                if (isMobile) {
+                    // On mobile, navigate to GitHub repository
+                    const githubUrl = card.dataset.github;
+                    if (githubUrl) {
+                        window.open(githubUrl, '_blank');
+                    }
+                } else {
+                    // On desktop, show project details
+                    const targetProject = card.dataset.project;
+                    
+                    // Remove active class from all cards and infos
+                    projectCards.forEach(c => c.classList.remove('active'));
+                    projectInfos.forEach(info => info.classList.remove('active'));
+                    
+                    // Add active class to clicked card
+                    card.classList.add('active');
+                    
+                    // Show corresponding project info
+                    const targetInfo = document.getElementById(`project-${targetProject}`);
+                    if (targetInfo) {
+                        targetInfo.classList.add('active');
+                    }
                 }
             });
         });
@@ -310,7 +362,7 @@ class AnimationManager {
                     const target = entry.target;
                     const finalValue = parseInt(target.dataset.count);
                     this.animateCounter(target, 0, finalValue, 2000);
-                    counterObserver.unobserve(target);
+                    // Don't unobserve so it can retrigger when section is revisited
                 }
             });
         }, {
@@ -362,9 +414,12 @@ const projectsData = {
 
 const membersData = {
     current: [
-        { name: "Ritwik Sharma", role: "President", description: "Leading innovation in robotics", avatar: "👨‍💻" },
-        { name: "Saransh Agarwal", role: "Vice President", description: "Driving technical excellence", avatar: "👨‍🔬" },
-        { name: "Sniggdha Semwal", role: "Secretary", description: "Coordinating club activities", avatar: "👩‍💼" }
+        { name: "Saransh Agrawal", role: "Chief Coordinator", description: "Leading innovation in robotics", avatar: "👨‍💻" },
+        { name: "Aryan Goyal", role: "Sub Coordinator", description: "Driving technical excellence", avatar: "👨‍🔬" },
+        { name: "Nilesh Bhatia", role: "Sub Coordinator", description: "Coordinating club activities", avatar: "👩‍💼" },
+        { name: "Parth Jaju", role: "Treasurer", description: "Managing finances and resources", avatar: "💰" },
+        { name: "Kevin Matthews", role: "Research Head", description: "Leading research initiatives", avatar: "🔬" },
+        { name: "Dev Thacker", role: "Electronics Head", description: "Electronics and hardware expert", avatar: "⚡" }
     ]
 };
 
@@ -453,14 +508,16 @@ class ERCWebsite {
     }
 
     updateMembersContent() {
-        const membersGrid = document.querySelector('.about-content.members .members-grid');
+        const membersGrid = document.querySelector('.team-grid');
         if (membersGrid) {
             membersGrid.innerHTML = membersData.current.map(member => `
-                <div class="member-card">
+                <div class="team-member">
                     <div class="member-avatar">${member.avatar}</div>
                     <h4>${member.name}</h4>
                     <p class="member-role">${member.role}</p>
-                    <p>${member.description}</p>
+                    <div class="member-links">
+                        <a href="#" class="linkedin-link" target="_blank">LinkedIn</a>
+                    </div>
                 </div>
             `).join('');
         }
@@ -522,21 +579,10 @@ class ERCWebsite {
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         };
+        
         window.addEventListener('hashchange', scrollToHash);
         // On page load
         scrollToHash();
-        // Project tabs: update hash on click
-        document.querySelectorAll('.project-tabs .tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                window.location.hash = '#projects-' + btn.dataset.tab;
-            });
-        });
-        // About tabs: update hash on click
-        document.querySelectorAll('.about-tabs .tab-btn').forEach(tab => {
-            tab.addEventListener('click', () => {
-                window.location.hash = '#about-' + tab.dataset.tab;
-            });
-        });
     }
 }
 

@@ -1,4 +1,4 @@
-// Alumni Data extracted from old ERC website
+// Alumni Data with Corrected and Consistent Coordinates - REAL DATA ONLY
 window.alumniData = [
     // Recent Alumni (2017-2018)
     {
@@ -26,7 +26,7 @@ window.alumniData = [
         role: "Teaching Head 2017-2018",
         company: "SRC",
         position: "Research Scholar",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/abhishek-moitra-52696798/",
         batch: "2017"
@@ -88,7 +88,7 @@ window.alumniData = [
         role: "Sub Coordinator 2016-2017",
         company: "Flipkart",
         position: "Software Developer Engineer",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/harsh-mavani-518732b5",
         batch: "2016"
@@ -128,7 +128,7 @@ window.alumniData = [
         role: "Member",
         company: "Manastik",
         position: "Co-Founder",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/akshaysancheti007",
         batch: "2016"
@@ -140,8 +140,8 @@ window.alumniData = [
         role: "Chief Coordinator 2015-2016",
         company: "Qualcomm",
         position: "Systems Engineer",
-        location: "Colorado, USA",
-        coordinates: { lat: 39.5501, lng: -105.7821 },
+        location: "Denver, CO, USA",
+        coordinates: { lat: 39.7392, lng: -104.9903 },
         linkedin: "http://www.linkedin.com/in/pranav-pal-lekhi-5b8440105",
         batch: "2015"
     },
@@ -170,7 +170,7 @@ window.alumniData = [
         role: "Member",
         company: "University of British Columbia",
         position: "PhD Student",
-        location: "Vancouver, Canada",
+        location: "Vancouver, BC, Canada",
         coordinates: { lat: 49.2827, lng: -123.1207 },
         linkedin: "https://www.linkedin.com/in/vedangi-pathak-439a3b85/",
         batch: "2015"
@@ -180,7 +180,7 @@ window.alumniData = [
         role: "Member",
         company: "Atlassian",
         position: "ML Engineer",
-        location: "Sydney, Australia",
+        location: "Sydney, NSW, Australia",
         coordinates: { lat: -33.8688, lng: 151.2093 },
         linkedin: "https://www.linkedin.com/in/mpradhan20",
         batch: "2015"
@@ -202,7 +202,7 @@ window.alumniData = [
         role: "Sub Coordinator 2014-2015",
         company: "Lenskart",
         position: "Software Development Engineer",
-        location: "Gurgaon, India",
+        location: "Gurgaon, Haryana, India",
         coordinates: { lat: 28.4595, lng: 77.0266 },
         linkedin: "https://www.linkedin.com/in/rahulbhola1/",
         batch: "2014"
@@ -254,7 +254,7 @@ window.alumniData = [
         role: "Chief Coordinator 2013-2014",
         company: "Sheru",
         position: "Founder and COO",
-        location: "Mumbai, India",
+        location: "Mumbai, Maharashtra, India",
         coordinates: { lat: 19.0760, lng: 72.8777 },
         linkedin: "https://www.linkedin.com/in/shikhar03sharma/",
         batch: "2013"
@@ -286,7 +286,7 @@ window.alumniData = [
         role: "Chief Coordinator 2012-2013",
         company: "Jawaharlal Nehru Centre",
         position: "MS Student",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/ronak-gupta-3a687425/",
         batch: "2012"
@@ -306,7 +306,7 @@ window.alumniData = [
         role: "Inventory Manager 2012-2013",
         company: "Bert Labs",
         position: "Founding Member",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/apurvaankleshwaria/",
         batch: "2012"
@@ -410,7 +410,7 @@ window.alumniData = [
         role: "Member",
         company: "SUN Mobility",
         position: "Entrepreneur",
-        location: "Bangalore, India",
+        location: "Bangalore, Karnataka, India",
         coordinates: { lat: 12.9716, lng: 77.5946 },
         linkedin: "https://www.linkedin.com/in/shatruddha/",
         batch: "2010"
@@ -442,7 +442,7 @@ window.alumniData = [
         role: "Member",
         company: "Engati Chatbot Platform",
         position: "Senior Director, Product Management",
-        location: "Mumbai, India",
+        location: "Mumbai, Maharashtra, India",
         coordinates: { lat: 19.0760, lng: 72.8777 },
         linkedin: "https://www.linkedin.com/in/kinshukkar/",
         batch: "2009"
@@ -464,9 +464,9 @@ window.alumniData = [
         role: "Co-Founder, ERC",
         company: "Sugarbox",
         position: "Director of Product",
-        location: "Mumbai, India",
+        location: "Mumbai, Maharashtra, India",
         coordinates: { lat: 19.0760, lng: 72.8777 },
         linkedin: "https://www.linkedin.com/in/jayanthvaranasi/",
         batch: "2006"
     }
-]; 
+];
