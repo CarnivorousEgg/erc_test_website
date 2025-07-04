@@ -1,17 +1,24 @@
-import './GooeyNav.css';
+// import './GooeyNav.css'; // CSS is now loaded via <link> in HTML
 
-export function renderGooeyNav({
-  container,
-  items = [],
-  animationTime = 600,
-  particleCount = 15,
-  particleDistances = [90, 10],
-  particleR = 100,
-  timeVariance = 300,
-  colors = [1, 2, 3, 1, 2, 3, 1, 4],
-  initialActiveIndex = 0,
-  onNav = null
-}) {
+export function renderGooeyNav(options) {
+  console.log('[GooeyNav] renderGooeyNav called with options:', options);
+  const {
+    container,
+    items = [],
+    animationTime = 600,
+    particleCount = 15,
+    particleDistances = [90, 10],
+    particleR = 100,
+    timeVariance = 300,
+    colors = [1, 2, 3, 1, 2, 3, 1, 4],
+    initialActiveIndex = 0,
+    onNav = null
+  } = options;
+  if (!container) {
+    console.error('[GooeyNav] No container provided!');
+    return;
+  }
+  console.log('[GooeyNav] Items:', items);
   let activeIndex = initialActiveIndex;
   const containerDiv = document.createElement('div');
   containerDiv.className = 'gooey-nav-container';
@@ -109,6 +116,7 @@ export function renderGooeyNav({
       makeParticles(filter);
     }
     if (onNav) onNav(index, items[index]);
+    console.log(`[GooeyNav] Nav item clicked: index=${index}, label=${items[index]?.label}`);
   }
   function handleKeyDown(e, index) {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -117,6 +125,7 @@ export function renderGooeyNav({
       if (liEl) handleClick({ currentTarget: liEl }, index);
     }
   }
+  console.log('[GooeyNav] Rendering nav items...');
   items.forEach((item, index) => {
     const li = document.createElement('li');
     if (activeIndex === index) li.classList.add('active');
@@ -128,6 +137,7 @@ export function renderGooeyNav({
     a.addEventListener('keydown', (e) => handleKeyDown(e, index));
     li.appendChild(a);
     ul.appendChild(li);
+    console.log(`[GooeyNav] Added nav item: ${item.label} (${item.href})`);
   });
   // Initial effect
   setTimeout(() => {
@@ -135,12 +145,14 @@ export function renderGooeyNav({
     if (activeLi) {
       updateEffectPosition(activeLi);
       text.classList.add('active');
+      console.log('[GooeyNav] Initial effect position set for active nav item.');
     }
   }, 100);
   // Responsive update
   window.addEventListener('resize', () => {
     const activeLi = ul.querySelectorAll('li')[activeIndex];
     if (activeLi) updateEffectPosition(activeLi);
+    console.log('[GooeyNav] Window resized, effect position updated.');
   });
   return containerDiv;
 } 

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="styles/footer.css">
     <link rel="stylesheet" href="styles/responsive.css">
     <link rel="stylesheet" href="styles/bb8-droid.css">
+    <link rel="stylesheet" href="js/GooeyNav.css">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +36,15 @@
 <div id="outreach-section"></div>
 
 <!-- Navigation -->
+<div class="nav-bar-header" style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 2rem 0 2rem;">
+  <a href="#home" class="nav-logo" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+    <img src="public/erc-logo.jpg" alt="ERC Logo" class="nav-logo-img" style="height: 40px; width: 40px; border-radius: 50%;">
+    <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #3B82F6; font-weight: bold;">ERC</span>
+  </a>
+  <button class="theme-toggle-nav" aria-label="Toggle theme" style="background: none; border: none; cursor: pointer; font-size: 1.5rem; margin-left: auto;">
+    <span class="theme-icon">🌙</span>
+  </button>
+</div>
 <div id="gooey-nav-root"></div>
 <script type="module">
   import { renderGooeyNav } from './js/GooeyNav.js';
@@ -44,6 +54,7 @@
     { label: 'About', href: '#about' },
     { label: 'Handbook', href: 'https://erc-bpgc.github.io/handbook/', target: '_blank' }
   ];
+  console.log('[GooeyNav] Initializing with items:', items);
   renderGooeyNav({
     container: document.getElementById('gooey-nav-root'),
     items,

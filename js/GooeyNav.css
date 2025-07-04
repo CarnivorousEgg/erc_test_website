@@ -4,6 +4,7 @@
 
 .gooey-nav-container {
   position: relative;
+  margin-top: 0.5rem;
 }
 
 .gooey-nav-container nav {
