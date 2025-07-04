@@ -35,61 +35,27 @@
 <div id="outreach-section"></div>
 
 <!-- Navigation -->
-<nav class="navbar">
-    <div class="nav-container">
-        <!-- Desktop Navigation -->
-        <div class="desktop-nav">
-            <div class="nav-left">
-                <a href="#home" class="nav-logo">
-                    <img src="public/erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
-                    <span>ERC</span>
-                </a>
-            </div>
-            <div class="nav-center">
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li class="dropdown">
-                        <a href="#projects" class="nav-link">Projects</a>
-                        <div class="dropdown-content">
-                            <a href="#current-projects">Current Projects</a>
-                            <a href="#completed-projects">Completed Projects</a>
-                            <a href="#mini-projects">Mini Projects</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#about" class="nav-link">About Us</a>
-                        <div class="dropdown-content">
-                            <a href="#about-our-story">Our Story</a>
-                            <a href="#about-current-team">Current Team</a>
-                            <a href="#about-alumni">Alumni</a>
-                            <a href="#about-outreach">Outreach & Impact</a>
-                            <a href="#about-contact">Contact</a>
-                        </div>
-                    </li>
-                    <li><a href="https://erc-bpgc.github.io/handbook/" target="_blank" class="nav-link">Handbook</a></li>
-                </ul>
-            </div>
-            <div class="nav-right">
-                <button class="theme-toggle-nav" aria-label="Toggle theme">
-                    <span class="theme-icon">🌙</span>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Navigation Header -->
-        <div class="mobile-nav-header">
-            <a href="#home" class="nav-logo">
-                <img src="public/erc-logo.jpg" alt="ERC Logo" class="nav-logo-img">
-                <span>ERC</span>
-            </a>
-            <button class="hamburger" aria-label="Open menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </div>
-</nav>
+<div id="gooey-nav-root"></div>
+<script type="module">
+  import { renderGooeyNav } from './js/GooeyNav.js';
+  const items = [
+    { label: 'Home', href: '#home' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'About', href: '#about' },
+    { label: 'Handbook', href: 'https://erc-bpgc.github.io/handbook/', target: '_blank' }
+  ];
+  renderGooeyNav({
+    container: document.getElementById('gooey-nav-root'),
+    items,
+    particleCount: 15,
+    particleDistances: [90, 10],
+    particleR: 100,
+    initialActiveIndex: 0,
+    animationTime: 600,
+    timeVariance: 300,
+    colors: [1, 2, 3, 1, 2, 3, 1, 4]
+  });
+</script>
 
 <!-- Mobile Menu Overlay -->
 <div class="mobile-menu-overlay">
@@ -125,11 +91,6 @@
         <div class="scroll-arrow"></div>
         <span>Scroll to explore</span>
     </div>
-</section>
-
-<!-- BB8 Droid Section -->
-<section class="bb8-droid-section">
-    <div id="bb8-droid-container"></div>
 </section>
 
 <!-- Projects Section -->
@@ -590,14 +551,8 @@
 <script src="script.js"></script>
 <script src="js/alumni-data.js"></script>
 <script src="js/alumni-map.js"></script>
-<script src="js/bb8-droid.js"></script>
 
 <script>
-// Initialize BB8 Droid
-document.addEventListener('DOMContentLoaded', function() {
-    new BB8Droid('bb8-droid-container');
-});
-
 // Alumni Stories Coming Soon Modal
 function showAlumniStories() {
     const modal = document.createElement('div');

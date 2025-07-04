@@ -1,3 +1,6 @@
+import { renderCircularGallery } from '../js/CircularGallery.js';
+import { projectsData } from '../js/data.js';
+
 export const projectsSection = `
 <section id="projects" class="projects-section">
     <div class="container">
@@ -249,8 +252,42 @@ export const projectsSection = `
         const res = await fetch('partials/projects.html');
         const html = await res.text();
         document.getElementById('projects-section').innerHTML = html;
-        // Attach event listeners after HTML is loaded
-        initProjectsSection();
+        // Render CircularGallery for the default (current) tab
+        const galleryContainer = document.getElementById('circular-gallery-root');
+        if (galleryContainer) {
+            const makeItems = (type) =>
+                projectsData[type].map(project => ({
+                    image: `public/${type}/${(project.name || project.id || '').replace(/ /g, '_').toLowerCase()}.jpg`,
+                    text: project.name,
+                }));
+            let currentType = 'current';
+            let appInstance = renderCircularGallery({
+                container: galleryContainer,
+                items: makeItems(currentType),
+                bend: 3,
+                textColor: '#ffffff',
+                borderRadius: 0.05,
+                scrollEase: 0.02
+            });
+            // Listen for tab changes
+            const tabBtns = document.querySelectorAll('.project-tabs .tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const type = btn.dataset.tab;
+                    if (type && projectsData[type]) {
+                        if (appInstance && appInstance.destroy) appInstance.destroy();
+                        appInstance = renderCircularGallery({
+                            container: galleryContainer,
+                            items: makeItems(type),
+                            bend: 3,
+                            textColor: '#ffffff',
+                            borderRadius: 0.05,
+                            scrollEase: 0.02
+                        });
+                    }
+                });
+            });
+        }
     }
 
     export function initProjectsSection() {

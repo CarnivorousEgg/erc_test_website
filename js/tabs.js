@@ -1,4 +1,6 @@
 // Tab Management Module
+import { createStarBorder } from './StarBorder.js';
+
 export class TabManager {
     constructor() {
         this.init();
@@ -11,57 +13,103 @@ export class TabManager {
     }
 
     setupProjectTabs() {
-        const tabButtons = document.querySelectorAll('.project-tabs .tab-btn');
+        let tabButtons = Array.from(document.querySelectorAll('.project-tabs .tab-btn'));
         const projectContents = document.querySelectorAll('.project-content');
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const targetTab = button.dataset.tab;
-                
-                // Remove active class from all tabs and contents
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                projectContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                button.classList.add('active');
-                
-                // Show corresponding content
-                const targetContent = document.querySelector(`.project-content.${targetTab}`);
-                if (targetContent) {
-                    targetContent.classList.add('active');
+        function updateStarBorders() {
+            tabButtons.forEach(btn => {
+                if (btn.parentElement.classList.contains('star-border-container')) {
+                    btn.parentElement.replaceWith(btn);
                 }
-                
-                // Update URL hash
-                window.location.hash = `#projects-${targetTab}`;
             });
-        });
+            // Re-query after DOM changes
+            tabButtons = Array.from(document.querySelectorAll('.project-tabs .tab-btn'));
+            tabButtons.forEach(btn => {
+                if (!btn.classList.contains('active')) {
+                    const wrapped = createStarBorder({
+                        tag: 'button',
+                        className: btn.className,
+                        color: 'cyan',
+                        speed: '5s',
+                        children: btn.innerHTML,
+                        type: btn.type || 'button',
+                        style: btn.style
+                    });
+                    btn.replaceWith(wrapped);
+                }
+            });
+            // Re-query again for next event attachment
+            tabButtons = Array.from(document.querySelectorAll('.project-tabs .tab-btn'));
+        }
+
+        function attachListeners() {
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    projectContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    const targetContent = document.querySelector(`.project-content.${targetTab}`);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                    window.location.hash = `#projects-${targetTab}`;
+                    updateStarBorders();
+                    attachListeners();
+                });
+            });
+        }
+        updateStarBorders();
+        attachListeners();
     }
 
     setupAboutTabs() {
-        const aboutTabs = document.querySelectorAll('.about-tabs .tab-btn');
+        let aboutTabButtons = Array.from(document.querySelectorAll('.about-tabs .tab-btn'));
         const aboutContents = document.querySelectorAll('.about-content');
 
-        aboutTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetTab = tab.dataset.tab;
-                
-                // Remove active class from all tabs and contents
-                aboutTabs.forEach(t => t.classList.remove('active'));
-                aboutContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                // Show corresponding content
-                const targetContent = document.querySelector(`.about-content.${targetTab}`);
-                if (targetContent) {
-                    targetContent.classList.add('active');
+        function updateStarBorders() {
+            aboutTabButtons.forEach(btn => {
+                if (btn.parentElement.classList.contains('star-border-container')) {
+                    btn.parentElement.replaceWith(btn);
                 }
-                
-                // Update URL hash
-                window.location.hash = `#about-${targetTab}`;
             });
-        });
+            aboutTabButtons = Array.from(document.querySelectorAll('.about-tabs .tab-btn'));
+            aboutTabButtons.forEach(btn => {
+                if (!btn.classList.contains('active')) {
+                    const wrapped = createStarBorder({
+                        tag: 'button',
+                        className: btn.className,
+                        color: 'cyan',
+                        speed: '5s',
+                        children: btn.innerHTML,
+                        type: btn.type || 'button',
+                        style: btn.style
+                    });
+                    btn.replaceWith(wrapped);
+                }
+            });
+            aboutTabButtons = Array.from(document.querySelectorAll('.about-tabs .tab-btn'));
+        }
+
+        function attachListeners() {
+            aboutTabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+                    aboutTabButtons.forEach(btn => btn.classList.remove('active'));
+                    aboutContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    const targetContent = document.querySelector(`.about-content.${targetTab}`);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                    window.location.hash = `#about-${targetTab}`;
+                    updateStarBorders();
+                    attachListeners();
+                });
+            });
+        }
+        updateStarBorders();
+        attachListeners();
     }
 
     setupProjectSelection() {

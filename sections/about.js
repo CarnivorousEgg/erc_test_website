@@ -1,3 +1,6 @@
+import { renderChromaGrid } from '../js/ChromaGrid.js';
+import { membersData } from '../js/data.js';
+
 export const aboutSection = `
 <section id="about" class="about-section">
     <div class="container">
@@ -107,6 +110,28 @@ export const aboutSection = `
         const res = await fetch('partials/about.html');
         const html = await res.text();
         document.getElementById('about-section').innerHTML = html;
+        // Render ChromaGrid for current team
+        const gridContainer = document.getElementById('chroma-team-grid');
+        if (gridContainer) {
+            const items = membersData.current.map(member => ({
+                image: `public/coordinators/${member.name.replace(/ /g, '_').toLowerCase()}.jpg`,
+                title: member.name,
+                subtitle: member.role,
+                handle: member.description,
+                borderColor: '#3B82F6',
+                gradient: 'linear-gradient(145deg, #3B82F6, #000)',
+                url: undefined
+            }));
+            renderChromaGrid({
+                container: gridContainer,
+                items,
+                radius: 300,
+                columns: 3,
+                damping: 0.45,
+                fadeOut: 0.6,
+                ease: 'power3.out'
+            });
+        }
     }
 
     export function initAboutSection() {

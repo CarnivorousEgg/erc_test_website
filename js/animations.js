@@ -125,3 +125,43 @@ window.scrollToReveal = function() {
         });
     }
 };
+
+// --- DecryptedText Animation for Home Title ---
+export function animateDecryptedText(element, text, {
+    speed = 50,
+    maxIterations = 10,
+    characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+',
+    onComplete = null
+} = {}) {
+    if (!element) return;
+    let iteration = 0;
+    let interval;
+    function randomChar() {
+        return characters[Math.floor(Math.random() * characters.length)];
+    }
+    function scramble(currentText, revealedCount) {
+        return currentText.split('').map((char, i) => {
+            if (char === ' ') return ' ';
+            if (i < revealedCount) return text[i];
+            return randomChar();
+        }).join('');
+    }
+    function startAnimation() {
+        let revealed = 0;
+        interval = setInterval(() => {
+            if (iteration < maxIterations) {
+                element.textContent = scramble(text, revealed);
+                iteration++;
+            } else if (revealed < text.length) {
+                revealed++;
+                element.textContent = scramble(text, revealed);
+            } else {
+                element.textContent = text;
+                clearInterval(interval);
+                if (onComplete) onComplete();
+            }
+        }, speed);
+    }
+    clearInterval(interval);
+    startAnimation();
+}
